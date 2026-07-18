@@ -159,17 +159,18 @@ const inPrompt = maskKnockout(
   0.72,
 )
 
-/** Three-tier podium (2·1·3) — the eval-kit badge: measurement, ranked. */
+/** Three-tier podium (2·1·3) — the eval-kit badge: three separated bars
+ * of different heights, tallest in the middle. */
 const inPodium = maskKnockout(
   `
-...........
-....###....
-.######....
-.#########.
-.#########.
-.#########.
-...........`,
-  0.8,
+.............
+.....###.....
+.###.###.....
+.###.###.###.
+.###.###.###.
+.###.###.###.
+.............`,
+  0.82,
 )
 
 /** Code tag `</>` — the tag-kit badge. */
