@@ -30,8 +30,8 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
   {
     label: "Developer tooling",
     links: [
-      { href: "/projects/collapse", name: "Collapse", meta: "Claude Code skill-building framework · v0.1.0", icon: "prompt" },
-      { href: "/projects/hologram", name: "Hologram", meta: "live observability for Blender → glTF · v0.5.0", icon: "prompt" },
+      { href: "/projects/collapse", name: "Collapse", meta: "skills + MCP tools from your lessons · v0.2", icon: "prompt" },
+      { href: "/projects/hologram", name: "Hologram", meta: "Blender → glTF observability · v0.6.0 on PyPI", icon: "prompt" },
     ],
   },
 ];

@@ -280,7 +280,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     status:
-      "v0.1.0 · active development. Shipped: MDX ingestor with 17 cross-stack reference lessons, notebook ingestor with admonition auto-prefill, template engine with cross-language equivalents + trigger-phrase derivation, atomic persistence, three-tier skill quality linter. Planned: MCP server scaffold generation.",
+      "v0.2 · active development. Shipped: MDX ingestor with 21 cross-stack reference lessons, notebook ingestor with admonition auto-prefill, template engine with cross-language equivalents + trigger-phrase derivation, atomic persistence, three-tier skill quality linter, and MCP server scaffold generation — one annotation can now become a skill or a working MCP tool.",
     install: [
       {
         label: "Clone and run the dev server",
@@ -346,12 +346,12 @@ export const PROJECTS: Project[] = [
         ],
       },
     ],
-    status: "v0.5.0 · Python 3.10+ · MIT.",
+    status: "v0.6.0 · on PyPI as hologram-gltf · Python 3.10+ · MIT.",
     install: [
       {
         label: "Run the dashboard",
         command:
-          "uvx --from git+https://github.com/akaieuan/Hologram hologram dashboard",
+          "uvx --from hologram-gltf hologram dashboard",
       },
     ],
     packages: [],
