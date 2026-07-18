@@ -22,7 +22,7 @@ export function Footer() {
           <Link href="/projects/eval-kit" className={footerLink}>eval-kit</Link>
           <Link href="/projects/tag-kit" className={footerLink}>tag-kit</Link>
           <Link href="/projects/collapse" className={footerLink}>Collapse</Link>
-          <Link href="/projects/hologram" className={footerLink}>hologram</Link>
+          <Link href="/projects/hologram" className={footerLink}>Hologram</Link>
           <Link href="/research" className={footerLink}>Research</Link>
           <Link href="/paper" className={footerLink}>Paper</Link>
           <Link href="/registry" className={footerLink}>Registry</Link>

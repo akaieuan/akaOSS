@@ -8,7 +8,6 @@ import { ThemeToggle } from "@/components/site/ThemeToggle";
 export type NavActive =
   | "projects"
   | "research"
-  | "paper"
   | "registry"
   | "components";
 
@@ -27,14 +26,13 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
     label: "Developer tooling",
     links: [
       { href: "/projects/collapse", name: "Collapse", meta: "Claude Code skill-building framework · v0.1.0", dot: "var(--accent-rose)" },
-      { href: "/projects/hologram", name: "hologram", meta: "live observability for Blender → glTF · v0.5.0", dot: "var(--accent-blue)" },
+      { href: "/projects/hologram", name: "Hologram", meta: "live observability for Blender → glTF · v0.5.0", dot: "var(--accent-blue)" },
     ],
   },
 ];
 
 const LINKS: { href: string; key: NavActive; label: string }[] = [
   { href: "/research", key: "research", label: "Research" },
-  { href: "/paper", key: "paper", label: "Paper" },
   { href: "/registry", key: "registry", label: "Registry" },
 ];
 

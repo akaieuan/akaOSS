@@ -65,11 +65,10 @@ const easeOutCubic = (t: number) => 1 - Math.pow(1 - t, 3)
  * person. Sized so the 9×8 face fills the head void (pair with grid 24).
  */
 function inFigure(x: number, y: number) {
-  const hx = x
-  const hy = y + 0.42
-  if (hx * hx + hy * hy < 0.42 * 0.42) return true
-  const tx = x / 0.62
-  const ty = (y - 0.52) / 0.32
+  // H1 refined: bigger head, slimmer shoulders, clearer gap between them.
+  if (Math.hypot(x, y + 0.42) < 0.37) return true
+  const tx = x / 0.58
+  const ty = (y - 0.55) / 0.28
   return tx * tx + ty * ty < 1
 }
 
@@ -121,9 +120,9 @@ function sparkle(x: number, y: number, cx: number, cy: number, s: number) {
  */
 function inSpark(x: number, y: number) {
   return (
-    sparkle(x, y, -0.12, 0.12, 0.66) ||
-    sparkle(x, y, 0.5, -0.44, 0.3) ||
-    sparkle(x, y, 0.52, 0.48, 0.18)
+    sparkle(x, y, -0.3, 0.28, 0.58) ||
+    sparkle(x, y, 0.5, 0.05, 0.32) ||
+    sparkle(x, y, 0.05, -0.58, 0.2)
   )
 }
 
@@ -131,11 +130,13 @@ function inSpark(x: number, y: number) {
  * Hand-authored pixel-mask knockout: maps normalized -1..1 space onto a
  * small mask grid. Used for glyph badges that don't reduce to clean math.
  */
-function maskKnockout(mask: string) {
+function maskKnockout(mask: string, scale = 1) {
   const rows = mask.trim().split("\n")
   const R = rows.length
   const C = rows[0]?.length ?? 0
   return (x: number, y: number) => {
+    x /= scale
+    y /= scale
     if (x < -1 || x > 1 || y < -1 || y > 1) return false
     const c = Math.floor(((x + 1) / 2) * C)
     const r = Math.floor(((y + 1) / 2) * R)
@@ -143,8 +144,10 @@ function maskKnockout(mask: string) {
   }
 }
 
-/** Terminal prompt `>_` — the developer-tooling badge. */
-const inPrompt = maskKnockout(`
+/** Terminal prompt `>_` — the developer-tooling badge (scaled to sit
+ * inside the disc with breathing room). */
+const inPrompt = maskKnockout(
+  `
 ........
 .#......
 ..#.....
@@ -152,7 +155,9 @@ const inPrompt = maskKnockout(`
 ..#.....
 .#......
 ....###.
-........`)
+........`,
+  0.72,
+)
 
 /** Speech bubble with a tail — Consulting. */
 function inBubble(x: number, y: number) {
