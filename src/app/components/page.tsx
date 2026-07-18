@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Search, PenLine, GraduationCap, ClipboardList, Globe } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -516,17 +517,35 @@ export default function ComponentsPage() {
               </a>
             ))}
           </nav>
+          <Link
+            href="/projects/hitl-kit"
+            className="mt-6 flex items-center gap-1.5 border-t border-border/60 pt-4 text-xs text-muted-foreground transition-colors hover:text-foreground"
+          >
+            <span aria-hidden>←</span> Back to HITL Kit
+          </Link>
         </aside>
 
         <main className="min-w-0 flex-1 pb-24">
           <div className="mb-20 pt-4">
-            <p className="label mb-3">Component library</p>
-            <h1 className="text-4xl leading-[1.1] font-light tracking-tight text-foreground md:text-5xl">
-              The HITL pattern language,{" "}
-              <span className="text-[color:var(--accent-blue)] tracking-tight">
-                as real components
-              </span>
-              .
+            <nav className="mb-6 flex items-center gap-2 font-mono text-[13px] text-muted-foreground">
+              <Link
+                href="/projects"
+                className="transition-colors hover:text-foreground"
+              >
+                Toolkits
+              </Link>
+              <span className="text-muted-foreground/40">·</span>
+              <Link
+                href="/projects/hitl-kit"
+                className="transition-colors hover:text-foreground"
+              >
+                HITL Kit
+              </Link>
+              <span className="text-muted-foreground/40">·</span>
+              <span className="text-foreground">components</span>
+            </nav>
+            <h1 className="text-3xl font-light tracking-tight text-foreground md:text-4xl">
+              The component library.
             </h1>
             <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               Every primitive below is the physical embodiment of a claim from
