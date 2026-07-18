@@ -47,8 +47,8 @@ export function Nav({ active }: { active?: NavActive }) {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/60 backdrop-blur-md">
       <div className="mx-auto flex h-12 max-w-5xl items-center justify-between px-6 md:px-8">
         <Link href="/" className="flex items-center gap-2.5">
-          {/* The lab mark, held still at chrome size */}
-          <PixelHead size={22} grid={16} gap={0.12} icon="spark" still />
+          {/* The chrome mark: single elongated sparkle, solid, held still */}
+          <PixelHead size={22} gap={0.12} icon="sparkmark" still />
           <span className="text-sm font-light tracking-[0.06em] text-foreground">
             {BRAND.name}
           </span>
