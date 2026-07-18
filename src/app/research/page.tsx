@@ -72,6 +72,8 @@ export default async function ResearchPage() {
 
               <p className="mt-2 font-mono text-[13px] text-muted-foreground">
                 {formatDate(post.date)}
+                <span className="mx-2 text-muted-foreground/50">·</span>
+                <span className="text-muted-foreground/80">{post.kind}</span>
                 {post.experiment && (
                   <>
                     <span className="mx-2 text-muted-foreground/50">·</span>
