@@ -18,7 +18,10 @@ export const metadata: Metadata = {
 
 async function getPaper() {
   const filePath = path.join(process.cwd(), "content", "paper.md");
-  return await fs.readFile(filePath, "utf-8");
+  const md = await fs.readFile(filePath, "utf-8");
+  // The hero already presents the title — drop the markdown's leading H1 so
+  // it doesn't render twice.
+  return md.replace(/^#\s[^\n]*\n+/, "");
 }
 
 export default async function PaperPage() {
@@ -45,9 +48,9 @@ export default async function PaperPage() {
             </p>
             <div className="mt-6 flex flex-wrap items-center gap-3">
               <span className="label">Ieuan King</span>
-              <span className="h-3 w-px bg-border" />
+              <span className="hidden h-3 w-px bg-border sm:block" />
               <span className="label">~ 30 min read</span>
-              <span className="h-3 w-px bg-border" />
+              <span className="hidden h-3 w-px bg-border sm:block" />
               <a
                 href="/content/paper.md"
                 className="label underline-anim text-[color:var(--accent-violet)]"

@@ -163,3 +163,17 @@
 .paper-body h1, .paper-body h2, .paper-body h3 {
   scroll-margin-top: 5rem;
 }
+
+/* Small screens: step the display sizes down and let wide tables scroll
+ * inside their own box instead of stretching the page. */
+@media (max-width: 640px) {
+  .paper-body h1 { font-size: 2rem; }
+  .paper-body h2 { font-size: 1.4rem; margin-top: 2.4em; padding-top: 1.6em; }
+  .paper-body h3 { font-size: 1.02rem; }
+  .paper-body table {
+    display: block;
+    width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+}

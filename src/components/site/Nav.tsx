@@ -50,8 +50,8 @@ const linkClass = (isActive: boolean) =>
 export function Nav({ active }: { active?: NavActive }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/60 backdrop-blur-md">
-      <div className="mx-auto flex h-12 max-w-5xl items-center justify-between px-6 md:px-8">
-        <Link href="/" className="flex items-center gap-2.5">
+      <div className="mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6 md:px-8">
+        <Link href="/" className="flex shrink-0 items-center gap-2.5">
           {/* The chrome mark: single elongated sparkle, solid, held still */}
           <PixelHead size={22} grid={16} gap={0.12} icon="spark" still />
           <span className="text-sm font-light tracking-[0.06em] text-foreground">
@@ -59,7 +59,7 @@ export function Nav({ active }: { active?: NavActive }) {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-6 text-sm font-light tracking-[0.06em] text-muted-foreground">
+        <nav className="flex items-center gap-4 text-[13px] font-light tracking-[0.06em] text-muted-foreground md:gap-6 md:text-sm">
           {/* Toolkits — CSS-only dropdown revealed on hover/focus */}
           <div className="group relative">
             <Link
@@ -70,9 +70,11 @@ export function Nav({ active }: { active?: NavActive }) {
               )}
             >
               Toolkits
-              <ChevronDown className="h-3 w-3 opacity-60" />
+              <ChevronDown className="hidden h-3 w-3 opacity-60 md:block" />
             </Link>
-            <div className="invisible absolute left-0 top-full z-50 w-80 translate-y-1 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100">
+            {/* The dropdown is a hover affordance — desktop only. On touch,
+                Toolkits is a plain link straight to /projects. */}
+            <div className="invisible absolute left-0 top-full z-50 hidden w-80 translate-y-1 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 md:block">
               {/* Solid surface — no translucency, page text must never bleed through */}
               <div className="flex flex-col gap-0.5 rounded-2xl border border-border bg-popover p-2 shadow-lg">
                 {PROJECT_GROUPS.map((group, gi) => (
@@ -129,11 +131,12 @@ export function Nav({ active }: { active?: NavActive }) {
             </Link>
           ))}
 
+          {/* Footer carries GitHub on small screens — the bar stays breathable */}
           <a
             href={BRAND.github}
             target="_blank"
             rel="noopener noreferrer"
-            className="transition-colors hover:text-foreground"
+            className="hidden transition-colors hover:text-foreground sm:inline"
           >
             GitHub ↗
           </a>
