@@ -17,6 +17,9 @@ import { cn } from "@/lib/utils";
 
 export type ResearchStatus = "in-progress" | "scored" | "published";
 
+/** finding = a reproducible experiment; essay = a design/argument piece. */
+export type ResearchKind = "finding" | "essay";
+
 export interface ResearchFrontmatter {
   title: string;
   date: string;
@@ -24,6 +27,7 @@ export interface ResearchFrontmatter {
   models: string[];
   tags: string[];
   keywords: string[];
+  kind: ResearchKind;
   status: ResearchStatus;
   summary: string;
   keyFindings: string[];
@@ -61,6 +65,7 @@ async function readPost(file: string): Promise<ResearchPost | null> {
     models: toStringArray(data.models),
     tags: toStringArray(data.tags),
     keywords: toStringArray(data.keywords),
+    kind: data.kind === "essay" ? "essay" : "finding",
     status: (data.status as ResearchStatus) ?? "in-progress",
     summary: String(data.summary ?? ""),
     keyFindings: toStringArray(data.key_findings),
