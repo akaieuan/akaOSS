@@ -103,7 +103,7 @@ export interface EvidenceItem {
 }
 
 export const EVIDENCE: EvidenceItem[] = [
-  { n: "[01]", title: "Benchmark saturation", cite: "~766 benchmarks saturating within months · Ott et al., 2022" },
+  { n: "[01]", title: "Benchmark saturation", cite: "3,765 benchmarks mapped, a large fraction near-saturating · Ott et al., 2022" },
   { n: "[02]", title: "Cognitive debt", cite: "Kosmyna et al., 2025 · MIT" },
   { n: "[03]", title: "Scaffolding theory", cite: "sentence-level −0.29, paragraph-level +0.18 · Dhillon et al., 2024, CHI" },
   { n: "[04]", title: "Uncertainty quantification", cite: "Liu et al., 2025" },
