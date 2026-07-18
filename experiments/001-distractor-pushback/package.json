@@ -1,0 +1,16 @@
+{
+  "name": "experiment-001-distractor-pushback",
+  "private": true,
+  "type": "module",
+  "description": "Does pushback on distractor tasks scale with model tier? Haiku vs Sonnet vs Opus on the eval-kit seed-suite distractors.",
+  "scripts": {
+    "run": "tsx run.ts"
+  },
+  "dependencies": {
+    "@eval-kit/core": "^0.3.1",
+    "@eval-kit/seed-suite": "^0.1.1"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.0"
+  }
+}

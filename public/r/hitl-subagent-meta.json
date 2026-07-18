@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hitl-subagent-meta",
+  "title": "Subagent status metadata",
+  "description": "Shared icon and color mapping for the six agent execution states (idle, running, completed, error, skipped, cancelled).",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://www.hitlkit.dev/r/hitl-types.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/hitl/subagent-meta.ts",
+      "content": "import {\n  Cpu,\n  Loader2,\n  Check,\n  AlertOctagon,\n  SkipForward,\n  Ban,\n} from \"lucide-react\";\nimport type { AgentStatus } from \"./types\";\n\nexport const STATUS_META: Record<\n  AgentStatus,\n  { icon: React.ElementType; color: string; label: string }\n> = {\n  idle: { icon: Cpu, color: \"text-muted-foreground\", label: \"Idle\" },\n  running: { icon: Loader2, color: \"text-[color:var(--accent-blue)]\", label: \"Running\" },\n  completed: { icon: Check, color: \"text-[color:var(--accent-emerald)]\", label: \"Completed\" },\n  error: { icon: AlertOctagon, color: \"text-[color:var(--accent-rose)]\", label: \"Error\" },\n  skipped: { icon: SkipForward, color: \"text-[color:var(--accent-amber)]\", label: \"Skipped\" },\n  cancelled: { icon: Ban, color: \"text-muted-foreground\", label: \"Cancelled\" },\n};\n",
+      "type": "registry:lib",
+      "target": "components/hitl/subagent-meta.ts"
+    }
+  ],
+  "type": "registry:lib"
+}

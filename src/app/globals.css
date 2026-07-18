@@ -1,0 +1,249 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── Tokens ──────────────────────────────────────────────────────────────
+   Ported verbatim from the studio reference (circleheads-site). Light is the
+   "warm paper" theme, .dark the "warm near-black" default. Compat aliases keep
+   every token the existing site + registry components already consume alive in
+   BOTH themes (accent-emerald → accent-green, border-strong, card-alpha,
+   card-border[-hover], hairline, radius-card/pill). */
+
+/* Light theme: warm paper. */
+:root {
+  color-scheme: light;
+
+  /* Grayer paper than the reference (owner's call): cards read as lifted
+     near-white surfaces against it instead of blending in. */
+  --background: oklch(0.955 0.003 107);
+  --foreground: oklch(0.16 0.002 107);
+  --card: oklch(0.993 0.002 107);
+  --card-foreground: oklch(0.16 0.002 107);
+  --popover: oklch(0.993 0.002 107);
+  --popover-foreground: oklch(0.16 0.002 107);
+  --primary: oklch(0.2 0.003 107);
+  --primary-foreground: oklch(0.985 0.002 107);
+  /* Support surfaces stay on the background's hue (107) at near-zero chroma
+     so nothing reads beige against the gray paper. */
+  --secondary: oklch(0.925 0.003 107);
+  --secondary-foreground: oklch(0.21 0.003 107);
+  --muted: oklch(0.925 0.003 107);
+  --muted-foreground: oklch(0.48 0.004 107);
+  --accent: oklch(0.925 0.003 107);
+  --accent-foreground: oklch(0.21 0.003 107);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.19 0.005 107 / 14%);
+  --input: oklch(0.19 0.005 107 / 18%);
+  --ring: oklch(0.48 0.004 107);
+
+  /* Accents — punctuation, never fills (see reference ADR 0002). */
+  --accent-blue: oklch(0.55 0.19 259);
+  --accent-green: oklch(0.5 0.09 152);
+  --accent-amber: oklch(0.62 0.13 75);
+  --accent-rose: oklch(0.58 0.16 15);
+  --accent-violet: oklch(0.52 0.15 295);
+
+  --radius: 0.625rem;
+
+  /* ── Compat aliases (consumed by existing pages + registry components) ── */
+  --accent-emerald: var(--accent-green);
+  --border-strong: oklch(0.19 0.01 95 / 20%);
+  --card-alpha: oklch(0.19 0.01 95 / 3%);
+  --card-border: oklch(0.19 0.01 95 / 8%);
+  --card-border-hover: oklch(0.19 0.01 95 / 14%);
+  --hairline: oklch(0.19 0.01 95 / 8%);
+  --radius-card: 1.0625rem;
+  --radius-pill: 0.5rem;
+}
+
+/* Dark theme: warm near-black; hierarchy from alpha, not hue. Site default. */
+.dark {
+  color-scheme: dark;
+
+  --background: oklch(0.146 0.002 107);
+  --foreground: oklch(0.937 0.003 107);
+  --card: oklch(0.176 0.002 107);
+  --card-foreground: oklch(0.937 0.003 107);
+  --popover: oklch(0.176 0.002 107);
+  --popover-foreground: oklch(0.937 0.003 107);
+  --primary: oklch(0.937 0.003 107);
+  --primary-foreground: oklch(0.155 0.002 107);
+  --secondary: oklch(0.22 0.002 107);
+  --secondary-foreground: oklch(0.937 0.003 107);
+  --muted: oklch(0.21 0.002 107);
+  --muted-foreground: oklch(0.63 0.004 107);
+  --accent: oklch(0.22 0.002 107);
+  --accent-foreground: oklch(0.937 0.003 107);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 10%);
+  --input: oklch(1 0 0 / 13%);
+  --ring: oklch(0.6 0.004 107);
+
+  --accent-blue: oklch(0.68 0.15 259);
+  --accent-green: oklch(0.71 0.11 152);
+  --accent-amber: oklch(0.83 0.12 80);
+  --accent-rose: oklch(0.7 0.15 15);
+  --accent-violet: oklch(0.75 0.11 295);
+
+  /* ── Compat aliases ── */
+  --accent-emerald: var(--accent-green);
+  --border-strong: oklch(1 0 0 / 18%);
+  --card-alpha: oklch(1 0 0 / 3%);
+  --card-border: oklch(1 0 0 / 6%);
+  --card-border-hover: oklch(1 0 0 / 10%);
+  --hairline: oklch(1 0 0 / 6%);
+}
+
+@theme inline {
+  /* shadcn slots */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Accent palette + compat alias */
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-green: var(--accent-green);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-rose: var(--accent-rose);
+  --color-accent-violet: var(--accent-violet);
+  --color-accent-emerald: var(--accent-emerald);
+
+  /* Compat surface tokens */
+  --color-border-strong: var(--border-strong);
+  --color-card-alpha: var(--card-alpha);
+  --color-card-border: var(--card-border);
+  --color-card-border-hover: var(--card-border-hover);
+  --color-hairline: var(--hairline);
+
+  /* Radius scale derived from a single --radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-card: var(--radius-card);
+  --radius-pill: var(--radius-pill);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+}
+
+@layer base {
+  /* Focus outlines at full ring alpha: --ring is tuned per theme to clear
+     WCAG 1.4.11's 3:1 against --background. */
+  * {
+    @apply border-border outline-ring;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--accent-blue);
+  color: var(--background);
+}
+
+/* Display idiom — refined and restrained: Inter, light weight + tight tracking. */
+.font-serif {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Micro-label (MICRO_LABEL): mono, small, wide-tracked, uppercase. */
+.label {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+}
+
+/* Signature studio card — translucent fill + hairline border brightening on hover. */
+.card-surface {
+  background: var(--card-alpha);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+.card-surface:hover {
+  border-color: var(--card-border-hover);
+}
+
+.hairline {
+  border-color: var(--hairline);
+}
+
+.hover-lift {
+  transition: transform 200ms ease, background-color 200ms ease,
+    border-color 200ms ease;
+}
+.hover-lift:hover {
+  transform: translateY(-1px);
+}
+
+.underline-anim {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 250ms ease;
+}
+.underline-anim:hover {
+  background-size: 100% 1px;
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}

@@ -1,0 +1,165 @@
+/* Imported from paper/layout.tsx to scope typography to the paper route. */
+.paper-body {
+  font-family: var(--font-sans);
+  color: var(--foreground);
+  font-size: 1rem;
+  line-height: 1.75;
+  max-width: 42rem;
+}
+
+.paper-body > * + * { margin-top: 1.2em; }
+
+.paper-body h1 {
+  font-family: var(--font-sans);
+  font-size: 2.75rem;
+  font-weight: 300;
+  line-height: 1.05;
+  letter-spacing: -0.025em;
+  margin-top: 2em;
+  color: var(--foreground);
+}
+.paper-body h2 {
+  font-family: var(--font-sans);
+  font-size: 1.85rem;
+  font-weight: 400;
+  line-height: 1.15;
+  letter-spacing: -0.02em;
+  margin-top: 3em;
+  margin-bottom: 0.6em;
+  padding-top: 2em;
+  border-top: 1px solid var(--border);
+  color: var(--foreground);
+}
+.paper-body h3 {
+  font-family: var(--font-sans);
+  font-size: 1.1rem;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  margin-top: 2.4em;
+  margin-bottom: 0.4em;
+  color: var(--foreground);
+}
+.paper-body h4 {
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--muted-foreground);
+  margin-top: 2em;
+  margin-bottom: 0.6em;
+}
+.paper-body h4 em {
+  font-family: var(--font-sans);
+  font-size: 1.2rem;
+  font-style: normal;
+  font-weight: 500;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  color: var(--foreground);
+  display: block;
+  margin-top: 0.3em;
+}
+
+.paper-body p {
+  color: var(--muted-foreground);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.paper-body a {
+  color: var(--accent-blue);
+  text-decoration: underline;
+  text-decoration-color: color-mix(in oklch, var(--accent-blue) 35%, transparent);
+  text-underline-offset: 3px;
+  transition: text-decoration-color 150ms ease;
+}
+.paper-body a:hover { text-decoration-color: var(--accent-blue); }
+
+.paper-body strong {
+  color: var(--foreground);
+  font-weight: 600;
+}
+
+.paper-body em { font-style: italic; }
+
+.paper-body blockquote {
+  border-left: 2px solid var(--accent-blue);
+  padding-left: 1em;
+  margin-left: 0;
+  font-style: normal;
+  font-weight: 400;
+  color: var(--foreground);
+}
+
+.paper-body code {
+  font-family: var(--font-mono);
+  font-size: 0.875em;
+  background: var(--muted);
+  color: var(--foreground);
+  padding: 0.15em 0.4em;
+  border-radius: 4px;
+  border: 1px solid var(--border);
+}
+
+.paper-body pre {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 1rem;
+  overflow-x: auto;
+  font-size: 0.875rem;
+}
+.paper-body pre code {
+  background: none;
+  border: none;
+  padding: 0;
+}
+
+.paper-body ul, .paper-body ol {
+  padding-left: 1.4em;
+  color: var(--muted-foreground);
+}
+.paper-body ul { list-style: disc; }
+.paper-body ol { list-style: decimal; }
+.paper-body li + li { margin-top: 0.4em; }
+.paper-body li::marker { color: var(--muted-foreground); }
+
+.paper-body table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 0.875rem;
+  margin-top: 1.5em;
+}
+.paper-body th, .paper-body td {
+  border: 1px solid var(--border);
+  padding: 0.5em 0.75em;
+  text-align: left;
+}
+.paper-body th {
+  background: var(--muted);
+  font-weight: 600;
+  font-family: var(--font-mono);
+  font-size: 0.72rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.paper-body hr {
+  border: none;
+  border-top: 1px solid var(--border);
+  margin: 3em 0;
+}
+
+/* Autolinked headings — remove underline from wrapping link */
+.paper-body h1 a, .paper-body h2 a, .paper-body h3 a, .paper-body h4 a {
+  color: inherit;
+  text-decoration: none;
+}
+.paper-body h1 a:hover, .paper-body h2 a:hover, .paper-body h3 a:hover {
+  text-decoration: none;
+}
+
+/* Scroll margin for TOC anchoring */
+.paper-body h1, .paper-body h2, .paper-body h3 {
+  scroll-margin-top: 5rem;
+}

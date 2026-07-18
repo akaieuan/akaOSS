@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "research-agent",
+  "title": "Research Agent",
+  "description": "Three-mode config surface for a long-running research task. Create, follow-up, read URL.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://www.hitlkit.dev/r/hitl-utils.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/hitl/ResearchAgent.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { GraduationCap } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\ntype Mode = \"create\" | \"followup\" | \"readurl\";\n\nconst MODE_LABEL: Record<Mode, string> = {\n  create: \"Create\",\n  followup: \"Follow-up\",\n  readurl: \"Read URL\",\n};\n\nexport function ResearchAgent() {\n  const [mode, setMode] = useState<Mode>(\"create\");\n\n  return (\n    <div className=\"space-y-3 rounded-xl border border-border bg-card p-4\">\n      <div className=\"flex items-center justify-between\">\n        <div className=\"flex items-center gap-2\">\n          <GraduationCap className=\"h-4 w-4 text-[color:var(--accent-violet)]\" />\n          <span className=\"text-sm font-medium text-foreground\">\n            Research Agent\n          </span>\n        </div>\n        <div className=\"flex gap-1\">\n          {([\"create\", \"followup\", \"readurl\"] as Mode[]).map((m) => (\n            <button\n              key={m}\n              onClick={() => setMode(m)}\n              className={cn(\n                \"rounded-full px-2 py-0.5 text-[10px] font-medium transition-colors\",\n                mode === m\n                  ? \"bg-foreground text-background\"\n                  : \"bg-muted text-muted-foreground hover:text-foreground\",\n              )}\n            >\n              {MODE_LABEL[m]}\n            </button>\n          ))}\n        </div>\n      </div>\n\n      <div className=\"space-y-1.5 rounded-lg bg-background/40 px-3 py-2.5 text-xs\">\n        {mode === \"create\" && (\n          <>\n            <div className=\"flex justify-between\">\n              <span className=\"text-muted-foreground\">Profile</span>\n              <span className=\"font-medium text-foreground\">\n                Academic, Climate Policy\n              </span>\n            </div>\n            <div className=\"flex justify-between\">\n              <span className=\"text-muted-foreground\">Engine</span>\n              <span className=\"font-medium text-foreground\">\n                Semantic Scholar + Web\n              </span>\n            </div>\n            <div className=\"flex justify-between\">\n              <span className=\"text-muted-foreground\">Depth</span>\n              <span className=\"font-medium text-foreground\">\n                Deep (5 hops)\n              </span>\n            </div>\n          </>\n        )}\n        {mode === \"followup\" && (\n          <>\n            <div className=\"flex justify-between\">\n              <span className=\"text-muted-foreground\">Session</span>\n              <span className=\"font-mono text-[10px] text-foreground\">\n                sess_3a9f12\n              </span>\n            </div>\n            <div className=\"flex justify-between\">\n              <span className=\"text-muted-foreground\">Query</span>\n              <span className=\"font-medium text-foreground\">\n                EU ETS price volatility\n              </span>\n            </div>\n          </>\n        )}\n        {mode === \"readurl\" && (\n          <>\n            <div className=\"flex justify-between\">\n              <span className=\"text-muted-foreground\">URL</span>\n              <span className=\"max-w-[160px] truncate font-mono text-[10px] text-foreground\">\n                ec.europa.eu/clima/ets\n              </span>\n            </div>\n            <div className=\"flex justify-between\">\n              <span className=\"text-muted-foreground\">Extract</span>\n              <span className=\"font-medium text-foreground\">\n                Tables + Key passages\n              </span>\n            </div>\n          </>\n        )}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/hitl/ResearchAgent.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

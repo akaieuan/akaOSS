@@ -1,0 +1,21 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "mini-trace",
+  "title": "MiniTrace",
+  "description": "Collapsible step-by-step renderer for agent reasoning. Thought, action, result. Makes supporting facts visible per §3.3 of the paper.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://www.hitlkit.dev/r/hitl-utils.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/hitl/MiniTrace.tsx",
+      "content": "\"use client\";\n\nimport { useState } from \"react\";\nimport { ChevronDown, ChevronRight } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport type TraceStepType = \"thought\" | \"action\" | \"result\";\n\nexport interface TraceStep {\n  type: TraceStepType;\n  label: string;\n  detail?: string;\n}\n\nexport interface MiniTraceProps {\n  steps: TraceStep[];\n  className?: string;\n}\n\nconst TRACE_COLORS: Record<\n  TraceStepType,\n  { dot: string; border: string; bg: string }\n> = {\n  thought: {\n    dot: \"bg-[color:var(--accent-violet)]\",\n    border: \"border-[color:var(--accent-violet)]/30\",\n    bg: \"bg-[color:var(--accent-violet)]/5\",\n  },\n  action: {\n    dot: \"bg-[color:var(--accent-blue)]\",\n    border: \"border-[color:var(--accent-blue)]/30\",\n    bg: \"bg-[color:var(--accent-blue)]/5\",\n  },\n  result: {\n    dot: \"bg-[color:var(--accent-emerald)]\",\n    border: \"border-[color:var(--accent-emerald)]/30\",\n    bg: \"bg-[color:var(--accent-emerald)]/5\",\n  },\n};\n\nexport function MiniTrace({ steps, className }: MiniTraceProps) {\n  const [expanded, setExpanded] = useState<Set<number>>(new Set());\n  const toggle = (i: number) =>\n    setExpanded((p) => {\n      const n = new Set(p);\n      if (n.has(i)) n.delete(i);\n      else n.add(i);\n      return n;\n    });\n\n  return (\n    <div className={cn(\"space-y-1.5\", className)}>\n      {steps.map((step, i) => {\n        const c = TRACE_COLORS[step.type];\n        return (\n          <div\n            key={i}\n            className={cn(\"rounded-lg border px-3 py-2 text-xs\", c.border, c.bg)}\n          >\n            <button\n              onClick={() => toggle(i)}\n              className=\"flex w-full items-center gap-2 text-left\"\n              disabled={!step.detail}\n            >\n              <span className={cn(\"h-2 w-2 shrink-0 rounded-full\", c.dot)} />\n              <span className=\"flex-1 font-medium capitalize text-foreground\">\n                {step.type}: {step.label}\n              </span>\n              {step.detail &&\n                (expanded.has(i) ? (\n                  <ChevronDown className=\"h-3 w-3 shrink-0 text-muted-foreground\" />\n                ) : (\n                  <ChevronRight className=\"h-3 w-3 shrink-0 text-muted-foreground\" />\n                ))}\n            </button>\n            {expanded.has(i) && step.detail && (\n              <p className=\"mt-1 pl-4 text-[11px] text-muted-foreground\">\n                {step.detail}\n              </p>\n            )}\n          </div>\n        );\n      })}\n    </div>\n  );\n}\n\nexport const DEMO_TRACE_STEPS: TraceStep[] = [\n  {\n    type: \"thought\",\n    label: \"Determine search strategy\",\n    detail: \"Analyzing query intent and relevant databases\",\n  },\n  {\n    type: \"action\",\n    label: \"Execute semantic search\",\n    detail: 'Query: \"carbon pricing\" returned 177 results',\n  },\n  {\n    type: \"result\",\n    label: \"Ranked results ready\",\n    detail: \"Top 5 results surfaced with relevance scores\",\n  },\n];\n",
+      "type": "registry:ui",
+      "target": "components/hitl/MiniTrace.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

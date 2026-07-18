@@ -1,0 +1,33 @@
+name: Feature request
+description: Propose a new primitive, gate, or capability for HITL Kit.
+labels: [enhancement]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Before opening: skim [the paper](https://www.hitlkit.dev/paper) and the existing primitives at [/components](https://www.hitlkit.dev/components). The kit is opinionated — every primitive ties to a research claim. New ones should too.
+  - type: textarea
+    id: problem
+    attributes:
+      label: What problem does this solve
+      description: Describe the HITL workflow that's currently awkward or impossible. Concrete example beats abstract description.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposed primitive / gate / API
+      description: Sketch the event schema or function signature. Doesn't need to be final, just enough to discuss.
+      render: ts
+    validations:
+      required: true
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: Alternatives considered
+      description: Existing primitives you tried first, and why they didn't fit.
+  - type: input
+    id: paper-claim
+    attributes:
+      label: Paper reference (if any)
+      description: Section or claim from the paper this primitive embodies. Optional but encouraged.

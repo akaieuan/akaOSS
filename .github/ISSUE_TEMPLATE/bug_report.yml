@@ -1,0 +1,54 @@
+name: Bug report
+description: Something is broken in a HITL Kit package, primitive, or demo.
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for the report. Please fill in as much as you can — issues with a clear repro get fixed faster.
+  - type: input
+    id: package
+    attributes:
+      label: Package or surface affected
+      description: e.g. `@hitl-kit/core`, `@hitl-kit/gates`, the `/components` showcase, the MCP server, demo-langgraph route `/diff`.
+      placeholder: "@hitl-kit/core"
+    validations:
+      required: true
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      placeholder: "0.6.0"
+    validations:
+      required: true
+  - type: textarea
+    id: what-happened
+    attributes:
+      label: What happened
+      description: Describe the actual behavior. Include error messages, stack traces, screenshots if relevant.
+    validations:
+      required: true
+  - type: textarea
+    id: what-expected
+    attributes:
+      label: What you expected
+    validations:
+      required: true
+  - type: textarea
+    id: repro
+    attributes:
+      label: Repro
+      description: Smallest possible example. Code snippet, command, or link to a minimal repo. If a primitive renders wrong, paste the event payload you fed to it.
+      render: ts
+    validations:
+      required: true
+  - type: input
+    id: env
+    attributes:
+      label: Environment
+      description: Node version, package manager, runtime (Node / Bun / Deno / Edge), framework (Next / Remix / etc).
+      placeholder: "Node 20, pnpm 10, Next 16, macOS"
+  - type: textarea
+    id: notes
+    attributes:
+      label: Anything else

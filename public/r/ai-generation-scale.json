@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "ai-generation-scale",
+  "title": "AI Generation Scale",
+  "description": "Five-segment ordinal scale indicating AI involvement in a piece of work. Embodies the scaffolding and expertise-matching principle from Dhillon et al. (2024).",
+  "registryDependencies": [
+    "https://www.hitlkit.dev/r/hitl-utils.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/hitl/AiGenerationScale.tsx",
+      "content": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport interface AiGenerationScaleProps {\n  value: number;\n  onChange?: (value: number) => void;\n  labels?: readonly string[];\n  showLabel?: boolean;\n  className?: string;\n}\n\nconst DEFAULT_LABELS = [\n  \"Human\",\n  \"Mostly Human\",\n  \"Collaborative\",\n  \"Mostly AI\",\n  \"AI\",\n] as const;\n\nconst SEGMENT_COLORS = [\n  \"bg-[color:var(--accent-emerald)]\",\n  \"bg-[color:var(--accent-blue)]\",\n  \"bg-[color:var(--accent-amber)]\",\n  \"bg-[color:var(--accent-violet)]\",\n  \"bg-[color:var(--accent-rose)]\",\n];\n\nexport function AiGenerationScale({\n  value,\n  onChange,\n  labels = DEFAULT_LABELS,\n  showLabel = true,\n  className,\n}: AiGenerationScaleProps) {\n  const interactive = typeof onChange === \"function\";\n\n  return (\n    <div className={cn(\"w-full\", className)}>\n      <div className=\"mb-1.5 flex gap-1\">\n        {labels.map((l, i) => {\n          const isActive = value === i;\n          return (\n            <button\n              key={i}\n              onClick={() => interactive && onChange?.(i)}\n              disabled={!interactive}\n              className={cn(\n                \"flex-1 rounded-md border py-1.5 text-center text-[10px] font-semibold uppercase tracking-wide transition-all\",\n                isActive\n                  ? `${SEGMENT_COLORS[i]} border-transparent text-black`\n                  : \"border-border text-muted-foreground\",\n                interactive &&\n                  !isActive &&\n                  \"hover:border-border-strong hover:text-foreground\",\n              )}\n            >\n              {l}\n            </button>\n          );\n        })}\n      </div>\n      {showLabel && (\n        <p className=\"text-center text-[10px] text-muted-foreground\">\n          Current: {labels[value]}\n        </p>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/hitl/AiGenerationScale.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

@@ -1,0 +1,18 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "search-result-card",
+  "title": "Search Result Card",
+  "description": "Ranked search result card with rank badge, metadata, snippet, and relevance bar.",
+  "registryDependencies": [
+    "https://www.hitlkit.dev/r/hitl-utils.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/hitl/SearchResultCard.tsx",
+      "content": "\"use client\";\n\nimport { cn } from \"@/lib/utils\";\n\nexport interface SearchResult {\n  id: string;\n  rank: number;\n  title: string;\n  authors: string;\n  venue: string;\n  year: number | string;\n  snippet: string;\n  relevance: number;\n  cites?: number;\n}\n\nexport interface SearchResultCardProps {\n  result: SearchResult;\n  className?: string;\n}\n\nexport function SearchResultCard({ result, className }: SearchResultCardProps) {\n  return (\n    <div className={cn(\"\", className)}>\n      <div className=\"mb-1 flex items-start gap-2\">\n        <div className=\"flex h-5 w-5 shrink-0 items-center justify-center rounded-md bg-gradient-to-br from-[color:var(--accent-violet)] to-[color:var(--accent-blue)] text-[9px] font-bold text-white\">\n          {result.rank}\n        </div>\n        <p className=\"text-xs font-medium leading-snug text-foreground\">\n          {result.title}\n        </p>\n      </div>\n      <p className=\"mb-1 text-[10px] text-muted-foreground\">{result.authors}</p>\n      <p className=\"mb-2 line-clamp-2 text-[11px] leading-relaxed text-muted-foreground\">\n        {result.snippet}\n      </p>\n      <div className=\"flex items-center gap-2\">\n        <div className=\"h-1 flex-1 overflow-hidden rounded-full bg-muted\">\n          <div\n            className=\"h-full rounded-full bg-[color:var(--accent-violet)] transition-all\"\n            style={{ width: `${result.relevance * 100}%` }}\n          />\n        </div>\n        <span className=\"text-[10px] text-muted-foreground\">\n          {Math.round(result.relevance * 100)}%\n        </span>\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/hitl/SearchResultCard.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

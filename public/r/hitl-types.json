@@ -1,0 +1,15 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "hitl-types",
+  "title": "HITL type definitions",
+  "description": "Shared TypeScript types for HITL primitives: AgentStatus, ApprovalStatus, HitlCardState, RightTab.",
+  "files": [
+    {
+      "path": "src/components/hitl/types.ts",
+      "content": "export type RightTab = \"human\" | \"search\" | \"read\" | \"write\" | \"notes\";\nexport type ApprovalStatus = \"pending\" | \"approved\" | \"rejected\";\nexport type HitlCardState = \"idle\" | \"expanded\" | \"confirmed\" | \"dismissed\";\nexport type AgentStatus =\n  | \"idle\"\n  | \"running\"\n  | \"completed\"\n  | \"error\"\n  | \"skipped\"\n  | \"cancelled\";\n",
+      "type": "registry:lib",
+      "target": "components/hitl/types.ts"
+    }
+  ],
+  "type": "registry:lib"
+}

@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "approve-reject-row",
+  "title": "Approve / Reject Row",
+  "description": "The canonical binary decision row. Pending, approved, rejected. Optional undo.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://www.hitlkit.dev/r/hitl-utils.json",
+    "https://www.hitlkit.dev/r/hitl-types.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/hitl/ApproveRejectRow.tsx",
+      "content": "\"use client\";\n\nimport { Check, X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport type { ApprovalStatus } from \"./types\";\n\nexport interface ApproveRejectRowProps {\n  state: ApprovalStatus;\n  onApprove?: () => void;\n  onReject?: () => void;\n  onUndo?: () => void;\n  accentClass?: string;\n  className?: string;\n}\n\nexport function ApproveRejectRow({\n  state,\n  onApprove,\n  onReject,\n  onUndo,\n  accentClass,\n  className,\n}: ApproveRejectRowProps) {\n  return (\n    <div\n      className={cn(\"flex items-center gap-3\", className)}\n      role=\"group\"\n      aria-label=\"Approve or reject decision\"\n    >\n      {accentClass && (\n        <div\n          className={cn(\"w-1 self-stretch shrink-0 rounded-full\", accentClass)}\n          aria-hidden=\"true\"\n        />\n      )}\n      <div className=\"flex-1\">\n        {state === \"pending\" ? (\n          <div className=\"flex gap-1.5\">\n            <button\n              type=\"button\"\n              onClick={onApprove}\n              className=\"flex items-center gap-1 rounded-md bg-[color:var(--accent-emerald)]/10 px-2.5 py-1.5 text-xs font-medium text-[color:var(--accent-emerald)] transition-colors hover:bg-[color:var(--accent-emerald)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n            >\n              <Check className=\"h-3 w-3\" aria-hidden=\"true\" /> Approve\n            </button>\n            <button\n              type=\"button\"\n              onClick={onReject}\n              className=\"flex items-center gap-1 rounded-md bg-[color:var(--accent-rose)]/10 px-2.5 py-1.5 text-xs font-medium text-[color:var(--accent-rose)] transition-colors hover:bg-[color:var(--accent-rose)]/20 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring\"\n            >\n              <X className=\"h-3 w-3\" aria-hidden=\"true\" /> Reject\n            </button>\n          </div>\n        ) : (\n          <div className=\"flex items-center gap-2\" role=\"status\" aria-live=\"polite\">\n            <span\n              className={cn(\n                \"text-xs font-medium capitalize\",\n                state === \"approved\"\n                  ? \"text-[color:var(--accent-emerald)]\"\n                  : \"text-[color:var(--accent-rose)]\",\n              )}\n            >\n              {state}\n            </span>\n            {onUndo && (\n              <button\n                type=\"button\"\n                onClick={onUndo}\n                className=\"text-[10px] text-muted-foreground underline underline-offset-2 hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring rounded\"\n              >\n                undo\n              </button>\n            )}\n          </div>\n        )}\n      </div>\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/hitl/ApproveRejectRow.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}

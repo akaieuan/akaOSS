@@ -1,0 +1,23 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "writing-agent",
+  "title": "Writing Agent",
+  "description": "Compound widget for a draft-in-progress document. Title, target section, word range, evidence notes, and six status states.",
+  "dependencies": [
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "https://www.hitlkit.dev/r/hitl-utils.json",
+    "https://www.hitlkit.dev/r/hitl-types.json",
+    "https://www.hitlkit.dev/r/hitl-subagent-meta.json"
+  ],
+  "files": [
+    {
+      "path": "src/components/hitl/WritingAgent.tsx",
+      "content": "\"use client\";\n\nimport { useEffect, useState } from \"react\";\nimport { PenLine } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\nimport type { AgentStatus } from \"./types\";\nimport { STATUS_META } from \"./subagent-meta\";\n\nconst STATUSES: AgentStatus[] = [\n  \"idle\",\n  \"running\",\n  \"completed\",\n  \"error\",\n  \"skipped\",\n  \"cancelled\",\n];\n\nconst EVIDENCE_NOTES = [\n  \"AR6 temperature overshoot\",\n  \"Price corridor $50/tCO₂\",\n  \"EU ETS reform outcomes\",\n];\n\nexport function WritingAgent({ liveData = false }: { liveData?: boolean }) {\n  const [status, setStatus] = useState<AgentStatus>(\"idle\");\n\n  useEffect(() => {\n    if (!liveData) return;\n    let i = 0;\n    const t = setInterval(() => {\n      i = (i + 1) % STATUSES.length;\n      setStatus(STATUSES[i]);\n    }, 1500);\n    return () => clearInterval(t);\n  }, [liveData]);\n\n  const meta = STATUS_META[status];\n  const Icon = meta.icon;\n\n  return (\n    <div className=\"space-y-3 rounded-xl border border-border bg-card p-4\">\n      <div className=\"flex items-center justify-between\">\n        <div className=\"flex items-center gap-2\">\n          <PenLine className=\"h-4 w-4 text-[color:var(--accent-blue)]\" />\n          <span className=\"text-sm font-medium text-foreground\">\n            Write Doc Agent\n          </span>\n        </div>\n        <div className=\"flex items-center gap-1.5\">\n          <Icon\n            className={cn(\n              \"h-3.5 w-3.5\",\n              meta.color,\n              status === \"running\" && \"animate-spin\",\n            )}\n          />\n          <span className={cn(\"text-xs capitalize\", meta.color)}>\n            {meta.label}\n          </span>\n        </div>\n      </div>\n\n      <div className=\"space-y-1 rounded-lg bg-background/40 px-3 py-2 text-xs\">\n        <div className=\"flex justify-between\">\n          <span className=\"text-muted-foreground\">Title</span>\n          <span className=\"font-medium text-foreground\">\n            Climate Policy Analysis\n          </span>\n        </div>\n        <div className=\"flex justify-between\">\n          <span className=\"text-muted-foreground\">Target</span>\n          <span className=\"font-medium text-foreground\">Section 2</span>\n        </div>\n        <div className=\"flex justify-between\">\n          <span className=\"text-muted-foreground\">Word range</span>\n          <span className=\"font-medium text-foreground\">400–600</span>\n        </div>\n      </div>\n\n      <div className=\"space-y-1.5\">\n        <p className=\"label\">Evidence notes</p>\n        {EVIDENCE_NOTES.map((n) => (\n          <div\n            key={n}\n            className=\"flex items-center gap-2 text-xs text-muted-foreground\"\n          >\n            <span className=\"h-1.5 w-1.5 shrink-0 rounded-full bg-[color:var(--accent-blue)]\" />\n            {n}\n          </div>\n        ))}\n      </div>\n\n      {status === \"completed\" && (\n        <button className=\"w-full rounded-lg border border-[color:var(--accent-blue)]/30 bg-[color:var(--accent-blue)]/10 py-2 text-xs font-medium text-[color:var(--accent-blue)] transition-opacity hover:opacity-80\">\n          View draft\n        </button>\n      )}\n\n      {!liveData && (\n        <div className=\"flex flex-wrap gap-1.5 border-t border-border pt-3\">\n          {STATUSES.map((s) => (\n            <button\n              key={s}\n              onClick={() => setStatus(s)}\n              className={cn(\n                \"rounded-full px-2 py-0.5 text-[10px] font-medium capitalize transition-colors\",\n                status === s\n                  ? \"bg-foreground text-background\"\n                  : \"bg-muted text-muted-foreground hover:text-foreground\",\n              )}\n            >\n              {s}\n            </button>\n          ))}\n        </div>\n      )}\n    </div>\n  );\n}\n",
+      "type": "registry:ui",
+      "target": "components/hitl/WritingAgent.tsx"
+    }
+  ],
+  "type": "registry:ui"
+}
