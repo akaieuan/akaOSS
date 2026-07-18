@@ -20,16 +20,21 @@ const arrowLink =
 const arrowNudge =
   "size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5";
 
-/* Group badges: the human figure for the measurement family (the human in
-   the loop), the terminal prompt for developer tooling. */
-const GROUPS: {
-  key: "measurement" | "tooling";
-  label: string;
-  badge: "head" | "prompt";
-}[] = [
-  { key: "measurement", label: "Human-in-the-loop measurement", badge: "head" },
-  { key: "tooling", label: "Developer tooling", badge: "prompt" },
+const GROUPS: { key: "measurement" | "tooling"; label: string }[] = [
+  { key: "measurement", label: "Human-in-the-loop measurement" },
+  { key: "tooling", label: "Developer tooling" },
 ];
+
+/* Per-project badges: the human figure for HITL Kit (the human in the
+   loop), a three-tier podium for eval-kit (measurement, ranked), a code
+   tag for tag-kit, the terminal prompt for the developer tooling. */
+const PROJECT_BADGES: Record<string, "head" | "podium" | "codetag" | "prompt"> = {
+  "hitl-kit": "head",
+  "eval-kit": "podium",
+  "tag-kit": "codetag",
+  collapse: "prompt",
+  hologram: "prompt",
+};
 
 export default function Home() {
   return (
@@ -115,7 +120,7 @@ export default function Home() {
                             size={36}
                             grid={18}
                             gap={0.12}
-                            icon={group.badge}
+                            icon={PROJECT_BADGES[p.slug] ?? "spark"}
                             once
                           />
                           <ArrowUpRight
@@ -149,7 +154,7 @@ export default function Home() {
             {PARADIGM.def}
           </p>
           <Link href="/paper" className={cn(arrowLink, "mt-6")}>
-            Read the paper: A Measurement Problem
+            Read the paper: An AI Measurement Problem
             <ArrowUpRight aria-hidden className={arrowNudge} />
           </Link>
         </section>

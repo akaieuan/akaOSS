@@ -39,7 +39,7 @@ export default async function ResearchPage() {
               href="/paper"
               className="underline-offset-4 transition-colors hover:underline"
             >
-              A Measurement Problem
+              An AI Measurement Problem
             </Link>
           </h2>
           <p className="mt-2 font-mono text-[13px] text-muted-foreground">

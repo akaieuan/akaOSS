@@ -1,4 +1,4 @@
-# A Measurement Problem
+# An AI Measurement Problem
 
 The enterprise AI landscape faces a fundamental crisis: despite $30–40 billion in investment, 95% of organizations achieve zero measurable return from generative AI initiatives (Challapally et al., 2025). This catastrophic failure-to-deployment gap stems not from technology limitations but from a systematic measurement problem embedded in how we evaluate AI systems.
 

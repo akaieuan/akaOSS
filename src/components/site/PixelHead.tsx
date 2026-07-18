@@ -159,6 +159,32 @@ const inPrompt = maskKnockout(
   0.72,
 )
 
+/** Three-tier podium (2·1·3) — the eval-kit badge: measurement, ranked. */
+const inPodium = maskKnockout(
+  `
+...........
+....###....
+.######....
+.#########.
+.#########.
+.#########.
+...........`,
+  0.8,
+)
+
+/** Code tag `</>` — the tag-kit badge. */
+const inCodeTag = maskKnockout(
+  `
+.............
+...#....##...
+..#....#..#..
+.#....#....#.
+..#..#....#..
+...##....#...
+.............`,
+  0.85,
+)
+
 /** Speech bubble with a tail — Consulting. */
 function inBubble(x: number, y: number) {
   const bx = x / 0.58
@@ -198,6 +224,8 @@ const KNOCKOUTS = {
   bubble: inBubble,
   gamepad: inGamepad,
   prompt: inPrompt,
+  podium: inPodium,
+  codetag: inCodeTag,
 } as const
 
 /**
