@@ -22,7 +22,7 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
   {
     label: "Human-in-the-loop measurement",
     links: [
-      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "15 primitives via shadcn CLI · six packages on npm · v0.6", icon: "head" },
+      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "16 primitives via shadcn CLI · six packages on npm · v0.6", icon: "head" },
       { href: "/projects/eval-kit", name: "eval-kit", meta: "measurement instrument for multi-step agents · v0.3.1", icon: "podium" },
       { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps", icon: "codetag" },
     ],
