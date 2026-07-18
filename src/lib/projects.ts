@@ -107,10 +107,7 @@ export const PROJECTS: Project[] = [
     ],
     accent: "violet",
     repo: "https://github.com/akaieuan/HITL-KIT",
-    links: [
-      { label: "Component library", href: "/components" },
-      { label: "Registry", href: "/registry" },
-    ],
+    links: [], // component library + registry get a dedicated showcase section instead
   },
   {
     slug: "eval-kit",
