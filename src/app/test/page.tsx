@@ -2,7 +2,7 @@ import { notFound } from "next/navigation";
 import TestPageClient from "./TestPageClient";
 
 export const metadata = {
-  title: "Registry health · HITL Kit (dev)",
+  title: "Registry health · akaOSS (dev)",
   robots: { index: false, follow: false },
 };
 

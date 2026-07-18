@@ -10,7 +10,7 @@ interface TocItem {
 }
 
 export const PAPER_TOC: TocItem[] = [
-  { id: "a-measurement-problem", label: "A Measurement Problem", depth: 1 },
+  { id: "an-ai-measurement-problem", label: "An AI Measurement Problem", depth: 1 },
   { id: "section-1-understanding-why-autonomous-systems-fail", label: "1. Why Autonomous Systems Fail", depth: 2 },
   { id: "11-the-benchmark-saturation-crisis", label: "1.1 Benchmark Saturation", depth: 3 },
   { id: "12-enterprise-reality-the-95-failure-rate", label: "1.2 The 95% Failure Rate", depth: 3 },

@@ -5,7 +5,7 @@ import { Footer } from "@/components/site/Footer";
 import { getResearchPosts, ChipRow, formatDate } from "./posts";
 
 export const metadata: Metadata = {
-  title: "Research · HITL Kit",
+  title: "Research · akaOSS",
   description:
     "Findings and write-ups produced by running the kits — reproducible experiments, human-scored. Aggregate scores are internal signal, not leaderboard fodder.",
 };
@@ -28,6 +28,32 @@ export default async function ResearchPage() {
             Case-study write-ups produced by running the kits — each one a
             reproducible experiment with checked-in runs, scored by humans, not
             LLMs.
+          </p>
+        </section>
+
+        {/* The paper — pinned above the feed; the argument the findings test */}
+        <section aria-label="The paper" className="pt-8">
+          <p className="label">The paper</p>
+          <h2 className="mt-3 max-w-3xl text-lg font-medium tracking-tight text-foreground md:text-xl">
+            <Link
+              href="/paper"
+              className="underline-offset-4 transition-colors hover:underline"
+            >
+              An AI Measurement Problem
+            </Link>
+          </h2>
+          <p className="mt-2 font-mono text-[13px] text-muted-foreground">
+            perspective paper
+            <span className="mx-2 text-muted-foreground/50">·</span>
+            the argument this feed measures
+          </p>
+          <p className="mt-3 max-w-3xl text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+            The AI failure crisis is at root a measurement crisis. The paper
+            synthesizes benchmark science, cognitive neuroscience, uncertainty
+            quantification, and enterprise deployment data to argue for
+            Assist-Not-Complete: evaluate AI on whether it assists humans
+            without displacing them, not on whether it can finish the task
+            alone.
           </p>
         </section>
 

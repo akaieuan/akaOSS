@@ -11,7 +11,7 @@ import { AssistNotComplete } from "@/components/site/AssistNotComplete";
 import { PaperTOC } from "./PaperTOC";
 
 export const metadata: Metadata = {
-  title: "The paper · HITL Kit",
+  title: "The paper · akaOSS",
   description:
     "An AI Measurement Problem — a perspective piece on why 95% of enterprise AI fails, and how the Assist-Not-Complete paradigm reframes design and evaluation.",
 };
@@ -26,7 +26,7 @@ export default async function PaperPage() {
 
   return (
     <>
-      <Nav active="paper" />
+      <Nav active="research" />
 
       <div className="mx-auto flex max-w-6xl gap-12 px-6 pt-10">
         <PaperTOC />

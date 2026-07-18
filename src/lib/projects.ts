@@ -220,7 +220,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "hologram",
     group: "tooling",
-    name: "hologram",
+    name: "Hologram",
     oneLiner:
       "Live observability, guided skills, and an agent (MCP) surface for Blender → glTF pipelines.",
     why: [
