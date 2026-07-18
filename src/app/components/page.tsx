@@ -493,7 +493,7 @@ export default function ComponentsPage() {
     <>
       <Nav active="components" />
 
-      <div className="mx-auto flex max-w-6xl gap-12 px-6 pt-10">
+      <div className="mx-auto flex max-w-5xl gap-12 px-6 pt-10 md:px-8">
         <aside className="sticky top-24 hidden h-fit w-56 shrink-0 lg:block">
           <p className="label mb-4">Patterns</p>
           <nav className="flex flex-col gap-0.5">

@@ -8,7 +8,7 @@ const footerLink =
 export function Footer() {
   return (
     <footer className="mt-8 border-t border-border/60">
-      <div className="mx-auto flex max-w-6xl flex-col justify-between gap-6 px-6 py-8 sm:flex-row sm:items-baseline">
+      <div className="mx-auto flex max-w-5xl flex-col justify-between gap-6 px-6 py-8 md:px-8 sm:flex-row sm:items-baseline">
         <div className="flex items-baseline gap-3">
           <span className="text-xs font-light tracking-[0.06em] text-muted-foreground">
             © {new Date().getFullYear()} {BRAND.name}

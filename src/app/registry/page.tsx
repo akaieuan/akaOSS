@@ -86,7 +86,7 @@ export default function RegistryPage() {
     <>
       <Nav active="registry" />
 
-      <main className="mx-auto max-w-6xl px-6 pt-10">
+      <main className="mx-auto max-w-5xl px-6 md:px-8 pt-10">
         {/* Hero */}
         <section className="pt-12 pb-16">
           <p className="label mb-4">Registry · v0.1 · 15 items</p>
