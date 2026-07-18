@@ -42,7 +42,7 @@ export const PROJECTS: Project[] = [
     oneLiner: "Human-in-the-loop AI, measured properly.",
     why: [
       "HITL Kit is the argument that we should measure AI differently, and the components that make the alternative buildable.",
-      "Fifteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
+      "Sixteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
       "Together: the paper is the argument, the components are the proof the argument is implementable, the registry is how you adopt it.",
     ],
     deepDive: [
@@ -71,7 +71,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     status:
-      "v0.6 · deployed at hitlkit.dev · 15 primitives via shadcn CLI · six packages on npm.",
+      "v0.6 · deployed at hitlkit.dev · 16 primitives via shadcn CLI · six packages on npm.",
     install: [
       {
         label: "Add a primitive via the shadcn CLI",
@@ -93,8 +93,8 @@ export const PROJECTS: Project[] = [
     ],
     features: [
       {
-        title: "Fifteen React primitives",
-        body: "Fifteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
+        title: "Sixteen React primitives",
+        body: "Sixteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
       },
       {
         title: "Copy, paste, own",

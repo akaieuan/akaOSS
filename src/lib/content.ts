@@ -134,9 +134,9 @@ export const KIT_SUMMARIES: KitSummary[] = [
     name: "HITL Kit",
     version: "v0.6",
     oneLiner:
-      "Fifteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
+      "Sixteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
     why: "No fork, no vendor lock-in, no wrapper SDK. Copy, paste, own.",
-    meta: "15 primitives via shadcn CLI · six packages on npm · deep-dive at /components",
+    meta: "16 primitives via shadcn CLI · six packages on npm · deep-dive at /components",
     install: "npx shadcn@latest add https://www.hitlkit.dev/r/hitl-card.json",
     accent: "violet",
     href: "/projects/hitl-kit",
