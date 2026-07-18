@@ -105,6 +105,34 @@ export default async function ProjectPage({
           </div>
         </section>
 
+        {/* Deep dive — the small-research-paper treatment */}
+        {project.deepDive.length > 0 && (
+          <section className="pb-16">
+            <div className="flex flex-col gap-12">
+              {project.deepDive.map((section, i) => (
+                <div key={section.heading}>
+                  <p className="label mb-3">
+                    {String(i + 1).padStart(2, "0")}
+                  </p>
+                  <h3 className="mb-5 text-xl font-light tracking-tight text-foreground">
+                    {section.heading}
+                  </h3>
+                  <div className="flex max-w-2xl flex-col gap-4">
+                    {section.paragraphs.map((para, j) => (
+                      <p
+                        key={j}
+                        className="text-[15px] leading-relaxed text-muted-foreground"
+                      >
+                        {para}
+                      </p>
+                    ))}
+                  </div>
+                </div>
+              ))}
+            </div>
+          </section>
+        )}
+
         {/* Features */}
         <section className="pb-16">
           <div className="mb-6 flex items-baseline justify-between">
