@@ -43,7 +43,7 @@ export default async function ProjectPage({
     <>
       <Nav active="projects" />
 
-      <main className="mx-auto max-w-6xl px-6">
+      <main className="mx-auto max-w-5xl px-6 md:px-8">
         {/* Hero */}
         <section className="py-20">
           <div className="mb-6 flex items-center gap-3">

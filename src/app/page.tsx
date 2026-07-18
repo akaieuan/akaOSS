@@ -41,7 +41,7 @@ export default function Home() {
     <>
       <Nav />
 
-      <main className="mx-auto max-w-6xl px-6">
+      <main className="mx-auto max-w-5xl px-6 md:px-8">
         {/* ── Hero ── */}
         <section className="grid grid-cols-1 items-center gap-12 py-24 md:grid-cols-[1fr_auto] md:py-32">
           <div>
