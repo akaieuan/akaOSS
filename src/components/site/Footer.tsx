@@ -38,7 +38,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 py-12 sm:grid-cols-[1fr_auto_auto] sm:gap-16">
           <div className="max-w-xs">
             <div className="flex items-center gap-2.5">
-              <PixelHead size={20} gap={0.12} icon="sparkmark" still />
+              <PixelHead size={20} grid={16} gap={0.12} icon="spark" still />
               <span className="text-sm font-light tracking-[0.06em] text-foreground">
                 {BRAND.name}
               </span>
