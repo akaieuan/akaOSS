@@ -23,20 +23,38 @@ for our own packages and looked at the results.
 
 ## 1. The implicit checklist
 
-A developer deciding whether to depend on a package runs a sequence, mostly
-unconsciously:
+A developer evaluating a dependency works through a rough sequence, often
+without naming it:
 
-1. Does a fresh clone go green?
-2. Does the **published** package work, not just the monorepo?
-3. Do the README examples actually run?
+1. Does a fresh clone build and pass?
+2. Does the **published** package work, not just the workspace it was built in?
+3. Do the documented examples compile and run?
 4. Is the logic correct under adversarial input?
 5. Does the public API change without warning?
 
-Most open-source authors test step 4 heavily and skip 1 through 3. But steps 1
-through 3 are where trust is actually lost, because they are the steps the
-stranger hits first, and a failure there reads as "this author does not ship
-working software." No amount of internal test depth recovers from an import
-that explodes.
+The conventional testing workflow concentrates on step 4. Steps 2 and 3 are
+less commonly automated, and the reason is structural rather than a matter of
+diligence: the default tooling does not exercise them. A unit test imports
+local source, never the packaged artifact; a fenced code block in a README is
+inert text unless something is built to run it. The gap is real enough that
+the ecosystem has produced dedicated tooling to close it — [publint](https://publint.dev)
+validates a package as npm would actually publish it, and
+[arethetypeswrong](https://arethetypeswrong.github.io) checks type resolution
+across the `node10`, `node16`, and `bundler` module systems — and that some
+language ecosystems compile their documentation examples as part of the test
+run: [Rust doctests](https://doc.rust-lang.org/rustdoc/write-documentation/documentation-tests.html)
+exist explicitly to "make sure that examples within your documentation are up
+to date and working," and Python ships `doctest` in its standard library.
+These tools were built by, and for, experienced maintainers, which is the
+point: the failures are a property of the packaging and documentation
+surfaces, not of the people shipping them. JavaScript has no equivalent
+default, so the same failures recur across otherwise well-maintained packages.
+
+The order matters because it is the order a newcomer encounters. A packaging or
+documentation failure surfaces before any of the internal quality is visible,
+and internal test depth cannot compensate for an entry point that fails to
+import. This is not a claim that authors are careless; it is a claim about
+which surfaces the standard workflow leaves unmeasured.
 
 ## 2. Why the monorepo hides all of it
 
