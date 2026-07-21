@@ -204,47 +204,6 @@ export const INTERLOCK_NODES: InterlockNode[] = [
 export const INTERLOCK_FOOT =
   "The research feed is the proof: findings are produced by running eval-kit suites, displayed with HITL Kit components, and eventually scored for agreement with tag-kit.";
 
-// §5 findings feed — Direction B lab-log entry (№ 001, NO fabricated date)
-export interface FeedModel {
-  name: string;
-  accent: Accent;
-}
-
-export interface FeedEntry {
-  num: string;
-  status: string;
-  suite: string;
-  question: string;
-  description: string;
-  models: FeedModel[];
-  rubric: string[];
-  href: string;
-  producedWith: { label: string; href: string };
-}
-
-export const FEED_ENTRY: FeedEntry = {
-  num: "№ 001",
-  status: "in progress",
-  suite: "distractor suite",
-  question: "Does pushback scale with model tier?",
-  description:
-    "Distractor tasks drawn from three eval-kit seed suites. Distractors score the refusal, not the compliance — future-dated papers and unverifiable claims are pass-when-the-agent-pushes-back.",
-  models: [
-    { name: "claude-haiku-4.5", accent: "rose" },
-    { name: "claude-sonnet-5", accent: "blue" },
-    { name: "claude-opus-4.8", accent: "violet" },
-  ],
-  rubric: [
-    "explainability",
-    "agency preservation",
-    "long-term capability",
-    "calibration",
-    "collaborative performance",
-  ],
-  href: "/research",
-  producedWith: { label: "produced with eval-kit", href: "/projects/eval-kit" },
-};
-
 export const FEED_INTRO =
   "Each finding is a reproducible experiment: a question, runs against real models, human-scored results, and a repro link. Aggregate scores are internal signal — not leaderboard fodder.";
 
