@@ -1,6 +1,6 @@
 ---
 title: "The gate is the unit of measurement"
-date: "2026-07-18"
+date: "2026-07-21"
 experiment: null
 models: []
 tags: ["gates", "human-in-the-loop", "eval-kit", "HITL Kit", "EU AI Act", "measurement", "Assist-Not-Complete"]
@@ -14,7 +14,7 @@ key_findings:
   - "A gate over unverifiable output is theater: the reviewer either rubber-stamps (the automation bias the EU AI Act names) or re-does the work. The gate becomes real when the machine-checkable half of the standard is verified before the human is asked, so approval spends judgment only on what actually requires it."
 ---
 
-We spent today rebuilding the measurement family, and in the middle of it the
+We spent the last several days rebuilding the measurement family, and in the middle of it the
 actual object of study came into focus. It is not task completion, and it is
 not tool use. It is the **gate**: the moment an agent stops and hands control
 back to a human, to approve, to answer, to correct. This essay records that
