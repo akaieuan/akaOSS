@@ -98,14 +98,14 @@ export function DiffResult({ config, onAccept, onReject }: DiffResultProps) {
               </div>
             )}
             <pre
-              className="bg-[color:var(--accent-rose)]/8 px-2 py-1.5 font-mono text-[11px] leading-relaxed text-foreground"
+              className="overflow-x-auto whitespace-pre-wrap break-words bg-[color:var(--accent-rose)]/8 px-2 py-1.5 font-mono text-[11px] leading-relaxed text-foreground"
               aria-label="Original text"
             >
               <span className="select-none text-[color:var(--accent-rose)]" aria-hidden="true">- </span>
               {hunk.before}
             </pre>
             <pre
-              className="bg-[color:var(--accent-emerald)]/8 px-2 py-1.5 font-mono text-[11px] leading-relaxed text-foreground"
+              className="overflow-x-auto whitespace-pre-wrap break-words bg-[color:var(--accent-emerald)]/8 px-2 py-1.5 font-mono text-[11px] leading-relaxed text-foreground"
               aria-label="Proposed text"
             >
               <span className="select-none text-[color:var(--accent-emerald)]" aria-hidden="true">+ </span>
