@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { Check, X, Loader2, Copy, RotateCw, AlertTriangle } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
@@ -67,7 +67,6 @@ export default function TestPageClient() {
   const [results, setResults] = useState<Result[]>([]);
   const [base, setBase] = useState<"local" | "prod">("local");
   const [running, setRunning] = useState(false);
-  const [displayBaseUrl, setDisplayBaseUrl] = useState<string | null>(null);
 
   // Fetch target: same-origin for "local", absolute for "prod".
   // Relative URLs work for fetch and avoid any SSR/CSR origin mismatch.
@@ -76,15 +75,21 @@ export default function TestPageClient() {
     return "/r";
   }, [base]);
 
-  // Display URL is computed after mount so the server can render a
-  // stable placeholder and the client can populate the full origin.
-  useEffect(() => {
-    if (base === "prod") {
-      setDisplayBaseUrl("https://www.hitlkit.dev/r");
-    } else {
-      setDisplayBaseUrl(`${window.location.origin}/r`);
-    }
-  }, [base]);
+  // The origin is only knowable on the client, so it is read through an
+  // external-store subscription rather than assigned into state from an
+  // effect: the server snapshot is empty, the client snapshot is the real
+  // origin, and the displayed URL is then plain derived state.
+  const origin = useSyncExternalStore(
+    () => () => {},
+    () => window.location.origin,
+    () => "",
+  );
+  const displayBaseUrl =
+    base === "prod"
+      ? "https://www.hitlkit.dev/r"
+      : origin
+        ? `${origin}/r`
+        : null;
 
   const test = useCallback(async () => {
     setRunning(true);
@@ -185,7 +190,11 @@ export default function TestPageClient() {
     setRunning(false);
   }, [getBaseUrl]);
 
+  // Running the suite on mount is this page's entire purpose. `test` flips
+  // `running` synchronously before its first await, which the cascading-render
+  // rule flags; here that is the intended one-shot kickoff, not a render loop.
   useEffect(() => {
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     test();
   }, [test]);
 
