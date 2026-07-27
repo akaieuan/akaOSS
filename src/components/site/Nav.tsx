@@ -22,7 +22,7 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
   {
     label: "Human-in-the-loop measurement",
     links: [
-      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "16 primitives via shadcn CLI · six packages on npm · v0.6", icon: "head" },
+      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "19 primitives via shadcn CLI · six packages on npm · v0.6", icon: "head" },
       { href: "/projects/eval-kit", name: "eval-kit", meta: "measurement instrument for multi-step agents · v0.3.1", icon: "podium" },
       { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps", icon: "codetag" },
     ],
@@ -50,16 +50,21 @@ const linkClass = (isActive: boolean) =>
 export function Nav({ active }: { active?: NavActive }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/60 backdrop-blur-md">
-      <div className="mx-auto flex h-12 max-w-5xl items-center justify-between gap-4 px-4 sm:px-6 md:px-8">
+      <div className="mx-auto flex h-12 max-w-5xl items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 md:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           {/* The chrome mark: single elongated sparkle, solid, held still */}
           <PixelHead size={22} grid={16} gap={0.12} icon="spark" still />
-          <span className="text-sm font-light tracking-[0.06em] text-foreground">
+          {/* Nothing in this bar can shrink — three link labels, a wordmark and
+              the theme toggle all size to their content — so below 375px the row
+              needs 371px and the toggle lands off-screen, unreachable, with the
+              whole page scrolling sideways. The wordmark is the one element the
+              mark beside it already stands in for, so it is what gives way. */}
+          <span className="hidden text-sm font-light tracking-[0.06em] text-foreground min-[375px]:inline">
             {BRAND.name}
           </span>
         </Link>
 
-        <nav className="flex items-center gap-4 text-[13px] font-light tracking-[0.06em] text-muted-foreground md:gap-6 md:text-sm">
+        <nav className="flex items-center gap-2.5 text-[13px] font-light tracking-[0.06em] text-muted-foreground sm:gap-4 md:gap-6 md:text-sm">
           {/* Toolkits — CSS-only dropdown revealed on hover/focus */}
           <div className="group relative">
             <Link

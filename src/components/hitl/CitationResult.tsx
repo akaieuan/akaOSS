@@ -105,9 +105,12 @@ export function CitationResult({
               href={config.source.url}
               target="_blank"
               rel="noreferrer"
+              // The icon is the only child, so without this the link computes no
+              // accessible name and AT reads out the raw URL.
+              aria-label={`Open source: ${config.source.title}`}
               className="ml-1 inline-flex items-center hover:text-foreground"
             >
-              <ExternalLink className="h-3 w-3" />
+              <ExternalLink className="h-3 w-3" aria-hidden="true" />
             </a>
           )}
         </div>
