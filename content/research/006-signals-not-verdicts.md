@@ -24,8 +24,10 @@ remove someone's speech in error.
 The vehicle is **inertial**, a reference application for auditable content
 review. Sub-agents emit calibrated signals; a policy layer routes them; humans
 decide; every transition lands in a hash-chained log. Three of its mechanisms
-are live and operable in the [interactive exhibits](/inertial) that accompany
-this piece — including an audit chain you can try to forge.
+are built into this piece as working instruments rather than described from a
+distance: a gate that refuses to execute, a hash chain you can try to forge,
+and the same decision shown with and without its evidence. They are live. Use
+them.
 
 ## 1. Why this domain is the right test
 
@@ -66,6 +68,15 @@ contact with a real policy file, and it makes the honest claim about what the
 automation is for. The system is not deciding. It is deciding what deserves
 your attention, and in what order.
 
+Below is that rule as running code. The removal is queued and the model is
+confident; try to execute it before approving anything and watch the executor
+refuse. The refusal is not a UI affordance being disabled — it is the executor
+finding no approval event in the log and declining on that basis.
+
+```exhibit
+mandated-gate
+```
+
 ## 3. Two gates, found rather than imposed
 
 The prior piece separated **mandated** gates (policy compliance, binary,
@@ -105,13 +116,17 @@ segment of video. The reviewer is not handed a document and a score and asked to
 form an opinion. They are shown the disputed thing, in its surrounding context,
 with the channel and the probability attached to it.
 
-The difference is visible rather than arguable, which is why one of the
-[exhibits](/inertial) presents the same decision twice — once with evidence
-located, once with only a verdict and a number. Without location, a reviewer has
-two options: trust the score, which is the automation bias the EU AI Act's
-Article 14 names as a risk oversight design must counter, or re-derive the
-judgment themselves, which erases the reason for delegating. Both are failures
-of the gate, and neither is visible in any accuracy metric.
+The difference is visible rather than arguable. Below, the same decision is
+shown both ways — turn the evidence off and ask yourself what you would do.
+Without location, a reviewer has two options: trust the score, which is the
+automation bias the EU AI Act's Article 14 names as a risk oversight design
+must counter, or re-derive the judgment themselves, which erases the reason for
+delegating. Both are failures of the gate, and neither is visible in any
+accuracy metric.
+
+```exhibit
+verification-contrast
+```
 
 One structural detail carries more weight than it looks like it should. A
 probability is only emitted when the model has something to say; a skill that is
@@ -126,13 +141,17 @@ Every transition — ingested, signalled, routed, decided — appends one entry 
 hash chain: each entry hashes its own contents together with the hash of the
 entry before it. Editing history invalidates every hash downstream of the edit.
 
-The exhibit makes the actual claim legible in a way prose does not. Tamper with
-an entry and verification fails at that index, which most people expect. Then
+Prose cannot make that claim land, so here is the chain itself. Tamper with an
+entry and verification fails at that index, which most people expect. Then
 *repair* the forged entry by recomputing its own hash so it is internally
-consistent, and the break simply moves one position later. Local repair is
+consistent — and the break simply moves one position later. Local repair is
 impossible. That is the entire content of the guarantee, and it is worth
-demonstrating because "hash-chained" is frequently claimed and rarely
+operating yourself because "hash-chained" is frequently claimed and rarely
 inspected.
+
+```exhibit
+audit-chain
+```
 
 What it does not prove deserves equal space. The chain shows that the recorded
 history has not been altered since it was written. It says nothing about

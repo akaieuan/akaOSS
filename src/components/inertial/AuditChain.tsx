@@ -15,28 +15,35 @@ import { cn } from "@/lib/utils";
 import {
   ANCHORED_AT,
   ANCHORED_HEAD,
+  ANCHORED_WITH,
   CANONICAL_FORM,
-  EDITABLE_INDEX,
-  FORGED_PAYLOAD,
+  DEFAULT_TARGET_INDEX,
+  FORGERIES,
   GENESIS,
   PRISTINE_ENTRIES,
   PRISTINE_LINKS,
-  TRUE_PAYLOAD,
+  buildChain,
   hashEntry,
   idx,
+  readsFor,
   verifyChain,
   type AuditEntry,
   type StoredLink,
 } from "./fixtures";
 import {
+  Brief,
   Field,
   HashChip,
   Label,
   Mono,
+  Note,
   Panel,
   ScrollBox,
+  Segmented,
+  Steps,
   btnGhost,
   btnPrimary,
+  type Step,
 } from "./ui";
 
 type RowStatus = "verified" | "broken" | "unreachable";
@@ -48,25 +55,42 @@ const EVENT_ACCENT: Record<string, string> = {
   decided: "text-[color:var(--accent-emerald)]",
 };
 
+const PRISTINE_PAYLOADS = PRISTINE_ENTRIES.map((e) => e.payload);
+
 export function AuditChain() {
-  const [payload, setPayload] = useState(TRUE_PAYLOAD);
+  /** Which entry the reader is rewriting. One at a time, so the break always
+   *  has exactly one place it could have come from. */
+  const [target, setTarget] = useState(DEFAULT_TARGET_INDEX);
+  const [payloads, setPayloads] = useState<string[]>(PRISTINE_PAYLOADS);
   const [links, setLinks] = useState<StoredLink[]>(PRISTINE_LINKS);
+  const [repairs, setRepairs] = useState(0);
 
   const entries: AuditEntry[] = useMemo(
     () =>
-      PRISTINE_ENTRIES.map((e) =>
-        e.index === EDITABLE_INDEX ? { ...e, payload } : e,
+      PRISTINE_ENTRIES.map((e, i) =>
+        payloads[i] === e.payload ? e : { ...e, payload: payloads[i] },
       ),
-    [payload],
+    [payloads],
   );
 
   const result = useMemo(() => verifyChain(entries, links), [entries, links]);
 
-  const edited = payload !== TRUE_PAYLOAD;
-  const repaired = links.some(
-    (l, i) => l.hash !== PRISTINE_LINKS[i].hash || l.prev !== PRISTINE_LINKS[i].prev,
-  );
-  const touched = edited || repaired;
+  const edited = payloads.some((p, i) => p !== PRISTINE_PAYLOADS[i]);
+  const touched = edited || repairs > 0;
+  const forgery = FORGERIES[target];
+
+  function setPayload(i: number, value: string) {
+    setPayloads((prev) => prev.map((p, j) => (j === i ? value : p)));
+  }
+
+  /** Switching target starts over: two simultaneous forgeries would make the
+   *  break ambiguous, and the whole point is that it is not. */
+  function chooseTarget(next: number) {
+    setTarget(next);
+    setPayloads(PRISTINE_PAYLOADS);
+    setLinks(PRISTINE_LINKS);
+    setRepairs(0);
+  }
 
   /** Rewrite the broken entry's own hash so it commits to its new content —
    *  the "surely I can just fix this one" move. */
@@ -79,11 +103,21 @@ export function AuditChain() {
       next[i].hash = hashEntry(entries[i], next[i].prev);
       return next;
     });
+    setRepairs((n) => n + 1);
+  }
+
+  /** Carry the repair all the way down, which is where the argument lands. */
+  function repairRest() {
+    const from = result.brokenAt;
+    if (from === null) return;
+    setLinks(buildChain(entries));
+    setRepairs((n) => n + (entries.length - from));
   }
 
   function reset() {
-    setPayload(TRUE_PAYLOAD);
+    setPayloads(PRISTINE_PAYLOADS);
     setLinks(PRISTINE_LINKS);
+    setRepairs(0);
   }
 
   function statusOf(i: number): RowStatus {
@@ -118,6 +152,44 @@ export function AuditChain() {
     };
   }
 
+  /** The reader's own trail, in the order they made it. */
+  const trail = !touched
+    ? "untouched · this is the log as it was written"
+    : [
+        edited ? `you rewrote #${idx(target)}` : "no entry rewritten",
+        repairs > 0
+          ? `${repairs} hash${repairs === 1 ? "" : "es"} recomputed`
+          : null,
+        result.brokenAt !== null
+          ? `verification stops at #${idx(result.brokenAt)}`
+          : "every link holds",
+      ]
+        .filter(Boolean)
+        .join(" · ");
+
+  const steps: Step[] = [
+    {
+      title: "Rewrite an entry — type into it, or take the forgery someone would actually write.",
+      body: "Verification stops at the index you touched, and names it.",
+      state: edited ? "done" : "now",
+    },
+    {
+      title: "Recompute that entry's own hash so it commits to what it now says.",
+      body: "The break does not go away. It moves to the next entry, which committed to the hash you just replaced.",
+      state: repairs > 0 ? "done" : edited ? "now" : "todo",
+    },
+    {
+      title: "Carry the repair to the end of the log.",
+      body: "Every link holds again — and the head stops matching the value witnessed outside the log.",
+      state:
+        result.brokenAt === null && !result.matchesAnchor
+          ? "done"
+          : repairs > 0
+            ? "now"
+            : "todo",
+    },
+  ];
+
   const VerdictIcon = verdict.tone === "ok" ? ShieldCheck : ShieldAlert;
   const verdictTone =
     verdict.tone === "ok"
@@ -128,6 +200,28 @@ export function AuditChain() {
 
   return (
     <div className="space-y-4">
+      <Brief
+        role="auditor · six weeks later"
+        stakes={[
+          {
+            side: "If the log can be rewritten",
+            tone: "bad",
+            text: "Every other guarantee in the system is a claim about the past with nothing holding it up, including the approval this removal rests on.",
+          },
+          {
+            side: "If it cannot",
+            tone: "warn",
+            text: "You know what was recorded and that nobody has touched it since. You still do not know that what was recorded was true.",
+          },
+        ]}
+        close="Tamper-evidence is a narrow promise, and the narrowness is the point: it turns a claim about the past into an artifact somebody can check."
+      >
+        The comment came down, and its author has complained that no human ever
+        looked at it. All you have is the log the system wrote at the time. You
+        are not deciding whether the removal was right — you are deciding
+        whether this is the record that was written, or a record written since.
+      </Brief>
+
       {/* ── Verification state ── */}
       <Panel className={cn("p-5", verdictTone)}>
         <div aria-live="polite">
@@ -150,6 +244,8 @@ export function AuditChain() {
               </p>
             </div>
           </div>
+
+          <Note className="mt-3">{trail}</Note>
 
           {result.brokenAt !== null && result.expected && (
             <div className="mt-4 space-y-1.5 border-t border-border/50 pt-4">
@@ -184,6 +280,40 @@ export function AuditChain() {
             {result.matchesAnchor ? "head == anchor" : "head != anchor"}
           </Mono>
         </div>
+        <Note className="mt-2">
+          the anchor is a copy of the head kept where this system cannot reach it
+          · {ANCHORED_WITH}
+        </Note>
+      </Panel>
+
+      {/* ── What to do, in order ── */}
+      <Panel className="p-5">
+        <Steps steps={steps} />
+      </Panel>
+
+      {/* ── Which entry to rewrite ── */}
+      <Panel className="p-5">
+        <Segmented
+          legend="Entry to rewrite"
+          name="audit-target"
+          value={String(target)}
+          options={PRISTINE_ENTRIES.map((e) => ({
+            value: String(e.index),
+            label: `#${idx(e.index)} ${e.event}`,
+          }))}
+          onChange={(v) => chooseTarget(Number(v))}
+        />
+
+        <p className="mt-3 max-w-prose text-[13px] leading-relaxed text-muted-foreground">
+          Every entry in a review log is worth something to somebody. What
+          rewriting <span className="font-mono text-[12px] text-foreground">#{idx(target)}</span>{" "}
+          would buy: {forgery.motive}
+        </p>
+
+        <Note className="mt-2">
+          one forgery at a time · choosing a different entry restores the log
+          first, so the break has exactly one place it could have come from
+        </Note>
       </Panel>
 
       {/* ── The log ── */}
@@ -191,8 +321,10 @@ export function AuditChain() {
         {entries.map((entry, i) => {
           const link = links[i];
           const status = statusOf(i);
-          const isEditable = i === EDITABLE_INDEX;
+          const isTarget = i === target;
           const linkHolds = i === 0 || link.prev === links[i - 1].hash;
+          const gloss = readsFor(i, entry.payload);
+          const changed = entry.payload !== PRISTINE_PAYLOADS[i];
 
           return (
             <li key={entry.index}>
@@ -258,39 +390,50 @@ export function AuditChain() {
                   </Mono>
                 </div>
 
-                {isEditable ? (
+                {isTarget ? (
                   <div className="mt-3">
                     <label
-                      htmlFor="audit-payload"
+                      htmlFor={`audit-payload-${i}`}
                       className="label flex items-center gap-1.5"
                     >
                       <PenLine className="h-3 w-3" aria-hidden="true" />
                       payload · editable
                     </label>
                     <input
-                      id="audit-payload"
+                      id={`audit-payload-${i}`}
                       type="text"
-                      value={payload}
+                      value={entry.payload}
                       spellCheck={false}
                       autoComplete="off"
-                      onChange={(e) => setPayload(e.target.value)}
-                      aria-describedby="audit-payload-hint"
+                      onChange={(e) => setPayload(i, e.target.value)}
+                      aria-describedby={`audit-payload-hint-${i}`}
                       className={cn(
                         "mt-2 w-full rounded-lg border bg-background/60 px-3 py-2 font-mono text-[11px] text-foreground outline-none",
                         "focus-visible:ring-2 focus-visible:ring-ring",
-                        edited
+                        changed
                           ? "border-[color:var(--accent-rose)]/50"
                           : "border-border",
                       )}
                     />
                     <p
-                      id="audit-payload-hint"
+                      id={`audit-payload-hint-${i}`}
                       className="mt-1.5 font-mono text-[10px] text-muted-foreground/80"
                     >
-                      {edited
-                        ? `edited · was "${TRUE_PAYLOAD}"`
+                      {changed
+                        ? `edited · was "${PRISTINE_PAYLOADS[i]}"`
                         : "unmodified — rewrite any character to forge the record"}
                     </p>
+
+                    {forgery && entry.payload !== forgery.payload && (
+                      <button
+                        type="button"
+                        onClick={() => setPayload(i, forgery.payload)}
+                        className={cn(btnGhost, "mt-2.5")}
+                      >
+                        <PenLine className="h-3 w-3" aria-hidden="true" />
+                        Use the forgery someone would actually write
+                      </button>
+                    )}
                   </div>
                 ) : (
                   <ScrollBox className="mt-3" label={`Entry ${idx(i)} payload`}>
@@ -299,6 +442,14 @@ export function AuditChain() {
                     </p>
                   </ScrollBox>
                 )}
+
+                {/* The entry in words. A log that speaks only in key=value
+                    pairs is auditable by whoever already knows the schema. */}
+                <p className="mt-2 max-w-prose text-[12.5px] leading-relaxed text-muted-foreground">
+                  <span className="text-muted-foreground/70">reads · </span>
+                  {gloss ??
+                    "rewritten by hand — the record now says whatever you typed into it."}
+                </p>
 
                 <div className="mt-3 flex flex-wrap items-center gap-2">
                   <HashChip
@@ -335,19 +486,6 @@ export function AuditChain() {
         <div className="mt-4 flex flex-wrap items-center gap-2">
           <button
             type="button"
-            onClick={() => setPayload(FORGED_PAYLOAD)}
-            disabled={payload === FORGED_PAYLOAD}
-            className={cn(
-              btnGhost,
-              payload === FORGED_PAYLOAD && "opacity-50",
-            )}
-          >
-            <PenLine className="h-3 w-3" aria-hidden="true" />
-            Forge #{idx(EDITABLE_INDEX)}
-          </button>
-
-          <button
-            type="button"
             onClick={repair}
             aria-disabled={result.brokenAt === null}
             aria-describedby="repair-note"
@@ -360,6 +498,22 @@ export function AuditChain() {
             {result.brokenAt === null
               ? "Recompute hash — nothing broken"
               : `Recompute hash for #${idx(result.brokenAt)}`}
+          </button>
+
+          <button
+            type="button"
+            onClick={repairRest}
+            aria-disabled={result.brokenAt === null || repairs === 0}
+            aria-describedby="repair-note"
+            className={cn(
+              btnGhost,
+              (result.brokenAt === null || repairs === 0) && "opacity-50",
+            )}
+          >
+            <Wrench className="h-3 w-3" aria-hidden="true" />
+            {repairs === 0
+              ? "Recompute the rest — do one by hand first"
+              : `Recompute the remaining ${entries.length - (result.brokenAt ?? entries.length)}`}
           </button>
 
           <button
@@ -393,16 +547,16 @@ export function AuditChain() {
         </div>
 
         <div className="mt-4 space-y-2 border-t border-border/50 pt-4">
-          <p className="font-mono text-[10.5px] leading-relaxed text-[color:var(--accent-emerald)]">
+          <Note tone="ok">
             proves · the recorded history has not been altered since it was
             written
-          </p>
-          <p className="font-mono text-[10.5px] leading-relaxed text-muted-foreground">
+          </Note>
+          <Note>
             does not prove · that what was written was true at the time, that the
             reviewer read the evidence before deciding, or that the policy was
             reasonable. It turns a claim about the past into an artifact. It does
             not turn a judgment into a fact.
-          </p>
+          </Note>
         </div>
       </Panel>
     </div>

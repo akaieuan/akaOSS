@@ -10,6 +10,9 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
 import { Hairline } from "@/components/site/Hairline";
+import { MandatedGate } from "@/components/inertial/MandatedGate";
+import { AuditChain } from "@/components/inertial/AuditChain";
+import { VerificationContrast } from "@/components/inertial/VerificationContrast";
 import {
   getResearchPost,
   getResearchPosts,
@@ -81,6 +84,31 @@ function RunPlaceholderCard({ kind, path }: { kind: FenceKind; path: string }) {
 
 // Unwrap fenced code blocks tagged with a known run-artifact language into
 // their placeholder card; everything else keeps the default <pre> styling.
+/**
+ * Live exhibits a post can drop into its own argument, addressed by name from
+ * a fenced block:
+ *
+ *     ```exhibit
+ *     audit-chain
+ *     ```
+ *
+ * Markdown stays the source of truth — the feed, the frontmatter and the
+ * contents list keep working — while a demonstration can sit at the exact
+ * point in the prose that earns it, instead of on a separate page the reader
+ * has to be sent to.
+ */
+const EXHIBITS = {
+  "mandated-gate": MandatedGate,
+  "audit-chain": AuditChain,
+  "verification-contrast": VerificationContrast,
+} as const;
+
+type ExhibitName = keyof typeof EXHIBITS;
+
+function isExhibitName(name: string): name is ExhibitName {
+  return name in EXHIBITS;
+}
+
 const markdownComponents: Components = {
   pre(props) {
     const child = props.children as ReactElement<{
@@ -89,6 +117,19 @@ const markdownComponents: Components = {
     }>;
     const className = child?.props?.className ?? "";
     const lang = /language-(\w+)/.exec(className)?.[1];
+    if (lang === "exhibit") {
+      const name = String(child.props.children ?? "").trim();
+      if (isExhibitName(name)) {
+        const Exhibit = EXHIBITS[name];
+        // Full-bleed of the prose measure: these are instruments, not figures.
+        return (
+          <div className="not-prose my-8">
+            <Exhibit />
+          </div>
+        );
+      }
+      return <pre {...props} />;
+    }
     if (isFenceKind(lang)) {
       const path = String(child.props.children ?? "").trim();
       return <RunPlaceholderCard kind={lang} path={path} />;

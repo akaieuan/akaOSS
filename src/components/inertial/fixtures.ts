@@ -8,6 +8,10 @@
  *
  * Every timestamp is a frozen literal and every hash is derived, so the server
  * and the client render identical markup.
+ *
+ * Every machine field that a reviewer would have to decode carries a `reads`
+ * sentence beside it. The ids and decimals are what the policy acts on; the
+ * sentence is what the person deciding actually reads.
  */
 
 import { sha256Hex } from "./sha256";
@@ -97,7 +101,7 @@ export const GATE_SIGNALS: Signal[] = [
     fired: true,
     threshold: 0.6,
     reads:
-      "Treats \u201cfind out where you work\u201d as a threat to the person\u2019s job, not a figure of speech.",
+      "Treats “find out where you work” as a threat to the person’s job, not a figure of speech.",
   },
   {
     channel: "spam.bulk",
@@ -124,9 +128,67 @@ export const GATE_SIGNALS: Signal[] = [
     fired: false,
     threshold: 0.5,
     reads:
-      "Never reached a conclusion. That is not the same as clearing the account \u2014 nobody has checked.",
+      "Never reached a conclusion. That is not the same as clearing the account — nobody has checked.",
   },
 ];
+
+/**
+ * Counterfactual confidence settings.
+ *
+ * The reader can ask what the run would have looked like had the skills come
+ * back more or less sure of themselves. It changes what a reviewer should make
+ * of the signal; it changes nothing about whether one is required. R-07 keys on
+ * what the action does, not on how sure the machine is — and the surest way to
+ * show that is to let someone try to move it.
+ */
+export type ConfidenceMode = "unsure" | "emitted" | "certain";
+
+export interface ConfidenceSetting {
+  id: ConfidenceMode;
+  label: string;
+  /** Confidence per channel id. */
+  conf: Record<string, number>;
+  /** What this run would mean to the person deciding. */
+  reads: string;
+}
+
+export const CONFIDENCE_SETTINGS: ConfidenceSetting[] = [
+  {
+    id: "unsure",
+    label: "barely sure",
+    conf: {
+      "harassment.targeted": 0.34,
+      "threat.implied": 0.21,
+      "spam.bulk": 0.55,
+    },
+    reads:
+      "Every channel is hedging. A reviewer should read the spans themselves and expect to disagree with at least one of them.",
+  },
+  {
+    id: "emitted",
+    label: "as emitted",
+    conf: {
+      "harassment.targeted": 0.88,
+      "threat.implied": 0.62,
+      "spam.bulk": 0.91,
+    },
+    reads: "What the skills actually returned on this run.",
+  },
+  {
+    id: "certain",
+    label: "near certain",
+    conf: {
+      "harassment.targeted": 0.99,
+      "threat.implied": 0.98,
+      "spam.bulk": 0.99,
+    },
+    reads:
+      "The skills would stake their calibration on it. A reviewer can move faster — and is still the one who decides.",
+  },
+];
+
+/** The routing outcome, which every confidence setting above shares. */
+export const GATE_ROUTING = "rule R-07 · mandated · human approval required";
 
 export const GATE_ACTION = {
   tool: "remove_content",
@@ -143,6 +205,44 @@ export const GATE_ACTION = {
   ruleText:
     "Any action in class consequential.irreversible requires a recorded human approval before it executes. The agent's confidence is not an input.",
 } as const;
+
+/** The three ways a reviewer can leave this gate, and what each one costs. */
+export type GateDecision = "approved" | "denied" | "escalated";
+
+export interface GateOutcome {
+  event: string;
+  actor: string;
+  /** What the reviewer just did, in words. */
+  plain: string;
+  /** What is now true in the world, including what it cost. */
+  consequence: string;
+}
+
+export const GATE_OUTCOMES: Record<GateDecision, GateOutcome> = {
+  approved: {
+    event: "gate.approved",
+    actor: "human:reviewer-2",
+    plain:
+      "You have authorised the removal. Nothing has been removed yet — approval unlocks the executor, it does not run it.",
+    consequence:
+      "The executor will now find the event it was looking for. Run it and the comment is gone and its author is told why.",
+  },
+  denied: {
+    event: "gate.denied",
+    actor: "human:reviewer-2",
+    plain: "You refused the removal. The constructed call is discarded.",
+    consequence:
+      "The comment stays on the post. The signals stay on the record, so whoever sees it next starts from what was found rather than from nothing. If the channels were right, the person it names can still read it in the meantime.",
+  },
+  escalated: {
+    event: "gate.escalated",
+    actor: "human:reviewer-2",
+    plain:
+      "You sent it up rather than guessing. The gate stays closed and nothing executes.",
+    consequence:
+      "Escalation is the cheap direction: it costs a queue position, not someone's speech. It is also the failure mode of a discretionary gate — a reviewer who escalates everything has moved the decision, not made it.",
+  },
+};
 
 /** Context attached to the run, rendered with the HITL Kit ContextChips. */
 export const GATE_CONTEXT = [
@@ -178,6 +278,12 @@ export interface AuditEntry {
   event: AuditEvent;
   actor: string;
   payload: string;
+  /**
+   * The payload in a sentence. A gloss for the reader, not a recorded field:
+   * `canonicalize` below hashes only what the writer actually stored, so the
+   * digest never depends on how the exhibit chooses to narrate it.
+   */
+  reads: string;
 }
 
 /** prevHash of the genesis entry. */
@@ -215,6 +321,8 @@ export const PRISTINE_ENTRIES: AuditEntry[] = [
     event: "ingest",
     actor: "pipeline:ingest@1.4.2",
     payload: "asset=ast_9f2c41 surface=comments reports=3",
+    reads:
+      "The comment arrived from the comments surface with three user reports against it.",
   },
   {
     index: 1,
@@ -222,6 +330,8 @@ export const PRISTINE_ENTRIES: AuditEntry[] = [
     event: "signal",
     actor: "skill:safety-classifier@2.3.0",
     payload: "channel=harassment.targeted p=0.94 conf=0.88 span=0..92",
+    reads:
+      "The safety classifier put targeted harassment at 0.94 and pointed at the whole comment.",
   },
   {
     index: 2,
@@ -229,6 +339,8 @@ export const PRISTINE_ENTRIES: AuditEntry[] = [
     event: "signal",
     actor: "skill:threat-heuristics@0.9.4",
     payload: "channel=threat.implied p=0.71 conf=0.62 span=29..52",
+    reads:
+      "The threat heuristic put an implied threat at 0.71, pointing at twenty-three characters in the middle.",
   },
   {
     index: 3,
@@ -236,6 +348,8 @@ export const PRISTINE_ENTRIES: AuditEntry[] = [
     event: "routed",
     actor: "policy:review-router@4.1",
     payload: "rule=R-07 gate=mandated action=remove_content",
+    reads:
+      "The router matched rule R-07 and held the removal for a human.",
   },
   {
     index: 4,
@@ -243,18 +357,71 @@ export const PRISTINE_ENTRIES: AuditEntry[] = [
     event: "decided",
     actor: "human:reviewer-2",
     payload: "decision=approved action=remove_content latency_s=41",
+    reads:
+      "Reviewer 2 approved the removal, forty-one seconds after being asked.",
   },
 ];
 
-/** The entry the exhibit lets the reader rewrite — one in the middle. */
-export const EDITABLE_INDEX = 2;
+/** Which entry the exhibit starts on — one in the middle, so the break has
+ *  somewhere to walk to. */
+export const DEFAULT_TARGET_INDEX = 2;
 
-export const TRUE_PAYLOAD = PRISTINE_ENTRIES[EDITABLE_INDEX].payload;
+/**
+ * A plausible rewrite of each entry, with the reason someone would want it.
+ *
+ * The motive matters more than the diff: a log is worth hash-chaining only
+ * where somebody stands to gain by editing it, and every entry here is worth
+ * something to somebody.
+ */
+export interface Forgery {
+  payload: string;
+  /** How the rewritten record now reads. */
+  reads: string;
+  /** What writing this instead would be worth, and to whom. */
+  motive: string;
+}
 
-/** A forgery someone would plausibly want: make the record say the second
- *  channel never cleared its threshold, so the escalation looks unwarranted. */
-export const FORGED_PAYLOAD =
-  "channel=threat.implied p=0.06 conf=0.62 span=29..52";
+export const FORGERIES: Record<number, Forgery> = {
+  0: {
+    payload: "asset=ast_9f2c41 surface=comments reports=41",
+    reads: "The comment arrived with forty-one reports against it.",
+    motive:
+      "Makes the removal look like a response to overwhelming user pressure rather than to two model signals.",
+  },
+  1: {
+    payload: "channel=harassment.targeted p=0.99 conf=0.97 span=0..92",
+    reads: "The classifier was all but certain.",
+    motive:
+      "Turns a strong signal into an open-and-shut one, so the approval never has to be defended.",
+  },
+  2: {
+    payload: "channel=threat.implied p=0.06 conf=0.62 span=29..52",
+    reads: "The threat heuristic found almost nothing.",
+    motive:
+      "Written by someone arguing the removal was unjustified: with this channel at 0.06 the whole case rests on one model.",
+  },
+  3: {
+    payload: "rule=R-11 gate=discretionary action=remove_content",
+    reads: "The router treated the removal as discretionary — no approval required.",
+    motive:
+      "Reclassifies the action so it never needed a human at all: the cleanest way to explain an approval nobody remembers giving.",
+  },
+  4: {
+    payload: "decision=approved action=remove_content latency_s=612",
+    reads: "The reviewer approved after ten minutes.",
+    motive:
+      "Forty-one seconds looks like a rubber stamp. Ten minutes looks like someone read it.",
+  },
+};
+
+/** How a payload reads now: the entry's own gloss, the forgery's, or neither. */
+export function readsFor(index: number, payload: string): string | null {
+  if (payload === PRISTINE_ENTRIES[index].payload) {
+    return PRISTINE_ENTRIES[index].reads;
+  }
+  if (payload === FORGERIES[index]?.payload) return FORGERIES[index].reads;
+  return null;
+}
 
 export interface StoredLink {
   /** The prevHash as it appears in the stored record. */
@@ -282,6 +449,7 @@ export const PRISTINE_LINKS: StoredLink[] = buildChain(PRISTINE_ENTRIES);
  *  every entry restores internal consistency but cannot reproduce this value. */
 export const ANCHORED_HEAD = PRISTINE_LINKS[PRISTINE_LINKS.length - 1].hash;
 export const ANCHORED_AT = "2026-07-24T14:02:07Z";
+export const ANCHORED_WITH = "notary:transparency-log@2 · witnessed 14:02:07Z";
 
 export type BreakReason = "link" | "content";
 
@@ -373,6 +541,8 @@ export const CONTRAST_ITEM = {
     span: CONTRAST_SPAN,
     fired: true,
     threshold: 0.6,
+    reads:
+      "Reads “I’m going to take you out” as a threat of violence against the person being replied to.",
   } as Signal,
   /** The machine-checkable half of the standard, settled before the human is
    *  asked, so the human's attention lands only on the judgment half. */
@@ -396,5 +566,30 @@ export const CONTRAST_ITEM = {
     score: 0.91,
     band: "high",
     model: "moderation-ensemble-v4",
+    /** The verdict in words. There is nothing else to say about it. */
+    reads: "Take it down. We are 0.91 sure.",
   },
+  /** What the words actually are, once you can see where they sit. */
+  truth:
+    "In place, the flagged words are the middle of a congratulations message: an offer to buy someone dinner.",
+} as const;
+
+/** What each way of deciding turns out to have been. */
+export const CONTRAST_OUTCOMES = {
+  approved: {
+    head: "The comment came down.",
+    body: "It was an invitation to dinner. The author is told their message was removed as a threat; they can appeal, and appeals against removals like this are rarely granted.",
+  },
+  rejected: {
+    head: "The comment stays up.",
+    body: "It was an invitation to dinner, so you were right. Had the channel been reading a real threat, the person it named would keep seeing it until someone else reached the queue.",
+  },
+} as const;
+
+/** Why the same decision means different things depending on what you saw. */
+export const CONTRAST_BASIS = {
+  verdict:
+    "You decided on a label and a number. Nothing you were shown could have separated this from a real threat — not the score, which was 0.91, and not the confidence band, which said high.",
+  located:
+    "You decided on the sentence the score came from, with the span resolved in the source and the emitting skill's own confidence on the table at 0.44 — below the floor this queue trusts. Right or wrong, the decision can be shown to someone else.",
 } as const;
