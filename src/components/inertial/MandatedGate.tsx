@@ -241,6 +241,12 @@ export function MandatedGate() {
                         not emitted
                       </span>
                     )}
+                    {/* The same finding in the language of the job. The numbers
+                        are what the policy acts on; this is what the reviewer
+                        actually reads. */}
+                    <span className="mt-1 block max-w-[22rem] font-sans text-[12px] leading-relaxed whitespace-normal text-muted-foreground">
+                      {s.reads}
+                    </span>
                   </th>
                   <td className="py-2.5 pr-4">
                     {s.emitted ? (
@@ -289,7 +295,13 @@ export function MandatedGate() {
           <Mono tone="warn">rule {GATE_ACTION.rule} · mandated</Mono>
         </div>
 
-        <ScrollBox className="mt-4" label="Proposed tool call">
+        {/* What the call does, before what it looks like. A reviewer should be
+            able to approve or refuse without reading JSON. */}
+        <p className="mt-3 max-w-prose text-sm leading-relaxed text-foreground">
+          {GATE_ACTION.plain}
+        </p>
+
+        <ScrollBox className="mt-3" label="Proposed tool call">
           <pre className="min-w-max rounded-xl border border-border bg-background/60 px-4 py-3 font-mono text-[11px] leading-relaxed text-foreground">
             {`${GATE_ACTION.tool}(${JSON.stringify(GATE_ACTION.args, null, 2)})`}
           </pre>

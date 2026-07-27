@@ -36,6 +36,12 @@ export interface Signal {
   /** Whether the channel cleared its routing threshold. */
   fired: boolean;
   threshold: number;
+  /**
+   * The same finding in a sentence. The numbers are what the policy acts on,
+   * but a reviewer decides faster when the claim is stated in the language of
+   * the job rather than left as a channel id and a decimal.
+   */
+  reads: string;
 }
 
 /** Render a span the way the log prints it. */
@@ -78,6 +84,8 @@ export const GATE_SIGNALS: Signal[] = [
     span: [0, GATE_TEXT.length],
     fired: true,
     threshold: 0.8,
+    reads:
+      "Aimed at one specific person rather than rude in general — the whole comment is addressed to them.",
   },
   {
     channel: "threat.implied",
@@ -88,6 +96,8 @@ export const GATE_SIGNALS: Signal[] = [
     span: [29, 52],
     fired: true,
     threshold: 0.6,
+    reads:
+      "Treats \u201cfind out where you work\u201d as a threat to the person\u2019s job, not a figure of speech.",
   },
   {
     channel: "spam.bulk",
@@ -98,6 +108,8 @@ export const GATE_SIGNALS: Signal[] = [
     span: null,
     fired: false,
     threshold: 0.5,
+    reads:
+      "Checked for bulk or repeated posting and found none. A real answer, just a negative one.",
   },
   {
     // Emitted nothing. Not the same as emitting a low number: the run produced
@@ -111,6 +123,8 @@ export const GATE_SIGNALS: Signal[] = [
     span: null,
     fired: false,
     threshold: 0.5,
+    reads:
+      "Never reached a conclusion. That is not the same as clearing the account \u2014 nobody has checked.",
   },
 ];
 
@@ -122,6 +136,9 @@ export const GATE_ACTION = {
     reason: "harassment.targeted",
     notify_author: true,
   },
+  /** What the tool call means, said the way a moderator would say it. */
+  plain:
+    "Delete this comment and tell its author it came down for targeted harassment.",
   rule: "R-07",
   ruleText:
     "Any action in class consequential.irreversible requires a recorded human approval before it executes. The agent's confidence is not an input.",
