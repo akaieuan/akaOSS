@@ -42,18 +42,23 @@ export const LAYERS = [
   },
 ];
 
+// The library is an overview plus five sub-pages (see
+// src/app/components/_components/sections.ts). These hrefs point at the
+// canonical destination for each pattern. The older one-page form
+// (/components#hitl, #agent-status, …) still resolves: LegacyAnchorRedirect on
+// the overview forwards every one of those anchors to the page it now lives on.
 export const PATTERNS = [
-  { name: "Interrupt Card", brief: "In-thread approval boundary for agent actions.", accent: "violet", href: "/components#hitl" },
-  { name: "Subagent Status", brief: "Six discrete execution states for a running agent.", accent: "blue", href: "/components#agent-status" },
-  { name: "MiniTrace", brief: "Collapsible thought, action, result viewer.", accent: "violet", href: "/components#trace" },
-  { name: "AI Generation Scale", brief: "Five-segment ordinal of AI vs. human contribution.", accent: "amber", href: "/components#ai-scale" },
-  { name: "Context Chips", brief: "Removable pills showing attached notes, files, URLs.", accent: "blue", href: "/components#context" },
-  { name: "QA Flow", brief: "Multi-question approval card for agent-to-human handoff.", accent: "emerald", href: "/components#qa" },
-  { name: "Writing Agent", brief: "Compound widget for draft-in-progress with status and evidence.", accent: "blue", href: "/components#writing-agent" },
-  { name: "Research Agent", brief: "Three modes. Create, follow-up, read URL.", accent: "violet", href: "/components#research-agent" },
-  { name: "Batch Queue", brief: "Sequential resolution of mixed agent items.", accent: "amber", href: "/components#batch" },
-  { name: "Search Result Card", brief: "Ranked result with relevance bar and metadata.", accent: "violet", href: "/components#search-cards" },
-  { name: "Shared Primitives", brief: "Accent swatches, approval badges, approve and reject rows.", accent: "emerald", href: "/components#shared" },
+  { name: "Interrupt Card", brief: "In-thread approval boundary for agent actions.", accent: "violet", href: "/components/decision#hitl" },
+  { name: "Subagent Status", brief: "Six discrete execution states for a running agent.", accent: "blue", href: "/components/agent-state#agent-status" },
+  { name: "MiniTrace", brief: "Collapsible thought, action, result viewer.", accent: "violet", href: "/components/agent-state#trace" },
+  { name: "AI Generation Scale", brief: "Five-segment ordinal of AI vs. human contribution.", accent: "amber", href: "/components/scales#ai-scale" },
+  { name: "Context Chips", brief: "Removable pills showing attached notes, files, URLs.", accent: "blue", href: "/components/agent-state#context" },
+  { name: "QA Flow", brief: "Multi-question approval card for agent-to-human handoff.", accent: "emerald", href: "/components/decision#qa" },
+  { name: "Writing Agent", brief: "Compound widget for draft-in-progress with status and evidence.", accent: "blue", href: "/components/composed#writing-agent" },
+  { name: "Research Agent", brief: "Three modes. Create, follow-up, read URL.", accent: "violet", href: "/components/composed#research-agent" },
+  { name: "Batch Queue", brief: "Sequential resolution of mixed agent items.", accent: "amber", href: "/components/decision#batch" },
+  { name: "Search Result Card", brief: "Ranked result with relevance bar and metadata.", accent: "violet", href: "/components/evidence#search-cards" },
+  { name: "Shared Primitives", brief: "Accent swatches, approval badges, approve and reject rows.", accent: "emerald", href: "/components/scales#shared" },
 ];
 
 // ─────────────────────────────────────────────────────────────
@@ -134,9 +139,9 @@ export const KIT_SUMMARIES: KitSummary[] = [
     name: "HITL Kit",
     version: "v0.6",
     oneLiner:
-      "Sixteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
+      "Nineteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
     why: "No fork, no vendor lock-in, no wrapper SDK. Copy, paste, own.",
-    meta: "16 primitives via shadcn CLI · six packages on npm · deep-dive at /components",
+    meta: "19 primitives via shadcn CLI · six packages on npm · deep-dive at /components",
     install: "npx shadcn@latest add https://www.hitlkit.dev/r/hitl-card.json",
     accent: "violet",
     href: "/projects/hitl-kit",

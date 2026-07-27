@@ -102,18 +102,83 @@
       ]
     },
     {
+      "name": "hitl-ai-levels",
+      "type": "registry:lib",
+      "title": "AI generation levels",
+      "description": "The five-point AI-generation ordinal and its accent progression, shared by every scale variant so a level cannot mean one thing in the slider and another in the badge.",
+      "files": [
+        {
+          "path": "src/components/hitl/ai-generation-levels.ts",
+          "type": "registry:lib",
+          "target": "components/hitl/ai-generation-levels.ts"
+        }
+      ]
+    },
+    {
       "name": "ai-generation-scale",
       "type": "registry:ui",
       "title": "AI Generation Scale",
       "description": "Five-segment ordinal scale indicating AI involvement in a piece of work. Embodies the scaffolding and expertise-matching principle from Dhillon et al. (2024).",
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-ai-levels.json"
       ],
       "files": [
         {
           "path": "src/components/hitl/AiGenerationScale.tsx",
           "type": "registry:ui",
           "target": "components/hitl/AiGenerationScale.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-generation-slider",
+      "type": "registry:ui",
+      "title": "AI Generation Slider",
+      "description": "The compact drag form of the AI generation scale. One header row and one track, ~52px tall, no wrapping at 320px. Pointer drag snaps to five stops; arrow keys step and Home/End jump. Full slider ARIA.",
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-ai-levels.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/hitl/AiGenerationSlider.tsx",
+          "type": "registry:ui",
+          "target": "components/hitl/AiGenerationSlider.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-generation-meter",
+      "type": "registry:ui",
+      "title": "AI Generation Meter",
+      "description": "At-a-glance, read-only provenance for a list row or a header. Five thin segments filled to the current level plus the level name, in one ~20px row, as a single role=img element with no focusable children.",
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-ai-levels.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/hitl/AiGenerationMeter.tsx",
+          "type": "registry:ui",
+          "target": "components/hitl/AiGenerationMeter.tsx"
+        }
+      ]
+    },
+    {
+      "name": "ai-generation-badge",
+      "type": "registry:ui",
+      "title": "AI Generation Badge",
+      "description": "The densest form of the AI generation scale: one pill with a five-dot micro-indicator and the level name, for a table cell or a queue row. Static by default; given onChange it grows stepper buttons with 24px hit areas.",
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-ai-levels.json"
+      ],
+      "files": [
+        {
+          "path": "src/components/hitl/AiGenerationBadge.tsx",
+          "type": "registry:ui",
+          "target": "components/hitl/AiGenerationBadge.tsx"
         }
       ]
     },

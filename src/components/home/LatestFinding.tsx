@@ -14,8 +14,6 @@ export async function LatestFinding() {
   const latest = posts[0];
   if (!latest) return null;
 
-  const statusLabel = latest.status.replace("-", " ");
-
   return (
     <section className="pt-8 pb-24">
       <span className="label block">
@@ -31,9 +29,7 @@ export async function LatestFinding() {
         <p className="mt-2 font-mono text-[13px] text-muted-foreground">
           {`№ ${latest.numberLabel}`}
           <span className="mx-2 text-muted-foreground/50">·</span>
-          <span className="text-[color:var(--accent-amber)]">
-            {statusLabel}
-          </span>
+          <span className="text-[color:var(--accent-amber)]">{latest.date}</span>
         </p>
         <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
           {latest.summary}
