@@ -97,12 +97,7 @@ const SMALL_MASK = `
 .....####.....`
   .trim()
   .split("\n")
-const SMALL_MASK_GRID = SMALL_MASK.length
 
-/** One pixel diamond. */
-function diamond(x: number, y: number, cx: number, cy: number, s: number) {
-  return Math.abs(x - cx) + Math.abs(y - cy) < s
-}
 
 /**
  * Four-point sparkle with concave edges (astroid curve) — reads as the
