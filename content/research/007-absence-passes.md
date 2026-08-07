@@ -7,7 +7,7 @@ tags: ["testing", "credibility stack", "npm packaging", "documentation", "tag-ki
 keywords: ["CI gates", "existsSync", "empty work-list", "npm README", "release workflow", "negative space", "documentation testing"]
 kind: "essay"
 status: "published"
-summary: "We built four CI gates to check that a published package is trustworthy, then published a package whose npm page reads 'ERROR: No README data found!' — with every gate green. The cause generalises past this bug: a checker that filters its own input list by file existence converts a missing artifact into an empty work-list, and an empty work-list into a pass."
+summary: "We built four CI gates to check that a published package is trustworthy, then published a package whose npm page reads 'ERROR: No README data found!' — with every gate green. The cause generalises past this bug: a checker that filters its own input list by file existence converts a missing artifact into an empty work-list, and an empty work-list into a pass. Shipping the fix then failed on a 404 that means four different things, which is the adjacent lesson."
 key_findings:
   - "`tag-kit` published to npm with all four credibility gates green and both package pages rendering **\"ERROR: No README data found!\"**. The gates verify that documented examples **compile**; not one verifies that documentation **exists where a stranger lands**. **The checklist from № 004 tested the presence of quality in things that existed, and said nothing about things that did not.**"
   - "The mechanism generalises past this bug. All three repos' README checkers filter their target list with `existsSync` — so a missing README becomes an empty work-list, and an empty work-list is indistinguishable from a satisfied one. **A checker that filters its own inputs by existence structurally cannot report absence.** `tag-kit`'s list held only the root README behind a comment reading **\"Add package READMEs here as they appear\"** — a TODO with no gate behind it."
@@ -160,6 +160,54 @@ declared list of packages that must each have a README, and fails if one is
 missing rather than skipping it. The fix is not the interesting part. The
 question worth carrying forward is which of our other gates are predicates over
 sets we never asserted the size of.
+
+## 6. Postscript: the release that reported the wrong thing
+
+Shipping the fix produced one more instance of the same problem, which is
+either embarrassing or the best available evidence for the argument.
+
+The `0.3.1` release ran green through build, typecheck, tests, and all four
+gates, packed both tarballs, signed a provenance statement to the sigstore
+transparency log — and then died:
+
+```
+npm error 404 Not Found - PUT https://registry.npmjs.org/@tag-kit%2fcore
+```
+
+The publish is authenticated by OIDC: GitHub Actions presents a signed claim
+about which repository and workflow is asking, and npm issues a short-lived
+token if that claim matches the package's configured trusted publisher. Ours
+did not match. npm's dashboard field for the workflow filename still held
+`publish.yml` — the example value from the hint text directly above the input —
+while the workflow is named `release.yml`. No match, no token, so npm fell
+through to publishing anonymously.
+
+An anonymous PUT to a package you do not have rights to is answered
+`404 Not Found`. Not `401`, not "trusted publisher mismatch": the registry
+reports a permission failure as a missing resource, on the reasonable-in-
+isolation logic that you should not learn a private package exists by being
+told you cannot write to it.
+
+The result is that **two unrelated root causes emit a byte-identical error.**
+A stale npm client that cannot perform the OIDC exchange at all produces this
+404. A perfectly current client whose trust claim does not match produces the
+same 404. We had been bitten by the first one before — the workflow already
+carried a comment calling that step load-bearing — and that prior knowledge is
+exactly what made the second one slow to see. The log could not distinguish
+them, and the field that actually differed is not observable from the log at
+all: npm exposes no API for trusted-publisher configuration, so it can only be
+read off a web form by a human.
+
+Correcting the filename and re-running the same tag published both packages
+with provenance. The registry pages now render documentation instead of the
+error string, which was the entire point.
+
+The essay's claim was that a checker cannot report what it never looked for.
+The postscript is the adjacent failure: **an error channel that collapses
+distinct states into one signal is a checker that looked, and told you almost
+nothing.** A 404 that means four things is not much better than silence — and
+it is worse in one specific way, because silence does not send you confidently
+down the wrong path.
 
 ## Honest limits
 
