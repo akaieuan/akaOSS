@@ -2,7 +2,7 @@
   "name": "akaoss",
   "version": "0.1.0",
   "private": true,
-  "description": "akaOSS — the studio site at akaoss.dev: five open-source projects for human-in-the-loop AI measurement and developer tooling, plus the research feed and the HITL Kit component registry.",
+  "description": "akaOSS \u2014 the studio site at akaoss.dev: five open-source projects for human-in-the-loop AI measurement and developer tooling, plus the research feed and the HITL Kit component registry.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,7 +10,7 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "registry:build": "shadcn build",
-    "registry:check": "pnpm registry:build && git diff --exit-code public/r registry.json && echo '✓ registry up to date'",
+    "registry:check": "pnpm registry:build && git diff --exit-code public/r registry.json && echo '\u2713 registry up to date'",
     "verify": "pnpm typecheck && pnpm registry:check && pnpm build",
     "smoke-test": "bash scripts/smoke-test.sh local",
     "smoke-test:prod": "bash scripts/smoke-test.sh prod"
@@ -44,12 +44,15 @@
   },
   "pnpm": {
     "overrides": {
-      "fast-uri": ">=3.1.4",
+      "fast-uri": "^4.1.2",
       "postcss": "^8.5.10",
-      "ip-address": "^10.1.1",
-      "brace-expansion": "^2.1.2",
+      "ip-address": "^10.3.1",
+      "brace-expansion": "^2.1.4",
       "qs": "^6.15.2",
-      "sharp": ">=0.35.0"
+      "sharp": ">=0.35.0",
+      "js-yaml@3": "^3.15.1",
+      "js-yaml@4": "^4.3.1",
+      "undici": "^7.29.0"
     },
     "auditConfig": {
       "ignoreGhsas": [
