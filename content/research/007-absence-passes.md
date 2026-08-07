@@ -9,8 +9,8 @@ kind: "essay"
 status: "published"
 summary: "We built four CI gates to check that a published package is trustworthy, then published a package whose npm page reads 'ERROR: No README data found!' — with every gate green. The cause generalises past this bug: a checker that filters its own input list by file existence converts a missing artifact into an empty work-list, and an empty work-list into a pass."
 key_findings:
-  - "`tag-kit` published to npm with all four credibility gates green and both package pages rendering **\"ERROR: No README data found!\"**. The gates verify that documented examples *compile*; not one verifies that documentation *exists where a stranger lands*. **The checklist from № 004 tested the presence of quality in things that existed, and said nothing about things that did not.**"
-  - "The mechanism generalises past this bug. All three repos' README checkers filter their target list with `existsSync` — so a missing README becomes an empty work-list, and an empty work-list is indistinguishable from a satisfied one. **A checker that filters its own inputs by existence structurally cannot report absence.** `tag-kit`'s list held only the root README behind a comment reading *\"Add package READMEs here as they appear\"*: a TODO with no gate behind it."
+  - "`tag-kit` published to npm with all four credibility gates green and both package pages rendering **\"ERROR: No README data found!\"**. The gates verify that documented examples **compile**; not one verifies that documentation **exists where a stranger lands**. **The checklist from № 004 tested the presence of quality in things that existed, and said nothing about things that did not.**"
+  - "The mechanism generalises past this bug. All three repos' README checkers filter their target list with `existsSync` — so a missing README becomes an empty work-list, and an empty work-list is indistinguishable from a satisfied one. **A checker that filters its own inputs by existence structurally cannot report absence.** `tag-kit`'s list held only the root README behind a comment reading **\"Add package READMEs here as they appear\"** — a TODO with no gate behind it."
   - "Nine of eleven published family packages render correctly — **by authorial habit, not by verification**. Two independent findings fell out of the same audit: `tag-kit`'s release workflow ran build, typecheck, and test and then published, never invoking the four gates it already had; and npm refreshes a package page **only on publish**, so a documentation defect in a shipped package is only reachable through a version bump. Documentation is a versioned artifact whether or not you treat it as one."
 ---
 
@@ -46,9 +46,9 @@ The stack, as it stands, is four checks:
 
 Every one of these is a question about a thing that exists. Does *this
 tarball* install. Does *this example* compile. Has *this snapshot* moved. They
-are well-posed and they work — № 004 reported the four real defects they caught
-on their first run, including a package that shipped no type declarations at
-all.
+are well-posed and they work — on their first run № 004 reported a package that
+shipped no type declarations at all, three README examples that had never
+compiled, and a nondeterministic build.
 
 None of them can be failed by an absence. There is no gate whose subject is
 "the documentation a stranger will land on," so when that documentation did not
