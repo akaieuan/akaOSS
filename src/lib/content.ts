@@ -152,7 +152,7 @@ export const KIT_SUMMARIES: KitSummary[] = [
     name: "eval-kit",
     version: "v0.3.1",
     oneLiner:
-      "A measurement instrument for multi-step research agents. Humans score, not LLMs.",
+      "Scores whether your agent respects human authority — stops when it must, asks when it should. Humans score, not LLMs.",
     why: "The interesting failure modes are step-level, not output-level. Distractors score the refusal, not the compliance.",
     meta: "five human-scored dimensions · three reference suites · four adapters · deterministic replay · file-based, single-user",
     install: "npx @eval-kit/core init my-evals",

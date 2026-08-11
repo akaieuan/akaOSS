@@ -23,6 +23,13 @@ export interface Project {
   accent: "violet" | "amber" | "emerald" | "rose" | "blue"; // distinct per project
   repo: string; // github URL
   links: { label: string; href: string }[]; // deep-dives: hitl-kit gets /components + /registry
+  /**
+   * Product screenshots, reusing the SAME images the repo's README ships so
+   * the site and the repo show one product. Live under
+   * `public/projects/<slug>/`. Regenerate at the source repo, then copy —
+   * a positioning change is not done until this page matches.
+   */
+  screenshots?: { src: string; alt: string; caption: string }[];
 }
 
 /** Resolves a project's accent to a themeable CSS custom-property reference. */
@@ -113,35 +120,43 @@ export const PROJECTS: Project[] = [
     slug: "eval-kit",
     group: "measurement",
     name: "eval-kit",
-    oneLiner: "A measurement instrument for multi-step research agents.",
+    oneLiner:
+      "Scores whether your agent respects human authority — stops when it must, asks when it should.",
     why: [
-      "Existing agent evals (MMLU, SWE-bench, GAIA, AgentBench) measure autonomous task completion on synthetic, single-turn, closed-form tasks — but the interesting failure modes are step-level, not output-level.",
-      "Humans score, not LLMs. LLM-as-judge is only an opt-in pre-fill, flagged on every score.",
-      "Distractors score the refusal, not the compliance. Tasks marked is_distraction — future-dated papers, unverifiable claims — are pass-when-the-agent-pushes-back.",
+      "Agent protocols now standardise that an agent CAN pause for approval. Nothing measures whether it does — whether approval actually preceded the irreversible call, or whether the agent asked when it faced a real blocker.",
+      "Mandated and discretionary gates are never averaged. Compliance is binary and ordering-sensitive; asking is a precision/recall problem. Collapsing them destroys the only information worth having.",
+      "Humans score, not LLMs. Golden truth calibrates reviewers and thresholds — it is not a training signal.",
     ],
     deepDive: [
       {
-        heading: "Why existing evals miss",
+        heading: "The gap regulation left open",
         paragraphs: [
-          "Existing agent evals — MMLU, SWE-bench, GAIA, AgentBench — measure autonomous task completion on synthetic, single-turn, closed-form tasks. That answers \"can the model finish this problem on its own?\", which is a fine question, but it is not the question a research, coding, or support agent has to answer in deployment. In deployment the agent runs a multi-step workflow with a real person at the other end, and the interesting failure modes are step-level, not output-level.",
-          "A research workflow is five to nine steps. Looping during canvas creation, regenerating notes that drift from their sources, refusing to push back when the cited papers disagree with the user's thesis — these failures live across steps. A score on the final output doesn't see them.",
-          "And tool selection — the most honest diagnostic there is — is almost never measured. Whether the agent reached for academic_search or invented a citation, read_pdf or paraphrased from a hallucinated abstract, says more than whether the prose reads well. eval-kit makes per-step expected-tools-versus-actual-calls a first-class assertion, with a strict, subset, or any matching mode per step.",
+          "The EU AI Act's Article 14 requires human oversight of high-risk systems to be effective, and explicitly names automation bias as something deployers must counter. It does not say how effectiveness is measured, because nothing measures it.",
+          "That gap widens as models improve, which is the counterintuitive part. Bainbridge's \"Ironies of Automation\" (1983) is the canonical statement: the more reliable the automation, the less practiced the human operator, and the worse they perform in exactly the rare cases where they are the last line of defence. The automation-bias literature that follows — Parasuraman and Riley, Skitka, Parasuraman and Manzey — shows vigilance decays in proportion to observed accuracy.",
+          "So the better your agent gets, the more the residual error concentrates in cases a fatigued reviewer waves through, and the less any aggregate accuracy number tells you about it. The value of a gate is inversely proportional to how often it fires: one firing on 30% of cases is a bottleneck people route around; one firing on 0.5% is where all the risk lives, where measurement is hardest, and where human skill has most decayed.",
         ],
       },
       {
-        heading: "Humans score, not LLMs",
+        heading: "Two kinds of gate, never averaged",
         paragraphs: [
-          "LLM-as-judge shares the blind spots of the agent it grades — both were trained against similar objectives, so the judge rationalizes the failures the agent makes for the same reasons the agent makes them: calibration drift, agency erosion, fabricated grounding. eval-kit's answer is a structured human rubric: every reviewed step gets a 0–3 golden-truth score plus 0–3 on the dimensions in scope — explainability, agency preservation, long-term capability, calibration, and collaborative performance — the same axes the Assist-Not-Complete paper argues for.",
-          "The LLM is allowed exactly one role: optional pre-fill that a human accepts or overrides, flagged with pre_filled: true on every score it touches. Any human edit flips the flag. If LLM-judge ever became the default scorer, the framework would lose its reason to exist.",
-          "Distractor tasks invert the usual assumption entirely. Suite tasks marked is_distraction — future-dated papers, unverifiable claims, out-of-scope asks — are pass-when-the-agent-pushes-back, not pass-when-it-tries. The framework scores the refusal, because in deployment, catching the trap is the competent behavior.",
+          "Mandated gates are policy: approval must precede this action. Compliance is binary and ordering-sensitive — confidence is irrelevant, and a 94% compliance rate is not a good score, it is 6% unauthorised actions. The schema records which gates a step triggered, which were honoured, and which were violated.",
+          "Discretionary gates are judgment: should the agent have asked here? That is a precision/recall problem, because asking about everything is as much a failure as asking about nothing, and the two error directions carry different costs.",
+          "They roll up as three separate numbers — mandated compliance, ask precision, blocker recall — and never into one. One deliberate asymmetry sits underneath: if gate ordering was not captured in the trace, every mandated gate is assumed violated. An instrument that cannot see must not report success.",
         ],
       },
       {
-        heading: "How it works",
+        heading: "What the reviewer actually sees",
         paragraphs: [
-          "You describe a multi-step workflow as YAML — Zod schemas are the source of truth for every shape — and run any agent against it through a small adapter contract (anthropic with tool-use and prompt caching, openai function-calling, a generic http adapter, or a deterministic mock). Tier-1 auto-scoring runs at trace time: tool-match and distraction-caught, computed mechanically. Tier-3 active triage then ranks the review inbox by where human attention pays off — low-confidence drafts and auto-score disagreements float up.",
-          "The reviewer sits in a keyboard-first local dashboard — built on @hitl-kit/react primitives, dogfooding the sibling kit — scores step-by-step against golden truths, and the scored run becomes a JSON file on disk. A deterministic replay harness diffs runs across model versions; a CI gate exits non-zero on auto-scored regressions; an exporter turns approved scores into SFT or DPO training JSONL.",
-          "Everything is file-based, single-user, and local by design — no auth, no multi-tenancy, no cloud. And aggregate scores are internal signal, not leaderboard fodder: every task in the seed suites is ported from observed real usage, and the framework's argument is that step-level human judgment is the eval signal.",
+          "Ordering is the compliance claim, so ordering is drawn rather than summarised. The review surface interleaves the agent's tool calls with its gate events in trace order, and marks an unauthorised call at the row where it happens, naming the gate that covers it.",
+          "The two demo runs shipped in the repo make the point without commentary: their task tools, tool-match scores and final outputs are byte-identical, and they differ only in whether authorisation happened — three gates honoured versus three violated. A benchmark scores those two runs the same.",
+          "Where a suite declares no gates, the interface says so — \"authorization was not assessed\" — rather than rendering a blank. Absence of measurement is stated, never left to look like a clean result.",
+        ],
+      },
+      {
+        heading: "Where this applies",
+        paragraphs: [
+          "Anywhere a decision creates an obligation or a record that outlives it: content moderation, customer support, public-sector determinations, and scientific or academic review. The gate is the unit; the domain is an instance.",
+          "Known limits are stated up front rather than left implicit. Rare events need large denominators — at a 1% error rate, a hundred error cases means reviewing ten thousand decisions — so you sample at the gate, where escalated cases are already enriched for error. And errors are not randomly distributed: they concentrate in a dialect, a demographic, a document format, so uniform sampling will miss a subgroup while the aggregate looks excellent. Stratified audit is a requirement, not a nice-to-have.",
         ],
       },
     ],
@@ -182,6 +197,32 @@ export const PROJECTS: Project[] = [
     ],
     accent: "emerald",
     repo: "https://github.com/akaieuan/eval-kit",
+    screenshots: [
+      {
+        src: "/projects/eval-kit/review.png",
+        alt: "The review surface: a trace with two tool calls marked unauthorized beneath a tools-matched badge",
+        caption:
+          "The trace, in order. `issue_refund` and `apply_account_credit` are marked UNAUTHORIZED — called with no prior approval — directly beneath a green TOOLS MATCHED badge. The agent did the task correctly and skipped the authorization; a benchmark scores this run as a pass.",
+      },
+      {
+        src: "/projects/eval-kit/inbox.png",
+        alt: "The triage queue: a compact rail of pending steps beside the selected step's evidence",
+        caption:
+          "Triage. The rail answers one question — is this worth my attention next — and gate violations outrank every other signal. Everything needed to act sits in the pane beside it, with the rubric pinned to the bottom so the next decision is always where the last one was.",
+      },
+      {
+        src: "/projects/eval-kit/overview.png",
+        alt: "Overview with gate compliance, ask precision and blocker recall as three separate cards",
+        caption:
+          "Three numbers, never one. Mandated compliance is shown as a count rather than a percentage: 0/3 reads as three unauthorized actions, where 0% reads as a grade.",
+      },
+      {
+        src: "/projects/eval-kit/diff.png",
+        alt: "Step-by-step diff between two scored runs",
+        caption:
+          "Replay and diff. Runs are JSON on disk, so a finding is reproducible by anyone from the repo alone.",
+      },
+    ],
     links: [],
   },
   {
