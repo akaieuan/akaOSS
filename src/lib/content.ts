@@ -167,7 +167,7 @@ export const KIT_SUMMARIES: KitSummary[] = [
     oneLiner:
       "Structured tagging primitives for human-in-the-loop annotation workflows.",
     why: "Bring your own taxonomy, bring your own UI, bring your own scoring loop — tag-kit ships the substrate. Per-modality scoping, scope-aware agreement, stable taxonomy IDs.",
-    meta: "@tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app",
+    meta: "v0.3.1 on npm · @tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app",
     install: "pnpm add @tag-kit/core @tag-kit/ui",
     accent: "amber",
     href: "/projects/tag-kit",

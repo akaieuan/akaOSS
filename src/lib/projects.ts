@@ -146,7 +146,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     status:
-      "v0.3.1 stable · @eval-kit/core, @eval-kit/ui, @eval-kit/seed-suite on npm · three reference suites (research, coding, support) · four adapters (anthropic, openai, http, mock) · file-based, single-user, not a hosted service.",
+      "v0.4.0 on npm — the gates release · mandated compliance and discretionary precision/recall scored from the trace, never averaged · three reference suites · four adapters (anthropic, openai, http, mock) · file-based, single-user, not a hosted service.",
     install: [
       {
         label: "Initialize a project",
@@ -221,7 +221,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     status:
-      "@tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app (inertial).",
+      "v0.3.1 on npm · @tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app (inertial).",
     install: [
       {
         label: "Install the packages",

@@ -24,7 +24,7 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
     links: [
       { href: "/projects/hitl-kit", name: "HITL Kit", meta: "19 primitives via shadcn CLI · six packages on npm · v0.6", icon: "head" },
       { href: "/projects/eval-kit", name: "eval-kit", meta: "measurement instrument for multi-step agents · v0.3.1", icon: "podium" },
-      { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps", icon: "codetag" },
+      { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps · v0.3.1 on npm", icon: "codetag" },
     ],
   },
   {
