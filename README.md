@@ -1,8 +1,8 @@
 # akaOSS
 
-**The akaOSS studio — open-source software for human-in-the-loop AI.**
+**Open-source software for human-in-the-loop AI.**
 
-Five projects, one thesis, a reproducible research feed, and the HITL Kit component registry — served as one site at [akaoss.dev](https://www.akaoss.dev).
+A measurement family with one thesis, a reproducible research feed, and the HITL Kit component registry — served as one site at [akaoss.dev](https://www.akaoss.dev). Plus two developer tools that share the workshop, not the thesis.
 
 [![CI](https://github.com/akaieuan/akaOSS/actions/workflows/ci.yml/badge.svg)](https://github.com/akaieuan/akaOSS/actions/workflows/ci.yml)
 [![Registry](https://github.com/akaieuan/akaOSS/actions/workflows/registry.yml/badge.svg)](https://github.com/akaieuan/akaOSS/actions/workflows/registry.yml)
@@ -14,26 +14,30 @@ Five projects, one thesis, a reproducible research feed, and the HITL Kit compon
 
 ## The thesis
 
-Current benchmarks ask *"can the model complete this task autonomously?"* In deployment, real users want an assistant that respects their authority, preserves their agency, and makes them better over time. **Assist-Not-Complete**: evaluate AI on whether it assists humans without displacing them, not on whether it can finish the task alone.
+Benchmarks ask *"can the model complete this task autonomously?"* Deployment asks a different question: when the agent pauses for a human — an approval, an escalation, a review — **was that pause real oversight or a rubber stamp?** Every current protocol records that the pause happened; none records whether it did anything. The two are byte-identical in the event stream.
 
-The argument is made in full in the paper — [**An AI Measurement Problem**](https://www.akaoss.dev/paper) — and tested in public in the [research feed](https://www.akaoss.dev/research), where every finding is a reproducible experiment run with the kits below.
+That gap grows as models improve. The more reliable the automation, the rarer the human moment — and the rarer the moment, the more the residual risk concentrates exactly where vigilance has decayed ([Bainbridge 1983](https://www.sciencedirect.com/science/article/abs/pii/0005109883900468); the automation-bias literature since). Regulation now mandates that oversight be *effective* (EU AI Act, Art. 14) while nothing measures whether it was. **The value of a gate is inversely proportional to how often it fires** — and the family below exists to measure the gate.
 
-## The projects
+The argument in full: [**An AI Measurement Problem**](https://www.akaoss.dev/paper). Tested in public on the [research feed](https://www.akaoss.dev/research), where every finding is a reproducible experiment with checked-in runs — including the ones where our own instruments failed ([№ 007](https://www.akaoss.dev/research/007-absence-passes)).
 
-### Human-in-the-loop measurement
+## The measurement family
 
-| Project | What it is | Status |
-|---|---|---|
-| [**HITL Kit**](https://github.com/akaieuan/HITL-KIT) · [site](https://www.akaoss.dev/projects/hitl-kit) | Human-in-the-loop AI, measured properly. 15 React primitives installable via the shadcn CLI (registry served from this repo), six `@hitl-kit/*` packages on npm — schemas, gates, LangGraph / AI-SDK / MCP adapters. | v0.6 |
-| [**eval-kit**](https://github.com/akaieuan/eval-kit) · [site](https://www.akaoss.dev/projects/eval-kit) | A measurement instrument for multi-step research agents: YAML suites, per-step tool-match auto-scoring, a five-dimension human rubric, deterministic replay. Humans score, not LLMs. | v0.3.1 |
-| [**tag-kit**](https://github.com/akaieuan/tag-kit) · [site](https://www.akaoss.dev/projects/tag-kit) | Structured tagging primitives for annotation workflows: per-modality scoping, scope-aware agreement scoring, headless React. | stable |
-
-### Developer tooling
+Three projects, one loop: HITL Kit renders the gate, eval-kit measures it, tag-kit calibrates the humans doing the measuring.
 
 | Project | What it is | Status |
 |---|---|---|
-| [**Collapse**](https://github.com/akaieuan/collapse) · [site](https://www.akaoss.dev/projects/collapse) | A Claude Code skill-building framework — compile MDX lessons and Jupyter notebooks into `SKILL.md` files Claude reaches for first. | v0.1.0 |
-| [**Hologram**](https://github.com/akaieuan/Hologram) · [site](https://www.akaoss.dev/projects/hologram) | Live observability, guided skills, and a non-destructive MCP surface for Blender → glTF pipelines. Stdlib Python, no build step. | v0.5.0 |
+| [**HITL Kit**](https://github.com/akaieuan/HITL-KIT) · [site](https://www.akaoss.dev/projects/hitl-kit) | The protocol and surfaces of the approval moment: typed HITL events, composable gates, 19 React primitives via the shadcn CLI (registry served from this repo), six `@hitl-kit/*` packages on npm — schemas, gates, LangGraph / AI-SDK / MCP adapters. | v0.6 |
+| [**eval-kit**](https://github.com/akaieuan/eval-kit) · [site](https://www.akaoss.dev/projects/eval-kit) | Measures whether the approval was real: mandated-gate compliance and discretionary ask-precision/blocker-recall scored from the trace — never averaged — plus a five-dimension human rubric. Humans score, not LLMs. | v0.4.0 on npm |
+| [**tag-kit**](https://github.com/akaieuan/tag-kit) · [site](https://www.akaoss.dev/projects/tag-kit) | Calibrates the reviewers: structured tagging with per-modality scoping and scope-aware inter-rater agreement scoring. Zero-dependency core, headless React. | v0.3.1 on npm |
+
+## Developer tooling
+
+Separate work, same standards — these serve the building of software, not the measurement thesis.
+
+| Project | What it is | Status |
+|---|---|---|
+| [**Collapse**](https://github.com/akaieuan/collapse) · [site](https://www.akaoss.dev/projects/collapse) | A Claude Code skill-building framework — compile MDX lessons and Jupyter notebooks into `SKILL.md` files and MCP tool scaffolds. | v0.2 |
+| [**Hologram**](https://github.com/akaieuan/Hologram) · [site](https://www.akaoss.dev/projects/hologram) | Live observability, guided skills, and a non-destructive MCP surface for Blender → glTF pipelines. Stdlib Python, no build step. | v0.6.0 on PyPI |
 
 ## What's in this repo
 
@@ -41,7 +45,7 @@ This is the **site** repo. The projects above live in their own repos; this one 
 
 ```
 src/app/               routes: / · /projects/[slug] · /research · /paper · /registry · /components
-src/components/hitl/   the 15 registry primitives (source of truth for the shadcn registry)
+src/components/hitl/   the 19 registry primitives (source of truth for the shadcn registry)
 src/components/site/   chrome: nav, footer, theming, the PixelHead mark
 registry.json          shadcn registry manifest → built into public/r/*.json
 content/research/      findings feed posts (markdown + frontmatter)
