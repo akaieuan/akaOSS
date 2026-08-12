@@ -75,7 +75,7 @@ export default function AgentStatePage() {
         id="tool-call"
         title="Tool Call Preview"
         meta="tool-call-preview"
-        description="The tool call the agent wants to make — name, arguments, optional rationale and signals — shown before it runs so the human can approve or reject. Pairs with the gates layer for confidence, cost, and scope checks."
+        description="The tool call the agent wants to make: name, arguments, optional rationale and signals, shown before it runs so the human can approve or reject. Pairs with the gates layer for confidence, cost, and scope checks."
       >
         <Specimen label="Outbound email" hint="expand Arguments">
           <ToolCallSpecimen />

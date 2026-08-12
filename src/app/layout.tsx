@@ -17,12 +17,12 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "akaOSS — an open-source studio",
+  title: "akaOSS, an open-source studio",
   description:
     "akaOSS is an open-source studio by Ieuan King: five projects, spanning a human-in-the-loop measurement family and a pair of developer tools.",
   metadataBase: new URL("https://www.akaoss.dev"),
   openGraph: {
-    title: "akaOSS — an open-source studio",
+    title: "akaOSS, an open-source studio",
     description:
       "Five open-source projects: a human-in-the-loop measurement family and a pair of developer tools.",
     type: "website",

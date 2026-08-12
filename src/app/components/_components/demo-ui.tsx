@@ -7,7 +7,7 @@
  * No `"use client"` here: the frame renders on the server on every page, and
  * the two pieces a client leaf reuses (`Specimen`, and the `Link`s) work in
  * either environment. Only the specimens that need state or a `DEMO_*` fixture
- * cross into the client bundle — see `live.tsx`.
+ * cross into the client bundle, see `live.tsx`.
  */
 
 import Link from "next/link";
@@ -80,7 +80,7 @@ export function LibraryHeader({
  * One specimen section: a title, an optional description, and the live
  * component in a bordered well.
  *
- * `id` is the legacy anchor — see `sections.ts`. `scroll-mt-20` clears the
+ * `id` is the legacy anchor, see `sections.ts`. `scroll-mt-20` clears the
  * sticky nav when someone lands on the anchor directly.
  */
 export function DemoSection({
@@ -153,7 +153,7 @@ export function Specimen({
       )}
     >
       {/* `flex-wrap` is load-bearing at 320px. The hint is `shrink-0`, so on one
-          line the label would absorb the entire width deficit — "Result #1"
+          line the label would absorb the entire width deficit, "Result #1"
           rendered as "R…" in a 230px well. Wrapping drops the hint onto its own
           line instead, and neither string loses a character. */}
       <figcaption className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-border/40 pb-3">

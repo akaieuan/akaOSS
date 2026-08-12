@@ -4,15 +4,15 @@ import matter from "gray-matter";
 import { cn } from "@/lib/utils";
 
 // ---- Frontmatter schema (gray-matter) ----------------------------------
-// title:        string        — the finding's question / headline
-// date:         string        — ISO date (YYYY-MM-DD)
-// experiment:   string | null — repo-relative path to the experiment folder
-// models:       string[]      — models under test (rendered as mono pills)
-// tags:         string[]      — methods/tools used (rendered as pills)
-// keywords:     string[]      — optional keyword line on the post page
+// title:        string. The finding's question / headline
+// date:         string, ISO date (YYYY-MM-DD)
+// experiment:   string | null, repo-relative path to the experiment folder
+// models:       string[], models under test (rendered as mono pills)
+// tags:         string[], methods/tools used (rendered as pills)
+// keywords:     string[], optional keyword line on the post page
 // status:       "in-progress" | "scored" | "published"
-// summary:      string        — 2–3 line abstract that states the finding
-// key_findings: string[]      — paragraphs for the Key Findings panel
+// summary:      string, 2–3 line abstract that states the finding
+// key_findings: string[], paragraphs for the Key Findings panel
 //                               (**bold** marks the headline numbers)
 
 export type ResearchStatus = "in-progress" | "scored" | "published";

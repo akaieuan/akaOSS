@@ -15,7 +15,7 @@ export interface AiGenerationScaleProps {
 }
 
 /**
- * The original five-button segmented scale. Kept as-is behaviourally — it is
+ * The original five-button segmented scale. Kept as-is behaviourally: it is
  * the widest, most explicit form, for a settings panel or a form where every
  * option should be visible at once. The one non-visual change is `aria-pressed`
  * on each button, so the selected level reaches a screen reader instead of

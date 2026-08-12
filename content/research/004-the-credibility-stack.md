@@ -37,10 +37,10 @@ less commonly automated, and the reason is structural rather than a matter of
 diligence: the default tooling does not exercise them. A unit test imports
 local source, never the packaged artifact; a fenced code block in a README is
 inert text unless something is built to run it. The gap is real enough that
-the ecosystem has produced dedicated tooling to close it — [publint](https://publint.dev)
+the ecosystem has produced dedicated tooling to close it, [publint](https://publint.dev)
 validates a package as npm would actually publish it, and
 [arethetypeswrong](https://arethetypeswrong.github.io) checks type resolution
-across the `node10`, `node16`, and `bundler` module systems — and that some
+across the `node10`, `node16`, and `bundler` module systems, and that some
 language ecosystems compile their documentation examples as part of the test
 run: [Rust doctests](https://doc.rust-lang.org/rustdoc/write-documentation/documentation-tests.html)
 exist explicitly to "make sure that examples within your documentation are up

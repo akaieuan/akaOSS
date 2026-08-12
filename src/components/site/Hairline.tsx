@@ -1,6 +1,6 @@
 import { cn } from "@/lib/utils";
 
-/** Edge-fading horizontal divider — quieter than a full-width border. */
+/** Edge-fading horizontal divider, quieter than a full-width border. */
 export function Hairline({ className }: { className?: string }) {
   return (
     <div

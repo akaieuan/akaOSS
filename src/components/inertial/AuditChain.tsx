@@ -92,8 +92,8 @@ export function AuditChain() {
     setRepairs(0);
   }
 
-  /** Rewrite the broken entry's own hash so it commits to its new content —
-   *  the "surely I can just fix this one" move. */
+  /** Rewrite the broken entry's own hash so it commits to its new content:
+*  the "surely I can just fix this one" move. */
   function repair() {
     const i = result.brokenAt;
     if (i === null) return;
@@ -141,7 +141,7 @@ export function AuditChain() {
   } else if (!result.matchesAnchor) {
     verdict = {
       tone: "warn",
-      head: "every link now holds — and the log is still detectably forged",
+      head: "every link now holds, and the log is still detectably forged",
       body: `the head no longer equals the head witnessed at ${ANCHORED_AT}`,
     };
   } else {
@@ -169,7 +169,7 @@ export function AuditChain() {
 
   const steps: Step[] = [
     {
-      title: "Rewrite an entry — type into it, or take the forgery someone would actually write.",
+      title: "Rewrite an entry, type into it, or take the forgery someone would actually write.",
       body: "Verification stops at the index you touched, and names it.",
       state: edited ? "done" : "now",
     },
@@ -180,7 +180,7 @@ export function AuditChain() {
     },
     {
       title: "Carry the repair to the end of the log.",
-      body: "Every link holds again — and the head stops matching the value witnessed outside the log.",
+      body: "Every link holds again, and the head stops matching the value witnessed outside the log.",
       state:
         result.brokenAt === null && !result.matchesAnchor
           ? "done"
@@ -218,7 +218,7 @@ export function AuditChain() {
       >
         The comment came down, and its author has complained that no human ever
         looked at it. All you have is the log the system wrote at the time. You
-        are not deciding whether the removal was right — you are deciding
+        are not deciding whether the removal was right. You are deciding
         whether this is the record that was written, or a record written since.
       </Brief>
 
@@ -421,7 +421,7 @@ export function AuditChain() {
                     >
                       {changed
                         ? `edited · was "${PRISTINE_PAYLOADS[i]}"`
-                        : "unmodified — rewrite any character to forge the record"}
+                        : "unmodified, rewrite any character to forge the record"}
                     </p>
 
                     {forgery && entry.payload !== forgery.payload && (
@@ -448,7 +448,7 @@ export function AuditChain() {
                 <p className="mt-2 max-w-prose text-[12.5px] leading-relaxed text-muted-foreground">
                   <span className="text-muted-foreground/70">reads · </span>
                   {gloss ??
-                    "rewritten by hand — the record now says whatever you typed into it."}
+                    "rewritten by hand. The record now says whatever you typed into it."}
                 </p>
 
                 <div className="mt-3 flex flex-wrap items-center gap-2">
@@ -496,7 +496,7 @@ export function AuditChain() {
           >
             <Wrench className="h-3 w-3" aria-hidden="true" />
             {result.brokenAt === null
-              ? "Recompute hash — nothing broken"
+              ? "Recompute hash. Nothing broken"
               : `Recompute hash for #${idx(result.brokenAt)}`}
           </button>
 
@@ -512,7 +512,7 @@ export function AuditChain() {
           >
             <Wrench className="h-3 w-3" aria-hidden="true" />
             {repairs === 0
-              ? "Recompute the rest — do one by hand first"
+              ? "Recompute the rest, do one by hand first"
               : `Recompute the remaining ${entries.length - (result.brokenAt ?? entries.length)}`}
           </button>
 
@@ -542,7 +542,7 @@ export function AuditChain() {
           <Field k="digest">{CANONICAL_FORM}</Field>
           <Field k="anchored">{ANCHORED_AT}</Field>
           <Field k="computed">
-            in your browser, on every keystroke — real SHA-256, not a stand-in
+            in your browser, on every keystroke, real SHA-256, not a stand-in
           </Field>
         </div>
 

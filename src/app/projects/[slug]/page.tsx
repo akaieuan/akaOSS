@@ -4,7 +4,8 @@ import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { PROJECTS, getProject, ACCENT_COLORS } from "@/lib/projects";
+import { PROJECTS, getProject, ACCENT_COLORS, PROJECT_BADGES } from "@/lib/projects";
+import { PixelHead } from "@/components/site/PixelHead";
 import { REGISTRY_ITEMS } from "@/lib/registry-items";
 import { CopyButton } from "../copy-button";
 
@@ -21,7 +22,7 @@ export async function generateMetadata({
   const project = getProject(slug);
   if (!project) return { title: "Project not found" };
   return {
-    title: `${project.name} — ${project.oneLiner}`,
+    title: `${project.name}, ${project.oneLiner}`,
     description: project.oneLiner,
   };
 }
@@ -64,9 +65,22 @@ export default async function ProjectPage({
             </span>
           </div>
 
-          <h1 className="max-w-3xl text-4xl leading-[1.1] font-light tracking-tight text-foreground md:text-5xl">
-            {project.oneLiner}
-          </h1>
+          {/* The project's own mark, at hero scale. The canvas is aria-hidden,
+              so the heading beside it carries the accessible name. */}
+          <div className="flex items-start gap-5">
+            <span aria-hidden className="mt-1 shrink-0">
+              <PixelHead
+                size={56}
+                grid={18}
+                gap={0.12}
+                icon={PROJECT_BADGES[project.slug] ?? "spark"}
+                once
+              />
+            </span>
+            <h1 className="max-w-2xl text-2xl leading-snug font-light tracking-tight text-foreground md:text-3xl">
+              {project.oneLiner}
+            </h1>
+          </div>
 
           <p className="mt-6 max-w-2xl font-mono text-[11px] leading-relaxed text-muted-foreground">
             {project.status}
@@ -106,7 +120,7 @@ export default async function ProjectPage({
           </div>
         </section>
 
-        {/* Screenshots — the same images the repo README ships, so the site
+        {/* Screenshots. The same images the repo README ships, so the site
             and the repo show one product rather than two. */}
         {project.screenshots && project.screenshots.length > 0 && (
           <section className="pb-16">
@@ -138,7 +152,7 @@ export default async function ProjectPage({
           </section>
         )}
 
-        {/* Deep dive — the small-research-paper treatment */}
+        {/* Deep dive. The small-research-paper treatment */}
         {project.deepDive.length > 0 && (
           <section className="pb-16">
             <div className="flex flex-col gap-12">
@@ -205,7 +219,7 @@ export default async function ProjectPage({
             </div>
             <p className="mb-8 max-w-2xl text-sm leading-relaxed text-muted-foreground">
               Every primitive is the physical embodiment of a claim from the
-              paper, and each installs individually via the shadcn CLI — copy,
+              paper, and each installs individually via the shadcn CLI: copy,
               paste, own. Names below are their registry identifiers.
             </p>
 
@@ -243,7 +257,7 @@ export default async function ProjectPage({
                   <ArrowUpRight className="size-4 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
                 </div>
                 <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
-                  Every primitive rendered live and interactive — states,
+                  Every primitive rendered live and interactive: states,
                   variants, and seed data you can click through.
                 </p>
               </Link>
@@ -266,7 +280,7 @@ export default async function ProjectPage({
           </section>
         )}
 
-        {/* Packages — hidden when the project ships nothing on npm */}
+        {/* Packages, hidden when the project ships nothing on npm */}
         {hasPackages && (
           <section className="pb-16">
             <div className="mb-6 flex items-baseline justify-between">
@@ -305,7 +319,7 @@ export default async function ProjectPage({
                 Explore further.
               </h2>
               <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
-                The source lives on GitHub. Copy, paste, own — no fork, no
+                The source lives on GitHub. Copy, paste, own. No fork, no
                 vendor lock-in.
               </p>
             </div>

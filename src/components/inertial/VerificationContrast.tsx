@@ -12,7 +12,7 @@ import { Field, Label, Mono, Panel, ScoreMeter } from "./ui";
 const ITEM = CONTRAST_ITEM;
 const [SPAN_START, SPAN_END] = ITEM.span;
 
-/** The reviewed text with the flagged range marked in place — an annotation
+/** The reviewed text with the flagged range marked in place, an annotation
  *  over the words, not a block of colour. */
 function LocatedSpan() {
   return (
@@ -29,7 +29,7 @@ function LocatedSpan() {
   );
 }
 
-/** Identical control on both sides — only the evidence differs. */
+/** Identical control on both sides, only the evidence differs. */
 function Decision({
   state,
   onDecide,
@@ -124,7 +124,7 @@ export function VerificationContrast() {
                       {c.detail}
                     </Mono>
                     <span className="sr-only">
-                      {c.ok ? " — check passed" : " — check failed"}
+                      {c.ok ? ", check passed" : ", check failed"}
                     </span>
                   </span>
                 </li>
@@ -146,7 +146,7 @@ export function VerificationContrast() {
             <Label className="text-[color:var(--accent-rose)]">
               Verdict only
             </Label>
-            <Mono tone="muted">span —</Mono>
+            <Mono tone="muted">span, </Mono>
           </div>
 
           <div className="flex flex-wrap items-baseline gap-x-4 gap-y-1 rounded-xl border border-border bg-background/50 px-4 py-6">
@@ -163,8 +163,8 @@ export function VerificationContrast() {
 
           <div className="space-y-1.5">
             <Field k="model">{ITEM.verdict.model}</Field>
-            <Field k="channel">—</Field>
-            <Field k="evidence">—</Field>
+            <Field k="channel">, </Field>
+            <Field k="evidence">, </Field>
           </div>
 
           <div className="border-t border-border/50 pt-4">
@@ -177,8 +177,8 @@ export function VerificationContrast() {
           <Decision state={blind} onDecide={setBlind} />
 
           <p className="border-t border-border/50 pt-3 font-mono text-[10.5px] leading-relaxed text-muted-foreground/80">
-            checkable · —
-          </p>
+            checkable ·,
+</p>
         </Panel>
       </div>
     </div>

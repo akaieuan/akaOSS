@@ -7,7 +7,7 @@ import { getResearchPosts, ChipRow, formatDate } from "./posts";
 export const metadata: Metadata = {
   title: "Research · akaOSS",
   description:
-    "Findings and write-ups produced by running the kits — reproducible experiments, human-scored. Aggregate scores are internal signal, not leaderboard fodder.",
+    "Findings and write-ups produced by running the kits, reproducible experiments, human-scored. Aggregate scores are internal signal, not leaderboard fodder.",
 };
 
 export default async function ResearchPage() {
@@ -25,13 +25,13 @@ export default async function ResearchPage() {
             Findings
           </h1>
           <p className="mt-4 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-            Case-study write-ups produced by running the kits — each one a
+            Case-study write-ups produced by running the kits. Each one a
             reproducible experiment with checked-in runs, scored by humans, not
             LLMs.
           </p>
         </section>
 
-        {/* The paper — pinned above the feed; the argument the findings test */}
+        {/* The paper, pinned above the feed; the argument the findings test */}
         <section aria-label="The paper" className="pt-8">
           <p className="label">The paper</p>
           <h2 className="mt-3 max-w-3xl text-lg font-medium tracking-tight text-foreground md:text-xl">
@@ -57,7 +57,7 @@ export default async function ResearchPage() {
           </p>
         </section>
 
-        {/* Flat list — the finding does the selling, not the chrome */}
+        {/* Flat list. The finding does the selling, not the chrome */}
         <section aria-label="Findings" className="pb-24">
           {posts.map((post) => (
             <article key={post.slug} className="mt-14 first:mt-10">

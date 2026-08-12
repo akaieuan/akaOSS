@@ -18,7 +18,7 @@ export default function DemoOverview() {
               /components
             </Link>{" "}
             holds the HITL primitives the registry ships; this holds the things
-            the site itself is made of — the animated mark, the small helpers
+            the site itself is made of: the animated mark, the small helpers
             around it, and the tokens underneath. Every specimen renders the
             real component or reads the real stylesheet, so the catalogue
             cannot drift from what the site actually does.
@@ -56,7 +56,7 @@ export default function DemoOverview() {
       <section className="mt-12 border-t border-border/60 pt-8">
         <p className="label">Why it is unlisted</p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Nothing here is secret — it is simply not a destination. The brand
+          Nothing here is secret. It is simply not a destination. The brand
           catalogue is a working surface for whoever is changing the mark or
           the palette, and putting it in the nav would imply the site has four
           top-level ideas when it has three. It is absent from the nav, absent

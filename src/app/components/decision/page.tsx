@@ -78,7 +78,7 @@ export default function DecisionPage() {
         id="approval"
         title="Approve / Reject"
         meta="approve-reject-row"
-        description="The core binary decision row used across review, download, and notes panels. Three terminal states — pending, approved, rejected — with an undo back to pending."
+        description="The core binary decision row used across review, download, and notes panels. Three terminal states: pending, approved, rejected, with an undo back to pending."
       >
         <ApprovalSpecimens />
       </DemoSection>

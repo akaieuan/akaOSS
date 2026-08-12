@@ -7,15 +7,15 @@ tags: ["gates", "human-in-the-loop", "content review", "audit", "HITL Kit", "ine
 keywords: ["approval gates", "human oversight", "hash-chained audit", "evidence pointers", "calibration", "reference architecture"]
 kind: "essay"
 status: "published"
-summary: "The companion to the gate thesis: what happens when you build it into a domain where being wrong has a victim either way. Content review turns out to produce both gate kinds without being asked to, and the architecture that results has one property worth stating plainly — the machine may resolve a case alone only when the resolution is to do nothing."
+summary: "The companion to the gate thesis: what happens when you build it into a domain where being wrong has a victim either way. Content review turns out to produce both gate kinds without being asked to, and the architecture that results has one property worth stating plainly. The machine may resolve a case alone only when the resolution is to do nothing."
 key_findings:
   - "The two gate kinds were not imposed on the domain; they fell out of it. Removal is held as a **proposal** that needs both a confidence floor and a human signature; a case the policy does not cover **escalates rather than guesses**. The sharper form of the same rule: across twenty events the only outcome the machine resolves by itself is *leave it where it was*. **Autonomy is permitted for inaction and withheld for destruction.**"
-  - "A gate is affordable only when the checkable half of the standard is already checked. Evidence is a typed pointer — a character span, a bounding box, a video segment — so the reviewer's attention lands on the disputed thing rather than the whole document. **Without located evidence a reviewer can only trust or re-derive, and both are failures of the gate.**"
+  - "A gate is affordable only when the checkable half of the standard is already checked. Evidence is a typed pointer: a character span, a bounding box, a video segment, so the reviewer's attention lands on the disputed thing rather than the whole document. **Without located evidence a reviewer can only trust or re-derive, and both are failures of the gate.**"
   - "Building the first genuine consumer of the akaOSS family proved the family is not yet consumable end to end: **tag-kit was never published, and eval-kit's gate release exists only on main.** Two of four kits are documented seams rather than dependencies. The previous version of this project claimed those integrations and did not have them, which is the specific mistake this note exists to not repeat."
 ---
 
 The [previous piece](/research/005-the-gate-is-the-unit-of-measurement) argued
-that the gate — the moment control returns to a human — is the unit worth
+that the gate. The moment control returns to a human, is the unit worth
 measuring. That argument was made in the abstract, which is the easy place to
 make it. This one reports what happened when it was built into a domain where
 being wrong has a victim in either direction: leave harmful content up, or
@@ -55,7 +55,7 @@ means leaving the content exactly where the author put it.**
 
 That is not a scheduling detail; it is the whole design compressed into one
 rule. The machine may decline to act on its own. It may not destroy on its own.
-The single removal in the corpus is not an action the policy took — it is a
+The single removal in the corpus is not an action the policy took. It is a
 *proposal* the policy raised, held until it clears a confidence floor and
 collects a human signature. The state machine enforcing that is
 [HITL Kit](/projects/hitl-kit)'s gates package, so the invariant "nothing
@@ -70,7 +70,7 @@ your attention, and in what order.
 
 Below is that rule as running code. The removal is queued and the model is
 confident; try to execute it before approving anything and watch the executor
-refuse. The refusal is not a UI affordance being disabled — it is the executor
+refuse. The refusal is not a UI affordance being disabled. It is the executor
 finding no approval event in the log and declining on that basis.
 
 ```exhibit
@@ -91,7 +91,7 @@ question about ordering: did an approval precede the consequential act. There
 is nothing to interpret.
 
 The discretionary gate arrived as an ordinary policy rule. Content appears that
-the rule set does not describe — a pattern nobody wrote a threshold for. The
+the rule set does not describe, a pattern nobody wrote a threshold for. The
 policy's answer is to escalate, which in gate terms is the system saying *I do
 not have grounds to route this and I am not going to invent them.* Two of the
 twenty events resolve that way. That is a judgment call with a precision and
@@ -117,7 +117,7 @@ form an opinion. They are shown the disputed thing, in its surrounding context,
 with the channel and the probability attached to it.
 
 The difference is visible rather than arguable. Below, the same decision is
-shown both ways — turn the evidence off and ask yourself what you would do.
+shown both ways, turn the evidence off and ask yourself what you would do.
 Without location, a reviewer has two options: trust the score, which is the
 automation bias the EU AI Act's Article 14 names as a risk oversight design
 must counter, or re-derive the judgment themselves, which erases the reason for
@@ -137,14 +137,14 @@ those apart will quietly convert crashes into clean bills of health.
 
 ## 5. The chain, and what it does not prove
 
-Every transition — ingested, signalled, routed, decided — appends one entry to a
+Every transition: ingested, signalled, routed, decided, appends one entry to a
 hash chain: each entry hashes its own contents together with the hash of the
 entry before it. Editing history invalidates every hash downstream of the edit.
 
 Prose cannot make that claim land, so here is the chain itself. Tamper with an
 entry and verification fails at that index, which most people expect. Then
 *repair* the forged entry by recomputing its own hash so it is internally
-consistent — and the break simply moves one position later. Local repair is
+consistent, and the break simply moves one position later. Local repair is
 impossible. That is the entire content of the guarantee, and it is worth
 operating yourself because "hash-chained" is frequently claimed and rarely
 inspected.

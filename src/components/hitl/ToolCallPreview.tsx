@@ -182,7 +182,7 @@ export const DEMO_TOOL_CALL: ToolCallPreviewConfig = {
   args: {
     to: "client@example.com",
     subject: "Re: Q3 deliverable timeline",
-    body: "Thanks for flagging the schedule risk — I've replanned around the milestone you raised and will send a revised plan by Friday.",
+    body: "Thanks for flagging the schedule risk, I've replanned around the milestone you raised and will send a revised plan by Friday.",
     cc: ["pm@internal.com"],
   },
   signals: {

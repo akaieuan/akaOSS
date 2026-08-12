@@ -1,8 +1,8 @@
 /**
  * Catalogue scaffolding for the brand demo. Deliberately the same visual
- * idiom as `app/components/_components/demo-ui.tsx` — the same well
+ * idiom as `app/components/_components/demo-ui.tsx`. The same well
  * (`rounded-2xl border border-border/40 bg-card/40`), the same figcaption
- * rule, the same section divider — so the product catalogue and the brand
+ * rule, the same section divider, so the product catalogue and the brand
  * catalogue read as one system rather than two sites.
  *
  * Nothing here is used by the site itself, and nothing here reimplements a
@@ -112,7 +112,7 @@ export function TileGrid({
 }
 
 /**
- * A labelled well holding one live specimen — caption on top, exactly as
+ * A labelled well holding one live specimen, caption on top, exactly as
  * the product catalogue does it.
  *
  * `flex-wrap` on the figcaption is load-bearing at 375px: the hint is
@@ -132,13 +132,13 @@ export function Specimen({
   label: string;
   hint?: string;
   /**
-   * A wrapping line below the specimen — where the thing is actually used.
+   * A wrapping line below the specimen, where the thing is actually used.
    * Separate from `hint` because `hint` truncates: at 375px a two-column
    * tile is ~150px wide and "nav · footer · favicon · hero" would become
    * an ellipsis.
    */
   footnote?: ReactNode;
-  /** Centre the body — how the marks read best. */
+  /** Centre the body, how the marks read best. */
   center?: boolean;
   /** Minimum body height in px, so a row of tiles keeps a common baseline. */
   minH?: number;
@@ -200,7 +200,7 @@ export function Well({
   );
 }
 
-/** A quiet aside under a section — caveats, reduced-motion behaviour, etc. */
+/** A quiet aside under a section: caveats, reduced-motion behaviour, etc. */
 export function Note({ children }: { children: ReactNode }) {
   return (
     <p className="mt-4 max-w-2xl border-l border-border/60 pl-4 text-[13px] leading-relaxed text-muted-foreground">
@@ -209,7 +209,7 @@ export function Note({ children }: { children: ReactNode }) {
   );
 }
 
-/** Inline machine data — prop names, token names, icon ids. */
+/** Inline machine data: prop names, token names, icon ids. */
 export function Mono({ children }: { children: ReactNode }) {
   return (
     <code className="font-mono text-[0.9em] text-foreground/90">{children}</code>

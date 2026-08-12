@@ -150,7 +150,7 @@
   margin: 3em 0;
 }
 
-/* Autolinked headings — remove underline from wrapping link */
+/* Autolinked headings, remove underline from wrapping link */
 .paper-body h1 a, .paper-body h2 a, .paper-body h3 a, .paper-body h4 a {
   color: inherit;
   text-decoration: none;

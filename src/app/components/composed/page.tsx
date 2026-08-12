@@ -43,7 +43,7 @@ export default function ComposedPage() {
         id="research-agent"
         title="Research Agent"
         meta="research-agent"
-        description="Three operating modes for a long-running research task — create a new session, follow up on an existing one, or read a single URL."
+        description="Three operating modes for a long-running research task: create a new session, follow up on an existing one, or read a single URL."
       >
         <Specimen label="Research agent" hint="switch modes, top right">
           <ResearchAgent />

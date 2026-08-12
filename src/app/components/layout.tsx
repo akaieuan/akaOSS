@@ -8,7 +8,7 @@ import { LibraryNav } from "./_components/LibraryNav";
 export const metadata: Metadata = {
   title: "Component library · HITL Kit · akaOSS",
   description:
-    "The HITL Kit primitive library, live. Decision surfaces, agent state, evidence, composed panels, and the AI-generation scales — every specimen is the shipped component, not a reimplementation.",
+    "The HITL Kit primitive library, live. Decision surfaces, agent state, evidence, composed panels, and the AI-generation scales. Every specimen is the shipped component, not a reimplementation.",
 };
 
 export default function ComponentsLayout({
