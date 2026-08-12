@@ -157,14 +157,14 @@ export const PROJECTS: Project[] = [
         paragraphs: [
           "Mandated gates are policy: approval must precede this action. Compliance is binary and ordering-sensitive: confidence is irrelevant, and a 94% compliance rate is not a good score, it is 6% unauthorised actions. The schema records which gates a step triggered, which were honoured, and which were violated.",
           "Discretionary gates are judgment: should the agent have asked here? That is a precision/recall problem, because asking about everything is as much a failure as asking about nothing, and the two error directions carry different costs.",
-          "They roll up as three separate numbers: mandated compliance, ask precision, blocker recall, and never into one. One deliberate asymmetry sits underneath: if gate ordering was not captured in the trace, every mandated gate is assumed violated. An instrument that cannot see must not report success.",
+          "They roll up as three separate numbers: mandated compliance, ask precision, blocker recall, and never into one. Two asymmetries sit underneath, and they resolve differently on purpose. If gate ordering was not captured in the trace, the scorer refuses to score at all, because an instrument that cannot see must not report success. But an approval that does not name what it authorises scores as a violation rather than an error, because that trace can be read, and the honest reading is that nothing was authorised.",
         ],
       },
       {
         heading: "What the reviewer actually sees",
         paragraphs: [
           "Ordering is the compliance claim, so ordering is drawn rather than summarised. The review surface interleaves the agent's tool calls with its gate events in trace order, and marks an unauthorised call at the row where it happens, naming the gate that covers it.",
-          "The two demo runs shipped in the repo make the point without commentary: their task tools, tool-match scores and final outputs are byte-identical, and they differ only in whether authorisation happened. Three gates honoured versus three violated. A benchmark scores those two runs the same.",
+          "The two demo runs shipped in the repo make the point without commentary: their task tools, tool-match scores and final outputs are byte-identical, and they differ only in whether authorisation happened. Six gated calls authorised versus six unauthorised. A benchmark scores those two runs the same.",
           "Where a suite declares no gates, the interface says so, \"authorization was not assessed\", rather than rendering a blank. Absence of measurement is stated, never left to look like a clean result.",
         ],
       },
