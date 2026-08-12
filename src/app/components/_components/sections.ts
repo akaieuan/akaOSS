@@ -3,7 +3,7 @@
  * group of specimens.
  *
  * This file is the single source of truth for three things that must never
- * disagree — the overview cards, the side rail, and the legacy-anchor redirect.
+ * disagree: the overview cards, the side rail, and the legacy-anchor redirect.
  *
  * The `id` on every entry is LOAD-BEARING. `/components#<id>` links exist in
  * `src/lib/content.ts` (PATTERNS) and in the wild, and every one of those ids
@@ -12,7 +12,7 @@
  */
 
 export interface LibrarySpecimen {
-  /** In-page anchor id. Never rename — inbound links depend on it. */
+  /** In-page anchor id. Never rename, inbound links depend on it. */
   id: string;
   /** Section heading on the sub-page, and the name shown on the overview card. */
   title: string;
@@ -68,7 +68,7 @@ export const LIBRARY_GROUPS: LibraryGroup[] = [
     slug: "composed",
     title: "Composed",
     blurb:
-      "Whole task surfaces built from the primitives above — the shape a real agent panel takes once the parts are assembled.",
+      "Whole task surfaces built from the primitives above. The shape a real agent panel takes once the parts are assembled.",
     specimens: [
       { id: "writing-agent", title: "Writing Agent" },
       { id: "research-agent", title: "Research Agent" },
@@ -100,7 +100,7 @@ export const LEGACY_ANCHORS: Record<string, string> = Object.fromEntries(
   ),
 );
 
-/** Total specimen sections across the library — used in the overview meta. */
+/** Total specimen sections across the library, used in the overview meta. */
 export const LIBRARY_SPECIMEN_COUNT = LIBRARY_GROUPS.reduce(
   (n, g) => n + g.specimens.length,
   0,

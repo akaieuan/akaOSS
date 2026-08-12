@@ -76,8 +76,8 @@ function Stepper({
  * much furniture.
  *
  * Read-only it is a single `role="img"` element. Given `onChange` it becomes a
- * labelled group with two steppers — natively focusable, Enter/Space operable,
- * inert (but still focused) at the ends — and a polite live region announcing
+ * labelled group with two steppers: natively focusable, Enter/Space operable,
+ * inert (but still focused) at the ends, and a polite live region announcing
  * the new level and its position.
  */
 export function AiGenerationBadge({

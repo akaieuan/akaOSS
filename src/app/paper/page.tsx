@@ -13,13 +13,13 @@ import { PaperTOC } from "./PaperTOC";
 export const metadata: Metadata = {
   title: "The paper · akaOSS",
   description:
-    "An AI Measurement Problem — a perspective piece on why 95% of enterprise AI fails, and how the Assist-Not-Complete paradigm reframes design and evaluation.",
+    "An AI Measurement Problem, a perspective piece on why 95% of enterprise AI fails, and how the Assist-Not-Complete paradigm reframes design and evaluation.",
 };
 
 async function getPaper() {
   const filePath = path.join(process.cwd(), "content", "paper.md");
   const md = await fs.readFile(filePath, "utf-8");
-  // The hero already presents the title — drop the markdown's leading H1 so
+  // The hero already presents the title, drop the markdown's leading H1 so
   // it doesn't render twice.
   return md.replace(/^#\s[^\n]*\n+/, "");
 }

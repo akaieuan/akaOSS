@@ -113,7 +113,7 @@ export default function RegistryPage() {
           </h1>
           <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground md:text-lg">
             Install any primitive with one command. HITL Kit ships as a
-            shadcn-compatible registry — every primitive below installs directly
+            shadcn-compatible registry. Every primitive below installs directly
             into your existing shadcn/ui project. No fork, no wrapper SDK, no
             lock-in.
           </p>

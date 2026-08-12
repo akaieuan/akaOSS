@@ -92,8 +92,8 @@ function RunPlaceholderCard({ kind, path }: { kind: FenceKind; path: string }) {
  *     audit-chain
  *     ```
  *
- * Markdown stays the source of truth — the feed, the frontmatter and the
- * contents list keep working — while a demonstration can sit at the exact
+ * Markdown stays the source of truth. The feed, the frontmatter and the
+ * contents list keep working, while a demonstration can sit at the exact
  * point in the prose that earns it, instead of on a separate page the reader
  * has to be sent to.
  */
@@ -219,7 +219,7 @@ export default async function ResearchPostPage({
           )}
 
           <article className="min-w-0 max-w-3xl">
-            {/* Key Findings panel — the headline numbers, up front */}
+            {/* Key Findings panel. The headline numbers, up front */}
             {post.keyFindings.length > 0 && (
               <section
                 aria-label="Key findings"

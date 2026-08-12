@@ -1,5 +1,5 @@
 /**
- * Page furniture for /inertial. Server components — the prose and the frame
+ * Page furniture for /inertial. Server components. The prose and the frame
  * stay on the server; only the exhibits themselves are client leaves.
  */
 

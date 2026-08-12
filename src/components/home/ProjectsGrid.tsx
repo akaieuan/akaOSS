@@ -3,7 +3,7 @@ import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PixelHead } from "@/components/site/PixelHead";
 import { ACCENT_CLASSES } from "@/lib/content";
-import { PROJECTS } from "@/lib/projects";
+import { PROJECTS, PROJECT_BADGES } from "@/lib/projects";
 import { arrowNudge } from "./shared";
 
 const GROUPS: { key: "measurement" | "tooling"; label: string }[] = [
@@ -14,14 +14,6 @@ const GROUPS: { key: "measurement" | "tooling"; label: string }[] = [
 /* Per-project badges: the human figure for HITL Kit (the human in the
    loop), a three-tier podium for eval-kit (measurement, ranked), a code
    tag for tag-kit, the terminal prompt for the developer tooling. */
-const PROJECT_BADGES: Record<string, "head" | "podium" | "codetag" | "prompt"> = {
-  "hitl-kit": "head",
-  "eval-kit": "podium",
-  "tag-kit": "codetag",
-  collapse: "prompt",
-  hologram: "prompt",
-};
-
 export function ProjectsGrid() {
   return (
     <section id="projects" className="scroll-mt-16 pt-4 pb-16">

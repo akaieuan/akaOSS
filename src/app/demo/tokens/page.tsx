@@ -15,13 +15,13 @@ import { CONTRAST, readTokenTables, type TokenTable } from "../_components/token
 export const metadata: Metadata = {
   title: "Tokens · Brand system · akaOSS",
   description:
-    "The akaOSS palette as swatches — surfaces, lines, text and the five accents — read straight out of globals.css so the page cannot drift from the stylesheet.",
+    "The akaOSS palette as swatches: surfaces, lines, text and the five accents, read straight out of globals.css so the page cannot drift from the stylesheet.",
 };
 
 const SURFACES = [
   { token: "--background", note: "The page. Warm paper in light, warm near-black in dark." },
   { token: "--card", note: "Lifted surface. Cards read above the page, never level with it." },
-  { token: "--popover", note: "Solid dropdown fill — page text must never bleed through." },
+  { token: "--popover", note: "Solid dropdown fill, page text must never bleed through." },
   { token: "--muted", note: "Support fill: hover states, inert chips." },
   { token: "--secondary", note: "Same value as muted; kept distinct for shadcn slots." },
 ];
@@ -47,7 +47,7 @@ const ACCENTS = [
   { token: "--accent-green", note: "Confirmation. Aliased as --accent-emerald for the registry." },
   { token: "--accent-amber", note: "The full stop in the hero headline. Attention, not alarm." },
   { token: "--accent-rose", note: "Rejection and destructive paths." },
-  { token: "--accent-violet", note: "The fifth voice — categorical, not semantic." },
+  { token: "--accent-violet", note: "The fifth voice, categorical, not semantic." },
 ];
 
 const RADII = [
@@ -82,7 +82,7 @@ function TokenMeta({
           {light[token] ?? "not authored"}
         </dd>
         <dt>dark</dt>
-        {/* `.dark` re-declares every colour but not the radii — those cascade
+        {/* `.dark` re-declares every colour but not the radii, those cascade
             down from `:root`, which is why they read as inherited here. */}
         <dd className="[overflow-wrap:anywhere]">
           {dark[token] ?? "inherits :root"}
@@ -116,7 +116,7 @@ export default async function TokensDemo() {
             is the live value in whichever theme you are reading in. The
             authored values printed beside it are parsed out of{" "}
             <Mono>src/app/globals.css</Mono> at build time rather than
-            restated here — a palette page that keeps its own copy of the
+            restated here, a palette page that keeps its own copy of the
             palette goes wrong quietly. Flip the theme and the whole page
             moves with it.
           </>
@@ -132,7 +132,7 @@ export default async function TokensDemo() {
         description={
           <>
             Five fills, all on the same hue (107) at near-zero chroma. The
-            hierarchy is lightness and alpha, never colour — which is what
+            hierarchy is lightness and alpha, never colour, which is what
             lets the palette carry two themes without either one looking
             tinted.
           </>
@@ -157,7 +157,7 @@ export default async function TokensDemo() {
         <Note>
           <Mono>--background</Mono> and <Mono>--card</Mono> are close on
           purpose and the border is what separates them, so every chip above
-          is drawn with one — without it the first two swatches would be
+          is drawn with one, without it the first two swatches would be
           invisible against the page in light theme and against the card in
           dark.
         </Note>
@@ -170,7 +170,7 @@ export default async function TokensDemo() {
         meta="alpha over surface"
         description={
           <>
-            None of these are a colour in the usual sense — they are the
+            None of these are a colour in the usual sense. They are the
             foreground at 6–20% alpha, so a border always sits at the same
             relative distance from whatever it is drawn on. Each chip shows
             the token twice: as a 1px box edge and as a solid bar.
@@ -245,7 +245,7 @@ export default async function TokensDemo() {
             Five accents, treated as punctuation rather than as fills. They
             appear as dots beside a project name, as the full stop in the hero
             headline, as a hover colour on an underline, as the tint on a
-            pixel expression — never as a button background, never as a panel,
+            pixel expression: never as a button background, never as a panel,
             never as a gradient.
           </>
         }
@@ -366,12 +366,12 @@ export default async function TokensDemo() {
         <Note>
           The light theme is where the palette is tight. The five accents run
           from 3.27:1 (amber) to 5.15:1 (violet) against the paper, and two of
-          them — amber at 3.3:1 and rose at 4.1:1 — sit below the 4.5:1 that
+          them, amber at 3.3:1 and rose at 4.1:1, sit below the 4.5:1 that
           WCAG 1.4.3 asks of normal-size text. Amber clears the 3:1 that 1.4.11
           asks of a graphical object, but only just. That band is the reason
           the accents are kept on marks, dots, rules and hover states rather
           than on small text: at the sizes the site actually uses them, the
-          numbers hold. The dark theme is not the constraint — everything
+          numbers hold. The dark theme is not the constraint, everything
           there is at 6.8:1 or better.
         </Note>
       </DemoSection>

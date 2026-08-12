@@ -6,9 +6,9 @@ import { Footer } from "@/components/site/Footer";
 import { PROJECTS, ACCENT_COLORS, type ProjectGroup } from "@/lib/projects";
 
 export const metadata: Metadata = {
-  title: "Projects — akaOSS",
+  title: "Projects, akaOSS",
   description:
-    "Five open-source projects. A human-in-the-loop measurement family and a pair of developer tools — each ships independently.",
+    "Five open-source projects. A human-in-the-loop measurement family and a pair of developer tools. Each ships independently.",
 };
 
 const GROUPS: { key: ProjectGroup; label: string }[] = [
@@ -30,7 +30,7 @@ export default function ProjectsIndexPage() {
           </h1>
           <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
             A human-in-the-loop measurement family and a pair of developer
-            tools — each ships independently.
+            tools. Each ships independently.
           </p>
         </section>
 

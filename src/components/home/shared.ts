@@ -1,7 +1,7 @@
-/* Shared presentation constants for the landing sections. Server-only —
-   plain class strings, no client runtime. */
+/* Shared presentation constants for the landing sections. Server-only,
+plain class strings, no client runtime. */
 
-/* Hero entrance — light reveal, top-to-bottom 120ms stagger (motion-safe only). */
+/* Hero entrance, light reveal, top-to-bottom 120ms stagger (motion-safe only). */
 export const reveal =
   "motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom-2 motion-safe:fill-mode-backwards motion-safe:duration-700";
 export const stagger = (step: number) => ({ animationDelay: `${step * 120}ms` });

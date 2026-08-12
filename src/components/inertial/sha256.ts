@@ -1,7 +1,7 @@
 /**
  * SHA-256, implemented locally (FIPS 180-4).
  *
- * The audit-chain exhibit needs a *real* hash — a fake one would make the
+ * The audit-chain exhibit needs a *real* hash, a fake one would make the
  * demonstration a lie. Web Crypto's `crypto.subtle.digest` is async and only
  * exists in secure contexts; this is synchronous, identical on the server and
  * in the browser, and therefore safe to call during render without producing a

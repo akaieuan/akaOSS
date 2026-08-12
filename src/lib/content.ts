@@ -63,16 +63,16 @@ export const PATTERNS = [
 
 // ─────────────────────────────────────────────────────────────
 // Homepage hybrid (Direction A shell · B feed · C interlock)
-// All prose sourced from mockups/COPY-BANK.md — no invented dates/claims.
+// All prose sourced from mockups/COPY-BANK.md. No invented dates/claims.
 // ─────────────────────────────────────────────────────────────
 
 // §1 hook
 export const HOOK = {
   stat: "95%",
   headline:
-    "of enterprise AI pilots fail. Not because the models are bad — because we measure the wrong thing.",
+    "of enterprise AI pilots fail. Not because the models are bad, because we measure the wrong thing.",
   source:
-    "MIT NANDA enterprise failure report, Challapally et al., 2025 — despite $30–40 billion in investment, 95% of organizations achieve zero measurable return from generative AI initiatives.",
+    "MIT NANDA enterprise failure report, Challapally et al., 2025, despite $30–40 billion in investment, 95% of organizations achieve zero measurable return from generative AI initiatives.",
 };
 
 // §2 two questions
@@ -82,7 +82,7 @@ export const FRAMING = {
   benchmark: {
     tag: "What benchmarks ask",
     question: "Can the model complete this task autonomously?",
-    note: "Optimises for a machine finishing the job alone — synthetic, single-turn, closed-form.",
+    note: "Optimises for a machine finishing the job alone: synthetic, single-turn, closed-form.",
   },
   deployment: {
     tag: "What deployment asks",
@@ -95,7 +95,7 @@ export const FRAMING = {
 
 // §3 paradigm
 export const PARADIGM = {
-  def: "Evaluate AI on whether it assists humans without displacing them — not on whether it can finish the task alone.",
+  def: "Evaluate AI on whether it assists humans without displacing them, not on whether it can finish the task alone.",
   umbrella:
     "HITL Kit is the argument that we should measure AI differently, and the components that make the alternative buildable.",
 };
@@ -115,7 +115,7 @@ export const EVIDENCE: EvidenceItem[] = [
   { n: "[05]", title: "Supporting-facts requirement", cite: "Yang et al., 2018 · HotpotQA" },
 ];
 
-// §4 apparatus — three kits as editorial rows
+// §4 apparatus. Three kits as editorial rows
 export interface KitSummary {
   slug: "hitl-kit" | "eval-kit" | "tag-kit";
   idx: string;
@@ -152,7 +152,7 @@ export const KIT_SUMMARIES: KitSummary[] = [
     name: "eval-kit",
     version: "v0.3.1",
     oneLiner:
-      "Scores whether your agent respects human authority — stops when it must, asks when it should. Humans score, not LLMs.",
+      "Scores whether your agent respects human authority, stops when it must, asks when it should. Humans score, not LLMs.",
     why: "The interesting failure modes are step-level, not output-level. Distractors score the refusal, not the compliance.",
     meta: "five human-scored dimensions · three reference suites · four adapters · deterministic replay · file-based, single-user",
     install: "npx @eval-kit/core init my-evals",
@@ -166,7 +166,7 @@ export const KIT_SUMMARIES: KitSummary[] = [
     version: "substrate",
     oneLiner:
       "Structured tagging primitives for human-in-the-loop annotation workflows.",
-    why: "Bring your own taxonomy, bring your own UI, bring your own scoring loop — tag-kit ships the substrate. Per-modality scoping, scope-aware agreement, stable taxonomy IDs.",
+    why: "Bring your own taxonomy, bring your own UI, bring your own scoring loop, tag-kit ships the substrate. Per-modality scoping, scope-aware agreement, stable taxonomy IDs.",
     meta: "v0.3.1 on npm · @tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app",
     install: "pnpm add @tag-kit/core @tag-kit/ui",
     accent: "amber",
@@ -187,7 +187,7 @@ export const INTERLOCK_NODES: InterlockNode[] = [
   {
     name: "HITL Kit",
     accent: "violet",
-    role: "The primitives. eval-kit's scoring dashboard is built on @hitl-kit/react — dogfooding the components.",
+    role: "The primitives. eval-kit's scoring dashboard is built on @hitl-kit/react, dogfooding the components.",
     href: "/projects/hitl-kit",
     connector: "built on",
   },
@@ -210,10 +210,10 @@ export const INTERLOCK_FOOT =
   "The research feed is the proof: findings are produced by running eval-kit suites, displayed with HITL Kit components, and eventually scored for agreement with tag-kit.";
 
 export const FEED_INTRO =
-  "Each finding is a reproducible experiment: a question, runs against real models, human-scored results, and a repro link. Aggregate scores are internal signal — not leaderboard fodder.";
+  "Each finding is a reproducible experiment: a question, runs against real models, human-scored results, and a repro link. Aggregate scores are internal signal, not leaderboard fodder.";
 
 export const FEED_PRINCIPLES = [
-  "Findings are reproducible — experiment folder + checked-in run JSON",
+  "Findings are reproducible: experiment folder + checked-in run JSON",
   "Humans score, not LLMs",
   "No benchmark-marketing language",
 ];

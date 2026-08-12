@@ -37,7 +37,7 @@
   --input: oklch(0.19 0.005 107 / 18%);
   --ring: oklch(0.48 0.004 107);
 
-  /* Accents — punctuation, never fills (see reference ADR 0002). */
+  /* Accents, punctuation, never fills (see reference ADR 0002). */
   --accent-blue: oklch(0.55 0.19 259);
   --accent-green: oklch(0.5 0.09 152);
   --accent-amber: oklch(0.62 0.13 75);
@@ -176,7 +176,7 @@ body {
   color: var(--background);
 }
 
-/* Display idiom — refined and restrained: Inter, light weight + tight tracking. */
+/* Display idiom, refined and restrained: Inter, light weight + tight tracking. */
 .font-serif {
   font-family: var(--font-sans);
   font-weight: 300;
@@ -195,7 +195,7 @@ body {
   color: var(--muted-foreground);
 }
 
-/* Signature studio card — translucent fill + hairline border brightening on hover. */
+/* Signature studio card, translucent fill + hairline border brightening on hover. */
 .card-surface {
   background: var(--card-alpha);
   border: 1px solid var(--card-border);

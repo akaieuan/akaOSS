@@ -16,13 +16,13 @@ import { demoNeighbours } from "../_components/sections";
 export const metadata: Metadata = {
   title: "Marks · Brand system · akaOSS",
   description:
-    "Every PixelHead knockout, dissolve mode and animation behaviour — the one canvas component behind the favicon, the nav mark, the project badges and the hero.",
+    "Every PixelHead knockout, dissolve mode and animation behaviour: the one canvas component behind the favicon, the nav mark, the project badges and the hero.",
 };
 
 /**
  * The analytic knockouts, in source order. These are functions in normalized
  * -1..1 space; the disc is drawn and the shape is punched out of it.
- * Names are the literal `icon` values — read from `KNOCKOUTS` in
+ * Names are the literal `icon` values, read from `KNOCKOUTS` in
  * `src/components/site/PixelHead.tsx`, not invented.
  */
 const KNOCKOUTS: { id: PixelIcon; shape: string; use: string }[] = [
@@ -34,7 +34,7 @@ const KNOCKOUTS: { id: PixelIcon; shape: string; use: string }[] = [
   {
     id: "spark",
     shape: "✦ cluster",
-    use: "The akaOSS mark itself — nav, footer, favicon, hero.",
+    use: "The akaOSS mark itself: nav, footer, favicon, hero.",
   },
   {
     id: "bubble",
@@ -49,12 +49,12 @@ const KNOCKOUTS: { id: PixelIcon; shape: string; use: string }[] = [
   {
     id: "prompt",
     shape: "terminal",
-    use: "Collapse and Hologram — the developer-tooling badge.",
+    use: "Collapse and Hologram. The developer-tooling badge.",
   },
   {
     id: "podium",
     shape: "2·1·3 tiers",
-    use: "eval-kit — measurement, ranked.",
+    use: "eval-kit, measurement, ranked.",
   },
   {
     id: "codetag",
@@ -65,14 +65,14 @@ const KNOCKOUTS: { id: PixelIcon; shape: string; use: string }[] = [
 
 /**
  * The mask icons. A different mechanism entirely: hand-authored pixel grids
- * drawn solid, not knocked out of a disc — so `grid` and `variant` have no
+ * drawn solid, not knocked out of a disc, so `grid` and `variant` have no
  * effect on them.
  */
 const MASKS: { id: PixelIcon; shape: string; use: string }[] = [
   {
     id: "sparkmark",
     shape: "18×18",
-    use: "One elongated sparkle, authored as the chrome mark — but the shipped chrome draws the spark knockout instead. Currently unused.",
+    use: "One elongated sparkle, authored as the chrome mark, but the shipped chrome draws the spark knockout instead. Currently unused.",
   },
   {
     id: "nyz",
@@ -90,7 +90,7 @@ const MODES = [
   { id: "ash", note: "drifts upward and fades, bottom rows last" },
   { id: "explode", note: "radial, outward from the centre, with spin" },
   { id: "scatter", note: "falls, accelerating, with lateral drift" },
-  { id: "glitch", note: "quantised horizontal displacement — the default" },
+  { id: "glitch", note: "quantised horizontal displacement: the default" },
 ] as const;
 
 const GRIDS = [12, 16, 22, 30, 40];
@@ -104,7 +104,7 @@ export default function MarksDemo() {
         title="Marks."
         lede={
           <>
-            One canvas component — <Mono>PixelHead</Mono> — draws the favicon,
+            One canvas component, <Mono>PixelHead</Mono>: draws the favicon,
             the nav mark, every project badge and the hero, all from props. It
             samples a square grid of cells, keeps the ones inside the shape,
             and animates them apart and back together. The pixel colour is
@@ -123,7 +123,7 @@ export default function MarksDemo() {
         description={
           <>
             The <Mono>icon</Mono> prop. Each of these is a shape function
-            punched out of a solid disc — the default{" "}
+            punched out of a solid disc. The default{" "}
             <Mono>variant=&quot;negative&quot;</Mono>. They assemble once when
             they scroll into view and then hold; the site uses them at 22–36px
             beside a project name.
@@ -146,7 +146,7 @@ export default function MarksDemo() {
         </TileGrid>
 
         <Note>
-          Two of these — <Mono>bubble</Mono> and <Mono>gamepad</Mono> — are
+          Two of these, <Mono>bubble</Mono> and <Mono>gamepad</Mono>, are
           inherited from the component this was ported from and have no owner
           on this site. They are catalogued rather than deleted because the
           component is shared with the studio site; removing them there is a
@@ -164,8 +164,8 @@ export default function MarksDemo() {
             The same <Mono>icon</Mono> prop, a different mechanism: these are
             hand-authored pixel grids drawn <em>solid</em>, not knocked out of
             a disc. The mask supplies its own resolution, so{" "}
-            <Mono>grid</Mono> and <Mono>variant</Mono> are ignored for them —
-            passing <Mono>grid=40</Mono> to <Mono>nyz</Mono> changes nothing.
+            <Mono>grid</Mono> and <Mono>variant</Mono> are ignored for them,
+passing <Mono>grid=40</Mono> to <Mono>nyz</Mono> changes nothing.
           </>
         }
       >
@@ -197,7 +197,7 @@ export default function MarksDemo() {
               &lt;PixelHead size={"{340}"} grid={"{22}"} icon=&quot;spark&quot;
               once fluid /&gt;
             </Mono>
-            . It assembles once on first sight and then holds — the hero is
+            . It assembles once on first sight and then holds. The hero is
             the first thing on the page, so a mark that dissolved every few
             seconds would compete with the headline for the whole visit.
           </>
@@ -216,8 +216,8 @@ export default function MarksDemo() {
         description={
           <>
             The <Mono>mode</Mono> prop decides how the cells leave and come
-            back. All four run the same timeline — a hold, a dissolve, a beat
-            of nothing, a reform — and differ only in the per-cell motion and
+            back. All four run the same timeline: a hold, a dissolve, a beat
+            of nothing, a reform, and differ only in the per-cell motion and
             in which cells go first. These four loop continuously so the
             difference is visible; everywhere else on the site the marks use{" "}
             <Mono>once</Mono> or <Mono>still</Mono>.
@@ -242,7 +242,7 @@ export default function MarksDemo() {
           The dissolve order is seeded per mode: <Mono>ash</Mono> keys the
           delay off vertical position, <Mono>explode</Mono> off distance from
           centre, <Mono>scatter</Mono> off pure noise, and <Mono>glitch</Mono>{" "}
-          off a per-row hash — which is why glitch reads as scanlines tearing
+          off a per-row hash, which is why glitch reads as scanlines tearing
           rather than as pixels scattering.
         </Note>
       </DemoSection>
@@ -307,7 +307,7 @@ export default function MarksDemo() {
           <Mono>gap={"{0.12}"}</Mono> <Mono>icon=&quot;spark&quot;</Mono>{" "}
           <Mono>still</Mono>, and{" "}
           <Mono>src/app/icon.svg</Mono> is that same sampling baked to
-          rectangles — verified pixel-for-pixel against the component, all 256
+          rectangles, verified pixel-for-pixel against the component, all 256
           cells.
         </Note>
       </DemoSection>
@@ -321,7 +321,7 @@ export default function MarksDemo() {
           <>
             <Mono>negative</Mono> is the default and is what the entire site
             uses: a solid disc with the shape removed. <Mono>figure</Mono>{" "}
-            inverts the relationship — the shape is drawn solid, and the disc
+            inverts the relationship. The shape is drawn solid, and the disc
             survives only as a thin ring around it.
           </>
         }
@@ -374,12 +374,12 @@ export default function MarksDemo() {
         description={
           <>
             <Mono>faces</Mono> draws a 9×8 pixel expression inside the head
-            void and cycles it — 26 expressions, some with a two-frame
+            void and cycles it, 26 expressions, some with a two-frame
             chatter, a few tinted with an accent. It is sized against the{" "}
             <Mono>head</Mono> figure at <Mono>grid={"{24}"}</Mono>
             ; on any other knockout the face lands in the middle of the disc
-            with nothing to sit in. Nothing on the akaOSS site uses it — the
-            lab&rsquo;s mark is the sparkle — but the capability ships in the
+            with nothing to sit in. Nothing on the akaOSS site uses it. The
+            lab&rsquo;s mark is the sparkle, but the capability ships in the
             component, so it is catalogued.
           </>
         }
@@ -437,8 +437,8 @@ export default function MarksDemo() {
           default dissolve loop. Under <Mono>once</Mono> or <Mono>still</Mono>{" "}
           the component paints a single frame, so <Mono>faces</Mono> collapses
           to one neutral expression. Conversely <Mono>face</Mono> and{" "}
-          <Mono>faceIndex</Mono> are only read on those single-frame paths —
-          in the looping mode they are ignored entirely. The four specimens
+          <Mono>faceIndex</Mono> are only read on those single-frame paths,
+in the looping mode they are ignored entirely. The four specimens
           above therefore all carry <Mono>still</Mono>.
         </Note>
       </DemoSection>
@@ -474,7 +474,7 @@ export default function MarksDemo() {
         <Note>
           <Mono>head</Mono> is the exception, and it is a sharp one: at{" "}
           <Mono>grid</Mono> 16 or below it stops sampling the figure function
-          and renders a hand-authored 14×14 mask instead — a solid circular
+          and renders a hand-authored 14×14 mask instead, a solid circular
           head with a neutral face knocked out, no body. It is not a
           lower-resolution version of the same drawing, it is a different
           drawing.
@@ -523,7 +523,7 @@ export default function MarksDemo() {
             Without <Mono>fluid</Mono> the canvas is exactly{" "}
             <Mono>size</Mono> CSS pixels and will push a narrow column
             sideways. With it, the canvas fills its container and caps at{" "}
-            <Mono>size</Mono> — the same mark, drawn at the same internal
+            <Mono>size</Mono>: the same mark, drawn at the same internal
             resolution, scaled down by CSS. The three wells below are 110px,
             170px and 230px wide; all three hold{" "}
             <Mono>size={"{340}"}</Mono>, and none of them overflows.
@@ -623,7 +623,7 @@ export default function MarksDemo() {
             Under <Mono>prefers-reduced-motion: reduce</Mono> the component
             takes the same path as <Mono>still</Mono>: it paints one fully
             assembled frame and returns without ever scheduling an animation
-            frame. Not a slowed-down loop, not a faded one — no loop at all.
+            frame. Not a slowed-down loop, not a faded one. No loop at all.
             Every specimen on this page, including the four dissolve modes,
             renders as a static mark for a visitor with that preference set.
           </>
@@ -642,7 +642,7 @@ export default function MarksDemo() {
               <span>
                 The host element is <Mono>aria-hidden</Mono> and the mark is a{" "}
                 <Mono>&lt;canvas&gt;</Mono> with no text alternative. That is
-                correct — it is decoration everywhere it appears — but it
+                correct. It is decoration everywhere it appears, but it
                 means a mark can never be the only label for anything. Every
                 specimen on this page carries its own text caption for exactly
                 that reason.

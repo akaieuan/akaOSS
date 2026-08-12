@@ -1,7 +1,7 @@
 /**
  * The brand catalogue's table of contents. `/components` catalogues the HITL
  * *product* primitives; this catalogues the things the site itself is made
- * of — the mark, the small site helpers, the token palette.
+ * of: the mark, the small site helpers, the token palette.
  *
  * Unlisted on purpose: nothing here is linked from the main nav or the
  * sitemap. It is reachable by URL, the same way the studio reference keeps
@@ -38,7 +38,7 @@ export const DEMO_SECTIONS: DemoSectionMeta[] = [
     slug: "primitives",
     title: "Primitives",
     blurb:
-      "The small site-level helpers — the fading rule, the canonical thesis link, the theme toggle, and the class idioms that carry the page furniture.",
+      "The small site-level helpers: the fading rule, the canonical thesis link, the theme toggle, and the class idioms that carry the page furniture.",
     contents: [
       "Hairline",
       "AssistNotComplete",

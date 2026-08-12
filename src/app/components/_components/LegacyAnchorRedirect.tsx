@@ -9,15 +9,15 @@ import { LEGACY_ANCHORS } from "./sections";
  *
  * The library used to be one long page with sixteen anchors on it; it is now an
  * overview plus five sub-pages. A fragment is never sent to the server, so no
- * redirect or rewrite can see it — the forwarding has to happen here, on the
+ * redirect or rewrite can see it: the forwarding has to happen here, on the
  * client, once the overview has mounted.
  *
  * Unknown or absent hashes are left alone: the visitor stays on the overview,
- * which lists every specimen by name. That is also the no-JavaScript fallback —
- * a stale link lands on a page that names its destination rather than on a 404.
+ * which lists every specimen by name. That is also the no-JavaScript fallback:
+* a stale link lands on a page that names its destination rather than on a 404.
  */
 /**
- * A fragment may be percent-escaped, so it wants decoding — but a malformed
+ * A fragment may be percent-escaped, so it wants decoding: but a malformed
  * escape (`#50%`, `#c%3`) makes `decodeURIComponent` throw, and a throw inside
  * the mount effect below takes the whole overview page down with it. Every id
  * in `LEGACY_ANCHORS` is plain `[a-z-]+`, so the raw hash is a fine fallback:

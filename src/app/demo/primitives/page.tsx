@@ -34,7 +34,7 @@ export default function PrimitivesDemo() {
         title="Primitives."
         lede={
           <>
-            Not the registry primitives — those live in{" "}
+            Not the registry primitives, those live in{" "}
             <Link
               href="/components"
               className="text-foreground underline decoration-border underline-offset-[3px] transition-colors hover:decoration-foreground"
@@ -61,7 +61,7 @@ export default function PrimitivesDemo() {
           <>
             A horizontal rule that fades out at both ends instead of butting
             into the page margin. Quieter than{" "}
-            <Mono>border-t</Mono>, which is the point — it separates without
+            <Mono>border-t</Mono>, which is the point. It separates without
             drawing a line across the whole layout. Used between prose
             sections on the paper and inertial pages.
           </>
@@ -81,7 +81,7 @@ export default function PrimitivesDemo() {
         <Note>
           The gradient stops at 14% and 86%, so the solid middle is a little
           over 70% of the width. Below roughly 200px the fades meet and the
-          rule reads as a smudge — that is the practical floor for it.
+          rule reads as a smudge. That is the practical floor for it.
         </Note>
       </DemoSection>
 
@@ -114,7 +114,7 @@ export default function PrimitivesDemo() {
 
         <Note>
           The underline is <Mono>decoration-from-font</Mono> at the border
-          colour and warms to <Mono>--accent-blue</Mono> on hover — one of the
+          colour and warms to <Mono>--accent-blue</Mono> on hover. One of the
           few places an accent touches text, and it is a hover state on a link
           that is already underlined, so the colour is never carrying the
           meaning on its own.
@@ -136,13 +136,13 @@ export default function PrimitivesDemo() {
         }
       >
         {/* 250px floor, not the usual 150: the mock bar beside it is 208px of
-            unshrinkable content — three items sized to their own text — so at
+            unshrinkable content. Three items sized to their own text, so at
             375px it has to have the row to itself rather than a half column. */}
         <TileGrid min={250}>
           <Specimen
             label="ThemeToggle"
             hint="live"
-            footnote="The real control. Click it — the whole page follows, and every mark on the marks page re-reads its colour."
+            footnote="The real control. Click it. The whole page follows, and every mark on the marks page re-reads its colour."
             center
             minH={64}
           >
@@ -167,7 +167,7 @@ export default function PrimitivesDemo() {
           There is a second way to do the same thing:{" "}
           <Mono>ThemeProvider</Mono> registers a global{" "}
           <Mono>d</Mono> hotkey that flips the theme, skipped when a modifier
-          is held or when focus is in an input. Press it now — nothing on this
+          is held or when focus is in an input. Press it now. Nothing on this
           page is a text field, so it will fire.
         </Note>
       </DemoSection>
@@ -179,8 +179,8 @@ export default function PrimitivesDemo() {
         meta="globals.css"
         description={
           <>
-            The micro-label. Mono, 11px, 0.18em tracking, uppercase, muted —
-            it is how every section on the site announces itself without
+            The micro-label. Mono, 11px, 0.18em tracking, uppercase, muted.
+It is how every section on the site announces itself without
             spending a heading. Section eyebrows, column headers in the
             footer, the meta line under a masthead.
           </>
@@ -211,8 +211,8 @@ export default function PrimitivesDemo() {
 
         <Note>
           It is deliberately not a component. A label is one class on whatever
-          element the markup already needed — a <Mono>p</Mono>, a{" "}
-          <Mono>span</Mono>, a <Mono>figcaption</Mono> — and wrapping that in
+          element the markup already needed: a <Mono>p</Mono>, a{" "}
+          <Mono>span</Mono>, a <Mono>figcaption</Mono>, and wrapping that in
           a React component would buy nothing and cost a nesting level
           everywhere it appears.
         </Note>
@@ -227,7 +227,7 @@ export default function PrimitivesDemo() {
           <>
             Two families, no third. <Mono>--font-sans</Mono> is Inter and does
             everything human-readable; <Mono>--font-mono</Mono> is JetBrains
-            Mono and does everything machine-readable — prop names, token
+            Mono and does everything machine-readable: prop names, token
             names, icon ids, install commands. The display idiom is not a
             serif despite the class name: <Mono>.font-serif</Mono> re-points
             at Inter at weight 300 with tight tracking, kept as a name so
@@ -266,7 +266,7 @@ export default function PrimitivesDemo() {
         meta="globals.css · inline idiom"
         description={
           <>
-            Two card languages coexist. The newer one is inline —{" "}
+            Two card languages coexist. The newer one is inline, {" "}
             <Mono>rounded-2xl border border-border/40 bg-card/40</Mono>, what
             every well on this page and in <Mono>/components</Mono> uses. The
             older one is <Mono>.card-surface</Mono>, driven by the{" "}
@@ -299,7 +299,7 @@ export default function PrimitivesDemo() {
           <Specimen
             label=".hover-lift"
             hint="hover me"
-            footnote="A 1px rise. The whole hover vocabulary — the site never scales or shadows a card."
+            footnote="A 1px rise. The whole hover vocabulary. The site never scales or shadows a card."
             minH={72}
           >
             <div className="hover-lift rounded-2xl border border-border/40 bg-card/40 p-4 text-[13px] text-muted-foreground">
@@ -351,7 +351,7 @@ export default function PrimitivesDemo() {
           moves 2px up and right on the parent&rsquo;s hover, whether it sits
           in a button, a card, or a sentence. It is a{" "}
           <Mono>group-hover</Mono> class, so it only works inside something
-          marked <Mono>group</Mono> — which <Mono>primaryCta</Mono> and{" "}
+          marked <Mono>group</Mono>, which <Mono>primaryCta</Mono> and{" "}
           <Mono>arrowLink</Mono> both already carry.
         </Note>
       </DemoSection>
@@ -378,7 +378,7 @@ export default function PrimitivesDemo() {
               className={`${reveal} text-sm text-muted-foreground`}
               style={stagger(i)}
             >
-              {t} — delayed {i * 120}ms
+              {t}, delayed {i * 120}ms
             </p>
           ))}
         </Well>
@@ -386,7 +386,7 @@ export default function PrimitivesDemo() {
         <Note>
           <Mono>fill-mode-backwards</Mono> is doing quiet but essential work:
           without it a staggered element renders at its final opacity for the
-          length of its delay, flashes, and then plays the fade — which looks
+          length of its delay, flashes, and then plays the fade, which looks
           worse than no animation at all.
         </Note>
       </DemoSection>
@@ -414,7 +414,7 @@ export default function PrimitivesDemo() {
               />
               <span>
                 <Mono>Nav</Mono> takes an <Mono>active</Mono> key for the
-                current destination. This catalogue passes none — it is
+                current destination. This catalogue passes none. It is
                 unlisted, and nothing in the bar should light up for it.
               </span>
             </li>
@@ -425,8 +425,8 @@ export default function PrimitivesDemo() {
               />
               <span>
                 Select this sentence. <Mono>::selection</Mono> is{" "}
-                <Mono>--accent-blue</Mono> with <Mono>--background</Mono> text
-                — the accent used as a full fill in the one place the site
+                <Mono>--accent-blue</Mono> with <Mono>--background</Mono> text.
+The accent used as a full fill in the one place the site
                 allows it, because the browser is going to fill something
                 regardless.
               </span>

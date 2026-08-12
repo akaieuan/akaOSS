@@ -6,7 +6,7 @@
  * `AiGenerationBadge` all read from here, so a level can never mean one thing
  * in the slider and another in the badge.
  *
- * Accents are punctuation — dots, segment fills, the thumb ring. They are never
+ * Accents are punctuation: dots, segment fills, the thumb ring. They are never
  * a background for text. Light-theme accents sit around 3.3–4.1:1 on paper,
  * which clears WCAG 1.4.11 for graphical objects but not 1.4.3 for body text,
  * so every label in these components stays on `foreground` / `muted-foreground`.

@@ -6,7 +6,7 @@ import path from "node:path";
  * in TypeScript. Same reasoning as the product catalogue importing the real
  * components: a palette page that keeps its own copy of the palette is a
  * palette page that will eventually be wrong, and wrong in the one way
- * nobody notices — quietly, in the documentation.
+ * nobody notices, quietly, in the documentation.
  *
  * This runs at build time (the page is statically prerendered), so the cost
  * is one file read per build and nothing at request time.

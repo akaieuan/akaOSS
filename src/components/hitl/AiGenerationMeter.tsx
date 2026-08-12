@@ -23,7 +23,7 @@ export interface AiGenerationMeterProps {
  *
  * Deliberately read-only. Its job is to show provenance in a list row or a
  * header *without* inviting interaction, so it renders as a single element with
- * `role="img"` and no focusable children — a keyboard user tabbing through a
+ * `role="img"` and no focusable children, a keyboard user tabbing through a
  * table of fifty rows should not collect fifty stops. When the value needs to
  * be editable, reach for `AiGenerationSlider` or `AiGenerationBadge`.
  *

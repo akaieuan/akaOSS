@@ -48,7 +48,7 @@ export function HitlCard({ config, onOpenTab }: HitlCardProps) {
   if (state === "dismissed") {
     return (
       <div className="my-1.5 rounded-xl border border-dashed border-border px-3 py-1.5 text-xs italic text-muted-foreground">
-        Dismissed — {config.title}
+        Dismissed, {config.title}
       </div>
     );
   }

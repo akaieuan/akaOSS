@@ -2,8 +2,8 @@
  * Local fixture data for the /inertial exhibits.
  *
  * Deliberately self-contained: nothing here imports from the inertial
- * application itself. The exhibits demonstrate the *pattern* — signals rather
- * than verdicts, a gated action, a hash-chained log — using this site's own
+ * application itself. The exhibits demonstrate the *pattern*: signals rather
+ * than verdicts, a gated action, a hash-chained log, using this site's own
  * HITL Kit primitives and this file's data.
  *
  * Every timestamp is a frozen literal and every hash is derived, so the server
@@ -24,7 +24,7 @@ export interface Signal {
   channel: string;
   /**
    * Whether the skill emitted anything at all. A skill with nothing to say
-   * omits its channel rather than reporting a low number — absence means the
+   * omits its channel rather than reporting a low number. Absence means the
    * run produced no evidence on that dimension, which is a different claim
    * from evidence of innocence.
    */
@@ -35,7 +35,7 @@ export interface Signal {
   conf: number;
   /** Emitting skill, pinned to a version. */
   skill: string;
-  /** Typed evidence pointer — here, a half-open character range. */
+  /** Typed evidence pointer, here, a half-open character range. */
   span: [number, number] | null;
   /** Whether the channel cleared its routing threshold. */
   fired: boolean;
@@ -50,10 +50,10 @@ export interface Signal {
 
 /** Render a span the way the log prints it. */
 export function fmtSpan(span: [number, number] | null): string {
-  return span ? `${span[0]}..${span[1]}` : "—";
+  return span ? `${span[0]}..${span[1]}` : ", ";
 }
 
-/** Probabilities are always shown to two decimals — never rounded away to a
+/** Probabilities are always shown to two decimals, never rounded away to a
  *  percentage, never replaced by a bare adjective. */
 export function fmtP(n: number): string {
   return n.toFixed(2);
@@ -89,7 +89,7 @@ export const GATE_SIGNALS: Signal[] = [
     fired: true,
     threshold: 0.8,
     reads:
-      "Aimed at one specific person rather than rude in general — the whole comment is addressed to them.",
+      "Aimed at one specific person rather than rude in general. The whole comment is addressed to them.",
   },
   {
     channel: "threat.implied",
@@ -128,7 +128,7 @@ export const GATE_SIGNALS: Signal[] = [
     fired: false,
     threshold: 0.5,
     reads:
-      "Never reached a conclusion. That is not the same as clearing the account — nobody has checked.",
+      "Never reached a conclusion. That is not the same as clearing the account, nobody has checked.",
   },
 ];
 
@@ -138,7 +138,7 @@ export const GATE_SIGNALS: Signal[] = [
  * The reader can ask what the run would have looked like had the skills come
  * back more or less sure of themselves. It changes what a reviewer should make
  * of the signal; it changes nothing about whether one is required. R-07 keys on
- * what the action does, not on how sure the machine is — and the surest way to
+ * what the action does, not on how sure the machine is, and the surest way to
  * show that is to let someone try to move it.
  */
 export type ConfidenceMode = "unsure" | "emitted" | "certain";
@@ -183,7 +183,7 @@ export const CONFIDENCE_SETTINGS: ConfidenceSetting[] = [
       "spam.bulk": 0.99,
     },
     reads:
-      "The skills would stake their calibration on it. A reviewer can move faster — and is still the one who decides.",
+      "The skills would stake their calibration on it. A reviewer can move faster, and is still the one who decides.",
   },
 ];
 
@@ -223,7 +223,7 @@ export const GATE_OUTCOMES: Record<GateDecision, GateOutcome> = {
     event: "gate.approved",
     actor: "human:reviewer-2",
     plain:
-      "You have authorised the removal. Nothing has been removed yet — approval unlocks the executor, it does not run it.",
+      "You have authorised the removal. Nothing has been removed yet, approval unlocks the executor, it does not run it.",
     consequence:
       "The executor will now find the event it was looking for. Run it and the comment is gone and its author is told why.",
   },
@@ -240,7 +240,7 @@ export const GATE_OUTCOMES: Record<GateDecision, GateOutcome> = {
     plain:
       "You sent it up rather than guessing. The gate stays closed and nothing executes.",
     consequence:
-      "Escalation is the cheap direction: it costs a queue position, not someone's speech. It is also the failure mode of a discretionary gate — a reviewer who escalates everything has moved the decision, not made it.",
+      "Escalation is the cheap direction: it costs a queue position, not someone's speech. It is also the failure mode of a discretionary gate, a reviewer who escalates everything has moved the decision, not made it.",
   },
 };
 
@@ -362,7 +362,7 @@ export const PRISTINE_ENTRIES: AuditEntry[] = [
   },
 ];
 
-/** Which entry the exhibit starts on — one in the middle, so the break has
+/** Which entry the exhibit starts on. One in the middle, so the break has
  *  somewhere to walk to. */
 export const DEFAULT_TARGET_INDEX = 2;
 
@@ -402,7 +402,7 @@ export const FORGERIES: Record<number, Forgery> = {
   },
   3: {
     payload: "rule=R-11 gate=discretionary action=remove_content",
-    reads: "The router treated the removal as discretionary — no approval required.",
+    reads: "The router treated the removal as discretionary. No approval required.",
     motive:
       "Reclassifies the action so it never needed a human at all: the cleanest way to explain an approval nobody remembers giving.",
   },
@@ -430,7 +430,7 @@ export interface StoredLink {
   hash: string;
 }
 
-/** Recompute a whole chain from entries — what an honest writer produces. */
+/** Recompute a whole chain from entries, what an honest writer produces. */
 export function buildChain(entries: AuditEntry[]): StoredLink[] {
   const out: StoredLink[] = [];
   let prev = GENESIS;
@@ -471,8 +471,8 @@ export interface Verification {
  * Walk the chain from genesis and stop at the first failure.
  *
  * Two things can fail, and the exhibit depends on telling them apart:
- *   link    — the stored prevHash is not the previous entry's hash
- *   content — the stored hash is not the hash of this entry's own content
+ *   link. The stored prevHash is not the previous entry's hash
+ *   content. The stored hash is not the hash of this entry's own content
  */
 export function verifyChain(
   entries: AuditEntry[],
@@ -516,7 +516,7 @@ export function verifyChain(
 // ─── Exhibit 3 · verification before judgment ───────────────────────────────
 
 const REVIEWED_TEXT =
-  "congrats on the promotion — genuinely thrilled for you. next time you're in town I'm going to take you out and we are absolutely not splitting the bill.";
+  "congrats on the promotion, genuinely thrilled for you. next time you're in town I'm going to take you out and we are absolutely not splitting the bill.";
 
 const FLAGGED_PHRASE = "I'm going to take you out";
 const SPAN_START = REVIEWED_TEXT.indexOf(FLAGGED_PHRASE);
@@ -589,7 +589,7 @@ export const CONTRAST_OUTCOMES = {
 /** Why the same decision means different things depending on what you saw. */
 export const CONTRAST_BASIS = {
   verdict:
-    "You decided on a label and a number. Nothing you were shown could have separated this from a real threat — not the score, which was 0.91, and not the confidence band, which said high.",
+    "You decided on a label and a number. Nothing you were shown could have separated this from a real threat, not the score, which was 0.91, and not the confidence band, which said high.",
   located:
-    "You decided on the sentence the score came from, with the span resolved in the source and the emitting skill's own confidence on the table at 0.44 — below the floor this queue trusts. Right or wrong, the decision can be shown to someone else.",
+    "You decided on the sentence the score came from, with the span resolved in the source and the emitting skill's own confidence on the table at 0.44, below the floor this queue trusts. Right or wrong, the decision can be shown to someone else.",
 } as const;

@@ -10,7 +10,7 @@ const buttonClass =
 /**
  * Which icon shows is decided by CSS (`dark:` variants), not by state. The
  * server cannot know the visitor's theme, so the usual fix is a `mounted` flag
- * set in an effect — an extra render on every page, and a setState-in-effect
+ * set in an effect, an extra render on every page, and a setState-in-effect
  * the React compiler now flags. Letting the stylesheet choose removes the
  * state, the effect, and the mismatch in one go.
  */

@@ -1,7 +1,7 @@
 /**
  * Presentational atoms shared by the three /inertial exhibits.
  *
- * No "use client" — these are pure and get compiled into whichever graph
+ * No "use client", these are pure and get compiled into whichever graph
  * imports them, server or client. All machine data (hashes, scores, ids,
  * channels, spans) is mono; human voice is sans.
  */
@@ -237,13 +237,13 @@ export const btnPrimary =
 export const btnGhost =
   "inline-flex items-center gap-1.5 rounded-md border border-border px-2.5 py-1.5 text-xs text-muted-foreground transition-colors hover:bg-muted hover:text-foreground focus:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
-/** A control that is present but refuses — the refusal is the demonstration,
+/** A control that is present but refuses. The refusal is the demonstration,
  *  so it stays focusable and explains itself rather than going inert. */
 export const btnBlocked =
   "inline-flex items-center gap-1.5 rounded-md border border-dashed border-border px-3 py-1.5 text-xs text-muted-foreground/70 focus:outline-none focus-visible:ring-2 focus-visible:ring-ring";
 
 /**
- * A footnote in the machine's own voice — a rule, an invariant, a limit.
+ * A footnote in the machine's own voice: a rule, an invariant, a limit.
  * Mono, quiet, and never load-bearing for comprehension: the sans copy above
  * it has already said the thing.
  */
@@ -345,7 +345,7 @@ export interface Step {
 /**
  * An ordered sequence the reader is meant to perform, with the current step
  * marked. Used where the demonstration is the *order* of two actions rather
- * than either action alone — refuse then approve, forge then repair.
+ * than either action alone, refuse then approve, forge then repair.
  */
 export function Steps({
   label = "Try this, in order",
@@ -400,10 +400,10 @@ export function Steps({
               )}
               <span className="sr-only">
                 {s.state === "done"
-                  ? " — done"
+                  ? ", done"
                   : s.state === "now"
-                    ? " — do this next"
-                    : " — not yet"}
+                    ? ", do this next"
+                    : ", not yet"}
               </span>
             </span>
           </li>

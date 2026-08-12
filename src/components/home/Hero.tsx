@@ -29,7 +29,7 @@ export function Hero() {
           style={stagger(2)}
         >
           Five projects: a measurement family for AI that assists without
-          displacing — components, evals, annotation — and tooling for the
+          displacing: components, evals, annotation, and tooling for the
           agents that build alongside you.
         </p>
 
@@ -48,7 +48,7 @@ export function Hero() {
         </div>
       </div>
 
-      {/* The mark — assembles once on first view, then holds. */}
+      {/* The mark, assembles once on first view, then holds. */}
       <div className={cn("mx-auto hidden md:block", reveal)} style={stagger(2)}>
         <PixelHead size={340} grid={22} icon="spark" once fluid />
       </div>

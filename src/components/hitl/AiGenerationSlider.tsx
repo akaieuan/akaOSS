@@ -30,7 +30,7 @@ export interface AiGenerationSliderProps {
 }
 
 /**
- * The compact drag scale — one header row and one track, ~58px tall, and it
+ * The compact drag scale: one header row and one track, ~58px tall, and it
  * holds together at 320px.
  *
  * The five level names never all render at once: the current level sits in the
@@ -94,7 +94,7 @@ export function AiGenerationSlider({
 
   return (
     <div className={cn("w-full select-none", className)}>
-      {/* Header: the level name is the readout — no need to render all five. */}
+      {/* Header: the level name is the readout. No need to render all five. */}
       <div className="flex items-baseline justify-between gap-3">
         <span className="min-w-0 truncate text-[13px] leading-4 font-medium text-foreground">
           {name}
@@ -180,7 +180,7 @@ export function AiGenerationSlider({
 
       {/* The axis. aria-valuetext already carries the level, so this is decoration.
           `mt-2`, not `mt-1`: the thumb's focus ring paints 4px below the thumb
-          (2px outline at a 2px offset), which is exactly the old 4px gap — the
+          (2px outline at a 2px offset), which is exactly the old 4px gap. The
           ring landed flush on the cap-height of "Human". 8px leaves it 4px of
           clearance at every level and every width. */}
       <div

@@ -49,14 +49,14 @@ export default function ScalesPage() {
         id="ai-scale"
         title="AI Generation Scale"
         meta="four densities"
-        description="One five-point ordinal — Human, Mostly Human, Collaborative, Mostly AI, AI — in four densities, from a settings panel down to a table cell. All four read the level names and the emerald → blue → amber → violet → rose accent progression from a single shared module, so a level cannot mean one thing in the slider and another in the badge. Accents stay punctuation: dots, fills, the thumb. Every label sits on foreground or muted-foreground, never on colour."
+        description="One five-point ordinal: Human, Mostly Human, Collaborative, Mostly AI, AI, in four densities, from a settings panel down to a table cell. All four read the level names and the emerald → blue → amber → violet → rose accent progression from a single shared module, so a level cannot mean one thing in the slider and another in the badge. Accents stay punctuation: dots, fills, the thumb. Every label sits on foreground or muted-foreground, never on colour."
         cols={2}
       >
         <Specimen label="Slider" hint="ai-generation-slider">
           <SliderSpecimen />
           <Note>
             Reach for this when the human sets the value. One row, ~58px, and it
-            holds at 320px — the current level reads in the header and the two
+            holds at 320px. The current level reads in the header and the two
             endpoints carry the axis, so the middle labels never need to render.
             Drag it, or focus it and use ← → and Home / End.
           </Note>
@@ -64,7 +64,7 @@ export default function ScalesPage() {
 
         <Specimen label="Meter" hint="ai-generation-meter">
           {/* The meter is inline-flex by design, so the stack has to be an
-              explicit column — `space-y-*` would let two of them share a line. */}
+              explicit column: `space-y-*` would let two of them share a line. */}
           <div className="flex flex-col items-start gap-2.5">
             {AI_GENERATION_LEVELS.map((_, i) => (
               <AiGenerationMeter key={i} value={i} />
@@ -108,7 +108,7 @@ export default function ScalesPage() {
         </Specimen>
 
         <Specimen label="Segmented scale" hint="ai-generation-scale">
-          {/* Five equal buttons cannot shrink below their labels — around
+          {/* Five equal buttons cannot shrink below their labels, around
               230px the row is wider than its container. The well scrolls
               rather than bleeding, which is also the honest demonstration of
               why the other three densities exist. */}
@@ -118,7 +118,7 @@ export default function ScalesPage() {
           <Note>
             The original, and still the right call in a settings panel or a form
             where every option should be visible and directly clickable at once.
-            It needs the width — below roughly 400px, use the slider.
+            It needs the width, below roughly 400px, use the slider.
           </Note>
         </Specimen>
       </DemoSection>

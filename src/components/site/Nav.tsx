@@ -54,8 +54,8 @@ export function Nav({ active }: { active?: NavActive }) {
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           {/* The chrome mark: single elongated sparkle, solid, held still */}
           <PixelHead size={22} grid={16} gap={0.12} icon="spark" still />
-          {/* Nothing in this bar can shrink — three link labels, a wordmark and
-              the theme toggle all size to their content — so below 375px the row
+          {/* Nothing in this bar can shrink. Three link labels, a wordmark and
+              the theme toggle all size to their content, so below 375px the row
               needs 371px and the toggle lands off-screen, unreachable, with the
               whole page scrolling sideways. The wordmark is the one element the
               mark beside it already stands in for, so it is what gives way. */}
@@ -65,7 +65,7 @@ export function Nav({ active }: { active?: NavActive }) {
         </Link>
 
         <nav className="flex items-center gap-2.5 text-[13px] font-light tracking-[0.06em] text-muted-foreground sm:gap-4 md:gap-6 md:text-sm">
-          {/* Toolkits — CSS-only dropdown revealed on hover/focus */}
+          {/* Toolkits, CSS-only dropdown revealed on hover/focus */}
           <div className="group relative">
             <Link
               href="/projects"
@@ -77,10 +77,10 @@ export function Nav({ active }: { active?: NavActive }) {
               Toolkits
               <ChevronDown className="hidden h-3 w-3 opacity-60 md:block" />
             </Link>
-            {/* The dropdown is a hover affordance — desktop only. On touch,
+            {/* The dropdown is a hover affordance, desktop only. On touch,
                 Toolkits is a plain link straight to /projects. */}
             <div className="invisible absolute left-0 top-full z-50 hidden w-80 translate-y-1 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 md:block">
-              {/* Solid surface — no translucency, page text must never bleed through */}
+              {/* Solid surface. No translucency, page text must never bleed through */}
               <div className="flex flex-col gap-0.5 rounded-2xl border border-border bg-popover p-2 shadow-lg">
                 {PROJECT_GROUPS.map((group, gi) => (
                   <div
@@ -136,7 +136,7 @@ export function Nav({ active }: { active?: NavActive }) {
             </Link>
           ))}
 
-          {/* Footer carries GitHub on small screens — the bar stays breathable */}
+          {/* Footer carries GitHub on small screens. The bar stays breathable */}
           <a
             href={BRAND.github}
             target="_blank"

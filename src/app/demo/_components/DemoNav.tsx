@@ -10,7 +10,7 @@ import { DEMO_NAV } from "./sections";
  * scrollable strip that replaces it below `lg`, so the catalogue is still
  * navigable on a phone without the page itself ever scrolling sideways.
  *
- * Client-only for `usePathname` — the current-page marker is the whole point.
+ * Client-only for `usePathname`. The current-page marker is the whole point.
  */
 export function DemoNav({ variant }: { variant: "rail" | "bar" }) {
   const pathname = usePathname();

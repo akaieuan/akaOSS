@@ -44,7 +44,7 @@ export function Footer() {
               </span>
             </div>
             <p className="mt-4 text-sm leading-relaxed text-muted-foreground">
-              Open-source software for human-in-the-loop AI — five toolkits,
+              Open-source software for human-in-the-loop AI: five toolkits,
               one thesis, a findings feed.
             </p>
           </div>

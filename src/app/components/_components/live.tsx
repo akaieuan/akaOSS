@@ -8,12 +8,12 @@
  *  1. It owns state (the scales, the approval rows, the context strip).
  *  2. It needs a `DEMO_*` fixture. Those fixtures are exported from modules
  *     carrying `"use client"`, so a server component receives a client-reference
- *     proxy rather than the array or object itself — `DEMO_HITL_CARDS.map(…)`
+ *     proxy rather than the array or object itself: `DEMO_HITL_CARDS.map(…)`
  *     throws on the server. Reading the fixture on this side is the fix, and it
  *     keeps the fixtures where the registry ships them.
  *
  * Each one is a thin leaf that renders the real shipped component. Nothing here
- * reimplements a primitive — if a specimen looks wrong, the component is wrong.
+ * reimplements a primitive, if a specimen looks wrong, the component is wrong.
  * The surrounding frame (`DemoSection`, `Specimen`) stays on the server.
  */
 
@@ -79,7 +79,7 @@ export function SegmentedScaleSpecimen() {
 // ─── Decision ────────────────────────────────────────────────────────────────
 
 /** The three interrupt-card variants. Labels come from the fixture, so the
- *  whole grid — wells included — has to read it on the client. */
+ *  whole grid, wells included, has to read it on the client. */
 export function InterruptCardSpecimens() {
   return (
     <>

@@ -34,7 +34,7 @@ function isTypingTarget(target: EventTarget | null) {
   );
 }
 
-/** Press `d` to flip the theme — skipped while typing or with modifiers held. */
+/** Press `d` to flip the theme, skipped while typing or with modifiers held. */
 function ThemeHotkey() {
   const { resolvedTheme, setTheme } = useTheme();
 

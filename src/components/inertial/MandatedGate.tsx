@@ -87,24 +87,24 @@ function baseTrace(): TraceStep[] {
   return [
     {
       type: "result",
-      label: `ingest — ${GATE_ITEM.assetId} received`,
+      label: `ingest, ${GATE_ITEM.assetId} received`,
       detail: `${T.ingest} · surface=${GATE_ITEM.surface} · reports=${GATE_ITEM.reports}`,
     },
     {
       type: "result",
-      label: `signal — ${fired.length} of ${emitted.length} emitted channels above threshold, ${silent} not emitted`,
+      label: `signal, ${fired.length} of ${emitted.length} emitted channels above threshold, ${silent} not emitted`,
       detail: `${T.signal} · ${fired
         .map((s) => `${s.channel} p=${fmtP(s.p)}`)
-        .join(" · ")} — probabilities and evidence pointers only, no channel returns a verdict`,
+        .join(" · ")}: probabilities and evidence pointers only, no channel returns a verdict`,
     },
     {
       type: "thought",
-      label: `routed — rule ${GATE_ACTION.rule} classifies ${GATE_ACTION.tool} as consequential.irreversible`,
+      label: `routed, rule ${GATE_ACTION.rule} classifies ${GATE_ACTION.tool} as consequential.irreversible`,
       detail: `${T.routed} · ${GATE_ACTION.ruleText}`,
     },
     {
       type: "action",
-      label: "gate.pending — control returned to a human",
+      label: "gate.pending, control returned to a human",
       detail: `${T.held} · the call is constructed but held; the executor refuses any tool in this class without a gate.approved event naming it`,
     },
   ];
@@ -217,7 +217,7 @@ export function MandatedGate() {
       setPhase("executed");
       append((n) => ({
         type: "result",
-        label: `action.executed — ${GATE_ACTION.tool}(${GATE_ITEM.assetId})`,
+        label: `action.executed, ${GATE_ACTION.tool}(${GATE_ITEM.assetId})`,
         detail: `${stamp(n)} · executed after the approval event was found, and not one second before it`,
       }));
       return;
@@ -227,7 +227,7 @@ export function MandatedGate() {
     setRefusals(attempt);
     append((n) => ({
       type: "action",
-      label: `action.refused — no gate.approved event for ${GATE_ITEM.assetId}`,
+      label: `action.refused. No gate.approved event for ${GATE_ITEM.assetId}`,
       detail: `${stamp(n)} · attempt ${attempt} · the refusal is itself appended; a blocked call leaves a mark rather than nothing`,
     }));
   }
@@ -237,13 +237,13 @@ export function MandatedGate() {
     setPhase(d === "approved" ? "approved" : d);
     append((n) => ({
       type: "action",
-      label: `${outcome.event} — ${outcome.actor}`,
+      label: `${outcome.event}, ${outcome.actor}`,
       detail: `${stamp(n)} · ${outcome.plain}`,
     }));
     if (d === "denied") {
       append((n) => ({
         type: "result",
-        label: `action.discarded — ${GATE_ACTION.tool} never executed`,
+        label: `action.discarded, ${GATE_ACTION.tool} never executed`,
         detail: `${stamp(n)} · the constructed call is dropped; the content stays up and the signals remain on the record`,
       }));
     }
@@ -303,7 +303,7 @@ export function MandatedGate() {
             text: "Someone's words are gone and its author is told why. Appeals against removals like this are rarely granted.",
           },
         ]}
-        close="Neither direction is safe, which is exactly why a person is standing here — and why the machine is allowed to construct this call but not to run it."
+        close="Neither direction is safe, which is exactly why a person is standing here, and why the machine is allowed to construct this call but not to run it."
       >
         Three people have reported the comment below. It is one of about ninety
         in your queue this hour, and the only question in front of you is
@@ -391,12 +391,12 @@ export function MandatedGate() {
                           tone={s.fired ? "warn" : "muted"}
                         />
                       ) : (
-                        <Mono tone="muted">—</Mono>
+                        <Mono tone="muted">, </Mono>
                       )}
                     </td>
                     <td className="py-2.5 pr-4">
                       <Mono tone="muted" className="tabular-nums">
-                        {s.emitted ? fmtP(conf) : "—"}
+                        {s.emitted ? fmtP(conf) : ", "}
                       </Mono>
                     </td>
                     <td className="py-2.5 pr-4">
@@ -441,7 +441,7 @@ export function MandatedGate() {
           >
             {setting.reads}{" "}
             <span className="text-foreground">
-              Routing: {GATE_ROUTING} — unchanged.
+              Routing: {GATE_ROUTING}, unchanged.
             </span>
           </p>
           <Note className="mt-2">
@@ -499,7 +499,7 @@ export function MandatedGate() {
               ? "Removal executed"
               : canExecute
                 ? "Execute removal"
-                : "Execute removal — blocked"}
+                : "Execute removal, blocked"}
           </button>
 
           {!decided && refusals === 0 && (
@@ -550,14 +550,14 @@ export function MandatedGate() {
                 icon={X}
                 onClick={() => decide("denied")}
               >
-                Deny — leave it up
+                Deny, leave it up
               </DecisionButton>
               <DecisionButton
                 tone="warn"
                 icon={ArrowUpRight}
                 onClick={() => decide("escalated")}
               >
-                Escalate — policy is unclear
+                Escalate, policy is unclear
               </DecisionButton>
             </div>
           )}
@@ -603,7 +603,7 @@ export function MandatedGate() {
         </div>
         <p className="mt-2 max-w-prose text-[13px] leading-relaxed text-muted-foreground">
           Every transition lands here, including the ones that failed. A refused
-          execution is not a non-event — it is a record that something tried.
+          execution is not a non-event. It is a record that something tried.
         </p>
 
         <div className="mt-4">

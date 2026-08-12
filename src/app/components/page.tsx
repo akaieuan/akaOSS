@@ -22,7 +22,7 @@ export default function ComponentsOverview() {
         lede={
           <>
             Every primitive here is the physical embodiment of a claim from the
-            paper. Every specimen imports the real component — nothing on these
+            paper. Every specimen imports the real component. Nothing on these
             pages is reimplemented, so the catalogue cannot drift from what the
             registry actually ships. Interactive, shadcn-compatible,
             copy-paste ready.
@@ -62,7 +62,7 @@ export default function ComponentsOverview() {
       <section className="mt-12 border-t border-border/60 pt-8">
         <p className="label">Installing</p>
         <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
-          Each primitive installs on its own through the shadcn CLI — no fork,
+          Each primitive installs on its own through the shadcn CLI. No fork,
           no wrapper SDK. The{" "}
           <Link
             href="/registry"

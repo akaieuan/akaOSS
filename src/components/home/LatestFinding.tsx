@@ -5,7 +5,7 @@ import { getResearchPosts } from "@/app/research/posts";
 import { arrowLink, arrowNudge } from "./shared";
 
 /* The landing's "Latest finding" derives from the research feed at build
-   time — the newest post is always the one shown, so this section can
+   time. The newest post is always the one shown, so this section can
    never go stale. (House rule: every research post updates the landing;
    this component satisfies it structurally.) */
 

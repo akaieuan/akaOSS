@@ -5,7 +5,7 @@ import { ProjectsGrid } from "@/components/home/ProjectsGrid";
 import { Thesis } from "@/components/home/Thesis";
 import { LatestFinding } from "@/components/home/LatestFinding";
 
-/* The landing is a composition of atomic server sections — no client
+/* The landing is a composition of atomic server sections. No client
    JavaScript at this level. Interactive islands (theme, canvas mark) live
    inside the sections that need them. */
 
