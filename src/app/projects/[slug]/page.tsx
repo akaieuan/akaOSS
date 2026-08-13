@@ -7,6 +7,7 @@ import { Footer } from "@/components/site/Footer";
 import { PROJECTS, getProject, ACCENT_COLORS, PROJECT_BADGES } from "@/lib/projects";
 import { PixelHead } from "@/components/site/PixelHead";
 import { REGISTRY_ITEMS } from "@/lib/registry-items";
+import { npmVersion, pypiVersion } from "@/lib/facts";
 import { CopyButton } from "../copy-button";
 
 export function generateStaticParams() {
@@ -38,7 +39,7 @@ export default async function ProjectPage({
 
   const accent = ACCENT_COLORS[project.accent];
   const siblings = PROJECTS.filter((p) => p.slug !== project.slug);
-  const hasPackages = project.packages.length > 0;
+  const hasPackages = project.packages.length > 0 || Boolean(project.pypi);
   const hasLinks = project.links.length > 0;
 
   return (
@@ -287,9 +288,36 @@ export default async function ProjectPage({
               <h2 className="text-2xl font-light tracking-tight text-foreground">
                 Packages.
               </h2>
-              <span className="label">{project.packages.length} on npm</span>
+              <span className="label">
+                {project.pypi
+                  ? "on PyPI"
+                  : `${project.packages.length} on npm`}
+              </span>
             </div>
             <div className="flex flex-col">
+              {project.pypi && (
+                <a
+                  href={`https://pypi.org/project/${project.pypi}/`}
+                  target="_blank"
+                  rel="noreferrer"
+                  className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
+                >
+                  <span className="flex items-baseline gap-2.5">
+                    <span className="font-mono text-sm text-foreground">
+                      {project.pypi}
+                    </span>
+                    {pypiVersion(project.pypi) && (
+                      <span className="font-mono text-[11px] text-muted-foreground/70">
+                        {pypiVersion(project.pypi)}
+                      </span>
+                    )}
+                  </span>
+                  <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1.5 text-xs transition-colors">
+                    pypi.org
+                    <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  </span>
+                </a>
+              )}
               {project.packages.map((pkg) => (
                 <a
                   key={pkg}
@@ -298,8 +326,15 @@ export default async function ProjectPage({
                   rel="noreferrer"
                   className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
                 >
-                  <span className="font-mono text-sm text-foreground">
-                    {pkg}
+                  <span className="flex items-baseline gap-2.5">
+                    <span className="font-mono text-sm text-foreground">
+                      {pkg}
+                    </span>
+                    {npmVersion(pkg) && (
+                      <span className="font-mono text-[11px] text-muted-foreground/70">
+                        {npmVersion(pkg)}
+                      </span>
+                    )}
                   </span>
                   <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1.5 text-xs transition-colors">
                     npmjs.com

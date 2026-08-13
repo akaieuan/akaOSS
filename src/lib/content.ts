@@ -115,64 +115,9 @@ export const EVIDENCE: EvidenceItem[] = [
   { n: "[05]", title: "Supporting-facts requirement", cite: "Yang et al., 2018 · HotpotQA" },
 ];
 
-// §4 apparatus. Three kits as editorial rows
-export interface KitSummary {
-  slug: "hitl-kit" | "eval-kit" | "tag-kit";
-  idx: string;
-  name: string;
-  version: string;
-  oneLiner: string;
-  why: string;
-  meta: string;
-  install: string;
-  accent: Accent;
-  href: string;
-}
-
 export const APPARATUS_INTRO =
   "Together: the paper is the argument, the components are the proof the argument is implementable, the registry is how you adopt it. Each kit is a peer.";
 
-export const KIT_SUMMARIES: KitSummary[] = [
-  {
-    slug: "hitl-kit",
-    idx: "01",
-    name: "HITL Kit",
-    version: "v0.6",
-    oneLiner:
-      "Nineteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
-    why: "No fork, no vendor lock-in, no wrapper SDK. Copy, paste, own.",
-    meta: "19 primitives via shadcn CLI · six packages on npm · deep-dive at /components",
-    install: "npx shadcn@latest add https://www.hitlkit.dev/r/hitl-card.json",
-    accent: "violet",
-    href: "/projects/hitl-kit",
-  },
-  {
-    slug: "eval-kit",
-    idx: "02",
-    name: "eval-kit",
-    version: "v0.3.1",
-    oneLiner:
-      "Scores whether your agent respects human authority, stops when it must, asks when it should. Humans score, not LLMs.",
-    why: "The interesting failure modes are step-level, not output-level. Distractors score the refusal, not the compliance.",
-    meta: "five human-scored dimensions · three reference suites · four adapters · deterministic replay · file-based, single-user",
-    install: "npx @eval-kit/core init my-evals",
-    accent: "emerald",
-    href: "/projects/eval-kit",
-  },
-  {
-    slug: "tag-kit",
-    idx: "03",
-    name: "tag-kit",
-    version: "substrate",
-    oneLiner:
-      "Structured tagging primitives for human-in-the-loop annotation workflows.",
-    why: "Bring your own taxonomy, bring your own UI, bring your own scoring loop, tag-kit ships the substrate. Per-modality scoping, scope-aware agreement, stable taxonomy IDs.",
-    meta: "v0.3.1 on npm · @tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app",
-    install: "pnpm add @tag-kit/core @tag-kit/ui",
-    accent: "amber",
-    href: "/projects/tag-kit",
-  },
-];
 
 // Left-to-right interlock diagram (Direction C)
 export interface InterlockNode {
