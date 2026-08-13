@@ -249,7 +249,7 @@ export default function RegistryPage() {
             <div>
               <p className="label mb-2">LLM pluggability</p>
               <p className="text-sm leading-relaxed text-muted-foreground">
-                In v0.3 each primitive ships with a Zod event schema and a
+                Each primitive ships with a Zod event schema and a
                 dispatch renderer, so LangGraph and Vercel AI SDK agents can
                 stream structured HITL events that render automatically.
               </p>

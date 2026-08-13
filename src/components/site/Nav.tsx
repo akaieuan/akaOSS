@@ -22,16 +22,16 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
   {
     label: "Human-in-the-loop measurement",
     links: [
-      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "19 primitives via shadcn CLI · six packages on npm · v0.6", icon: "head" },
-      { href: "/projects/eval-kit", name: "eval-kit", meta: "scores whether the agent respects human authority · v0.4.0", icon: "podium" },
-      { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps · v0.3.1 on npm", icon: "codetag" },
+      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "React primitives via the shadcn CLI · copy, paste, own", icon: "head" },
+      { href: "/projects/eval-kit", name: "eval-kit", meta: "scores whether the agent respects human authority", icon: "podium" },
+      { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps", icon: "codetag" },
     ],
   },
   {
     label: "Developer tooling",
     links: [
-      { href: "/projects/collapse", name: "Collapse", meta: "skills + MCP tools from your lessons · v0.2", icon: "prompt" },
-      { href: "/projects/hologram", name: "Hologram", meta: "Blender → glTF observability · v0.6.0 on PyPI", icon: "prompt" },
+      { href: "/projects/collapse", name: "Collapse", meta: "skills + MCP tools from your lessons", icon: "prompt" },
+      { href: "/projects/hologram", name: "Hologram", meta: "Blender → glTF observability · on PyPI", icon: "prompt" },
     ],
   },
 ];

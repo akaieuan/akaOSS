@@ -19,6 +19,8 @@ export interface Project {
   status: string;
   install: { label: string; command: string }[];
   packages: string[]; // npm package names (empty for non-npm projects)
+  /** PyPI package name, for projects that publish to PyPI instead of npm. */
+  pypi?: string;
   features: { title: string; body: string }[];
   accent: "violet" | "amber" | "emerald" | "rose" | "blue"; // distinct per project
   repo: string; // github URL
@@ -80,7 +82,7 @@ export const PROJECTS: Project[] = [
       {
         heading: "Every primitive embodies a claim",
         paragraphs: [
-          "The component library is not a grab-bag of agent UI widgets. Each of the fifteen primitives is the physical embodiment of a specific claim from the paper. The MiniTrace instantiates the supporting-facts requirement from HotpotQA (Yang et al., 2018): an answer without its evidence trail is unverifiable, so the trace rides along. The AI Generation Scale operationalises Dhillon et al.'s scaffolding principle, their CHI study found sentence-level suggestions reduced writing quality while paragraph-level scaffolds improved it, so the scale makes the level of AI involvement a first-class, visible control. The Interrupt Card is the agency-preservation boundary: the moment the system pauses and the human decides.",
+          "The component library is not a grab-bag of agent UI widgets. Each primitive is the physical embodiment of a specific claim from the paper. The MiniTrace instantiates the supporting-facts requirement from HotpotQA (Yang et al., 2018): an answer without its evidence trail is unverifiable, so the trace rides along. The AI Generation Scale operationalises Dhillon et al.'s scaffolding principle, their CHI study found sentence-level suggestions reduced writing quality while paragraph-level scaffolds improved it, so the scale makes the level of AI involvement a first-class, visible control. The Interrupt Card is the agency-preservation boundary: the moment the system pauses and the human decides.",
           "That traceability is the design discipline for the whole kit: if a primitive can't be tied to a claim the paper defends, it doesn't ship. The paper is the spec.",
         ],
       },
@@ -88,13 +90,13 @@ export const PROJECTS: Project[] = [
         heading: "How it's built",
         paragraphs: [
           "The architecture is a protocol with adapters. @hitl-kit/core defines Zod event schemas, a framework-agnostic wire format for human-in-the-loop moments (approvals, interrupts, traces, generation-scale changes). @hitl-kit/react ships HitlEventRenderer, a typed dispatcher that maps validated events to UI primitives. @hitl-kit/gates adds composable decision gates: confidence, cost, scope, approval-chain, rate-limit, pure functions that wrap any adapter's emit point and decide allow, deny, or escalate.",
-          "Three adapters carry the protocol into real agent stacks: LangGraph (emit events from interrupt() nodes, resume with typed Commands), the Vercel AI SDK (typed tool() wrappers), and MCP (an MCP server exposing the fifteen primitive event kinds as tools, so any MCP-aware client can emit schema-validated HITL events). The paper becomes the protocol; the protocol becomes the platform.",
+          "Three adapters carry the protocol into real agent stacks: LangGraph (emit events from interrupt() nodes, resume with typed Commands), the Vercel AI SDK (typed tool() wrappers), and MCP (an MCP server exposing the primitive event kinds as tools, so any MCP-aware client can emit schema-validated HITL events). The paper becomes the protocol; the protocol becomes the platform.",
           "The UI primitives themselves distribute the shadcn way: copy, paste, own. No fork, no vendor lock-in, no wrapper SDK: the registry serves JSON that the shadcn CLI resolves into your own codebase, with the same tokens, the same conventions, and full ownership of the code afterward. The kit was originally extracted from Agatha, a research-agent workspace. The primitives earned their shapes in a real product before they were generalized.",
         ],
       },
     ],
     status:
-      "v0.6 · deployed at hitlkit.dev · 19 primitives via shadcn CLI · six packages on npm.",
+      "Deployed at hitlkit.dev · every primitive installs individually via the shadcn CLI · copy, paste, own.",
     install: [
       {
         label: "Add a primitive via the shadcn CLI",
@@ -177,7 +179,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     status:
-      "v0.4.0 on npm. The gates release · mandated compliance and discretionary precision/recall scored from the trace, never averaged · three reference suites · four adapters (anthropic, openai, http, mock) · file-based, single-user, not a hosted service.",
+      "The gates release · mandated compliance and discretionary precision/recall scored from the trace, never averaged · three reference suites · four adapters (anthropic, openai, http, mock) · file-based, single-user, not a hosted service.",
     install: [
       {
         label: "Initialize a project",
@@ -278,7 +280,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     status:
-      "v0.3.1 on npm · @tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app (inertial).",
+      "@tag-kit/core (zero runtime deps) · @tag-kit/ui (headless React) · extracted from a real moderation app (inertial).",
     install: [
       {
         label: "Install the packages",
@@ -337,7 +339,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     status:
-      "v0.2 · active development. Shipped: MDX ingestor with 21 cross-stack reference lessons, notebook ingestor with admonition auto-prefill, template engine with cross-language equivalents + trigger-phrase derivation, atomic persistence, three-tier skill quality linter, and MCP server scaffold generation. One annotation can now become a skill or a working MCP tool.",
+      "Active development. Shipped: MDX ingestor with 21 cross-stack reference lessons, notebook ingestor with admonition auto-prefill, template engine with cross-language equivalents + trigger-phrase derivation, atomic persistence, three-tier skill quality linter, and MCP server scaffold generation. One annotation can now become a skill or a working MCP tool.",
     install: [
       {
         label: "Clone and run the dev server",
@@ -403,7 +405,7 @@ export const PROJECTS: Project[] = [
         ],
       },
     ],
-    status: "v0.6.0 · on PyPI as hologram-gltf · Python 3.10+ · MIT.",
+    status: "On PyPI as hologram-gltf · Python 3.10+ · MIT.",
     install: [
       {
         label: "Run the dashboard",
@@ -412,6 +414,7 @@ export const PROJECTS: Project[] = [
       },
     ],
     packages: [],
+    pypi: "hologram-gltf",
     features: [
       {
         title: "Live pipeline feed",

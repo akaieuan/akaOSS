@@ -1,0 +1,19 @@
+{
+  "generatedAt": "2026-08-13T01:05:44.348Z",
+  "npm": {
+    "@eval-kit/core": "0.4.0",
+    "@eval-kit/seed-suite": "0.1.2",
+    "@eval-kit/ui": "0.3.1",
+    "@hitl-kit/ai-sdk": "0.7.1",
+    "@hitl-kit/core": "0.5.0",
+    "@hitl-kit/gates": "0.2.0",
+    "@hitl-kit/langgraph": "0.6.1",
+    "@hitl-kit/mcp": "0.8.0",
+    "@hitl-kit/react": "0.4.2",
+    "@tag-kit/core": "0.3.1",
+    "@tag-kit/ui": "0.3.1"
+  },
+  "pypi": {
+    "hologram-gltf": "0.6.0"
+  }
+}

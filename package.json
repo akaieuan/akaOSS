@@ -2,7 +2,7 @@
   "name": "akaoss",
   "version": "0.1.0",
   "private": true,
-  "description": "akaOSS \u2014 the studio site at akaoss.dev: five open-source projects for human-in-the-loop AI measurement and developer tooling, plus the research feed and the HITL Kit component registry.",
+  "description": "akaOSS — the studio site at akaoss.dev: five open-source projects for human-in-the-loop AI measurement and developer tooling, plus the research feed and the HITL Kit component registry.",
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -10,10 +10,12 @@
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
     "registry:build": "shadcn build",
-    "registry:check": "pnpm registry:build && git diff --exit-code public/r registry.json && echo '\u2713 registry up to date'",
-    "verify": "pnpm typecheck && pnpm registry:check && pnpm build",
+    "registry:check": "pnpm registry:build && git diff --exit-code public/r registry.json && echo '✓ registry up to date'",
+    "verify": "pnpm typecheck && pnpm registry:check && pnpm facts:check && pnpm build",
     "smoke-test": "bash scripts/smoke-test.sh local",
-    "smoke-test:prod": "bash scripts/smoke-test.sh prod"
+    "smoke-test:prod": "bash scripts/smoke-test.sh prod",
+    "facts:build": "tsx scripts/facts.ts",
+    "facts:check": "pnpm facts:build && git diff --exit-code facts.json && echo \"✓ facts up to date\""
   },
   "dependencies": {
     "class-variance-authority": "^0.7.1",
@@ -40,6 +42,7 @@
     "eslint-config-next": "16.2.4",
     "shadcn": "^4.3.1",
     "tailwindcss": "^4",
+    "tsx": "^4.23.12",
     "typescript": "^5"
   },
   "pnpm": {

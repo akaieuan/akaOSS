@@ -1,0 +1,45 @@
+name: Facts
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+jobs:
+  verify:
+    name: Verify derived facts are current
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v4
+        with:
+          version: 10
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "22"
+          cache: "pnpm"
+
+      - name: Install dependencies
+        run: pnpm install --frozen-lockfile
+
+      # Reaches npm and PyPI. Unlike the other gates this one can fail for
+      # reasons outside the diff, either a registry outage or a sibling
+      # package publishing while this PR was open. Both are worth a rerun:
+      # the alternative is the site quietly restating versions that moved.
+      - name: Rebuild facts
+        run: pnpm facts:build
+
+      - name: Check for drift
+        run: |
+          if ! git diff --exit-code facts.json; then
+            echo "::error::facts.json is out of sync with npm/PyPI."
+            echo "A sibling package published. Run 'pnpm facts:build' locally and commit the result."
+            exit 1
+          fi
+          echo "Derived facts are up to date."
