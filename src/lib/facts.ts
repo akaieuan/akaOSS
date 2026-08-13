@@ -12,7 +12,11 @@
 import factsJson from "../../facts.json" with { type: "json" };
 
 export interface Facts {
-  /** ISO timestamp of the last successful `pnpm facts:build`. */
+  /**
+   * ISO timestamp of when these values last CHANGED, not when the script last
+   * ran. A run that finds nothing moved preserves the previous stamp, so
+   * `facts:check` diffs real drift instead of its own clock.
+   */
   generatedAt: string;
   /** npm package name to latest published version. */
   npm: Record<string, string>;

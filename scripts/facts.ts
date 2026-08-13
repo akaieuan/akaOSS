@@ -13,7 +13,7 @@
  *   pnpm facts:build   regenerate
  *   pnpm facts:check   regenerate and fail if the committed copy moved
  */
-import { writeFileSync } from "node:fs";
+import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
 import { PROJECTS } from "../src/lib/projects.js";
 import type { Facts } from "../src/lib/facts.js";
@@ -55,6 +55,15 @@ function sortKeys(entries: [string, string][]): Record<string, string> {
   return Object.fromEntries(entries.sort(([a], [b]) => a.localeCompare(b)));
 }
 
+/** The committed file, or null on a first run or unreadable/corrupt JSON. */
+function readPrevious(path: string): Facts | null {
+  try {
+    return JSON.parse(readFileSync(path, "utf8")) as Facts;
+  } catch {
+    return null;
+  }
+}
+
 async function main() {
   const npmPackages = PROJECTS.flatMap((p) => p.packages);
   const pypiPackages = PROJECTS.flatMap((p) => (p.pypi ? [p.pypi] : []));
@@ -80,13 +89,28 @@ async function main() {
     ),
   ]);
 
-  const facts: Facts = {
-    generatedAt: new Date().toISOString(),
+  const derived = {
     npm: sortKeys(npmEntries),
     pypi: sortKeys(pypiEntries),
   };
 
   const out = join(process.cwd(), "facts.json");
+
+  // `generatedAt` marks when these values last CHANGED, not when this script
+  // last ran. Stamping every run would make `facts:check` diff its own
+  // timestamp and fail on every PR forever, which is a gate that always fires
+  // rather than one that fires on drift.
+  const previous = readPrevious(out);
+  const unchanged =
+    previous !== null &&
+    JSON.stringify(previous.npm) === JSON.stringify(derived.npm) &&
+    JSON.stringify(previous.pypi) === JSON.stringify(derived.pypi);
+
+  const facts: Facts = {
+    generatedAt:
+      unchanged && previous ? previous.generatedAt : new Date().toISOString(),
+    ...derived,
+  };
   writeFileSync(out, `${JSON.stringify(facts, null, 2)}\n`, "utf8");
 
   for (const [pkg, version] of [...npmEntries, ...pypiEntries]) {

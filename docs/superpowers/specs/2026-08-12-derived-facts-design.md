@@ -83,6 +83,21 @@ unlabelled gap is honest, `v?` is not.
 facts.json`, wired into `pnpm verify` and into `.github/workflows/facts.yml`,
 which mirrors `registry.yml`.
 
+### `generatedAt` marks change, not runs
+
+The first CI run of this gate failed, and the failure was instructive. The
+diff showed every version identical and only `generatedAt` moved: the script
+stamped a fresh timestamp each run, into the very file the gate diffs. That is
+a gate which can never pass, the mirror of the problem this work exists to
+fix. A gate that always fires teaches you to ignore it just as surely as one
+that never fires.
+
+So a run that finds nothing moved preserves the previous timestamp, and
+`generatedAt` now means "when these values last changed". Verified both
+directions: three consecutive builds leave the file byte-identical, and a
+tampered version (`@hitl-kit/mcp` set to `0.9.9`) makes the gate fail and then
+self-correct on the next build.
+
 ### Known cost of the gate
 
 `facts.yml` reaches the network, so unlike every other gate in this repo it
