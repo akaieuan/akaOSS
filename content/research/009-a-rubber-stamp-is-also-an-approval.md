@@ -64,7 +64,7 @@ Two details carry the argument.
 
 `never_denied` is included because a gate that never denies across a whole corpus is decorative by revealed preference. It is the cheapest possible check on whether oversight is real, and it needs no timestamps at all.
 
-There is deliberately no combined "oversight score". Averaging these would repeat the mistake № 006 exists to argue against, and it would do it on the axis where the temptation is strongest.
+There is deliberately no combined "oversight score". Averaging these would repeat the mistake [№ 005](/research/005-the-gate-is-the-unit-of-measurement) exists to argue against, and it would do it on the axis where the temptation is strongest.
 
 ## 5. Absence passes, again
 
