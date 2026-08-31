@@ -26,7 +26,9 @@ This note is about closing that, and about the part that turned out to be harder
 
 `GateEvent` gains `opened_at`, `resolved_at`, `decision_latency_ms`, and `overseers`. The first three default to `null`; the last defaults to `[]`.
 
-They map onto obligations that already exist in law. The EU AI Act's Article 12 requires automatic logs capturing the start and end time of each use, and identification of the natural persons involved in verifying results. Article 14(5) requires that certain systems act only after separate verification by **at least two** natural persons — which is why `overseers` is an array and not a scalar. A scalar cannot express that a four-eyes requirement was met, and counting array length rather than distinct entries would let one person sign twice.
+They map onto obligations that already exist in law. The EU AI Act's Article 12 requires high-risk systems to record events automatically over their lifetime. For remote biometric identification specifically (Annex III, point 1(a)), Article 12(3) sets a minimum that includes the period of each use with start and end date and time, and identification of the natural persons involved in verifying results. Article 14(5) requires that those same systems act only after separate verification by **at least two** natural persons — which is why `overseers` is an array and not a scalar. A scalar cannot express that a four-eyes requirement was met, and counting array length rather than distinct entries would let one person sign twice.
+
+*Correction, 2026-08-31: this paragraph first stated Article 12's start/end-time and overseer-identification minimums as general obligations on every high-risk system. They are the Article 12(3) minimum for remote biometric identification specifically; the general Article 12 duty is automatic logging over the system's lifetime. The fields and the design they serve are unchanged. Only the scope of the citation was wrong, and it was wrong in the direction of claiming more than the law says.*
 
 None of this is a compliance claim, and the repo says so in the README. Articles 12 and 14 bind deployed high-risk systems at runtime; eval-kit is a pre-deployment instrument. What it can now do is *carry* that provenance into scoring.
 
@@ -48,7 +50,7 @@ That guarantee is only worth as much as the test behind it, so the test was muta
 
 ## 3. Storing a number that is derivable, on purpose
 
-`decision_latency_ms` is derivable from the two timestamps. Two sources of truth that can disagree is the failure this repo spends most of its CI budget guarding against, so storing it needs a real reason.
+`decision_latency_ms` is derivable from the two timestamps. Two sources of truth that can disagree is a failure this repo already runs dedicated CI gates against, so storing it needs a real reason.
 
 The reason is that a deployer may hold a **duration** while deliberately not retaining wall-clock times. A timestamp joined to an overseer identity is personal data under GDPR; a duration is far weaker. Refusing to represent that case would push honest deployers into fabricating timestamps to satisfy the schema — the exact harm the null discipline exists to prevent.
 
