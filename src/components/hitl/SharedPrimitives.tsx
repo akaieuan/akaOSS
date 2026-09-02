@@ -6,12 +6,13 @@ import type { ApprovalState } from "@/components/hitl/core";
 import { cn } from "@/lib/utils";
 import { ApproveRejectRow } from "@/components/hitl/ApproveRejectRow";
 
-const ACCENT_SWATCHES = [
-  { label: "Violet", color: "bg-[color:var(--accent-violet)]" },
-  { label: "Amber", color: "bg-[color:var(--accent-amber)]" },
-  { label: "Blue", color: "bg-[color:var(--accent-blue)]" },
-  { label: "Emerald", color: "bg-[color:var(--accent-emerald)]" },
-  { label: "Rose", color: "bg-[color:var(--accent-rose)]" },
+/** Each accent has one job. Name the job, not just the hue. */
+const ACCENTS = [
+  { label: "Violet", role: "Search and evidence", color: "bg-[color:var(--accent-violet)]" },
+  { label: "Amber", role: "Review, hold, can't tell", color: "bg-[color:var(--accent-amber)]" },
+  { label: "Blue", role: "Writing and running", color: "bg-[color:var(--accent-blue)]" },
+  { label: "Emerald", role: "Approved", color: "bg-[color:var(--accent-emerald)]" },
+  { label: "Rose", role: "Rejected", color: "bg-[color:var(--accent-rose)]" },
 ];
 
 const APPROVAL_STATES: ApprovalState[] = ["pending", "approved", "rejected", "abstained"];
@@ -23,9 +24,16 @@ const APPROVAL_BADGE: Record<ApprovalState, { word: string; className: string }>
   abstained: { word: "Couldn't tell", className: "bg-[color:var(--accent-amber)]/10 text-[color:var(--accent-amber)]" },
 };
 
-const LABEL = "mb-2 font-mono text-[11px] uppercase tracking-[0.08em] text-muted-foreground";
+function Heading({ children, note }: { children: string; note?: string }) {
+  return (
+    <div className="mb-2.5 flex items-baseline justify-between gap-3">
+      <p className="text-xs font-medium text-foreground">{children}</p>
+      {note && <p className="text-[11px] text-muted-foreground">{note}</p>}
+    </div>
+  );
+}
 
-/** The palette the kit draws from: accents, the four approval badges, and the row that sets them. */
+/** The palette the kit draws from: five accents with their jobs, the four approval badges, and the decision row that sets them. */
 export function SharedPrimitives({ className }: { className?: string }) {
   const [approvals, setApprovals] = useState<Record<string, ApprovalState>>({
     a: "pending",
@@ -34,24 +42,27 @@ export function SharedPrimitives({ className }: { className?: string }) {
   });
 
   return (
-    <div className={cn("space-y-5", className)}>
+    <div className={cn("space-y-6", className)}>
       <div>
-        <p className={LABEL}>Accent colors</p>
-        <ul className="m-0 flex list-none flex-wrap gap-3 p-0">
-          {ACCENT_SWATCHES.map((s) => (
-            <li key={s.label} className="flex items-center gap-1.5">
-              <span className={cn("h-3 w-3 rounded-full", s.color)} aria-hidden="true" />
-              <span className="text-[11px] text-muted-foreground">{s.label}</span>
+        <Heading note="colour is punctuation, never a background for text">Accents</Heading>
+        <ul className="m-0 grid list-none gap-2 p-0 sm:grid-cols-2">
+          {ACCENTS.map((a) => (
+            <li key={a.label} className="flex items-center gap-3 rounded-lg border border-border bg-background/40 px-3 py-2">
+              <span className={cn("h-4 w-4 shrink-0 rounded-md", a.color)} aria-hidden="true" />
+              <span className="min-w-0">
+                <span className="block text-xs font-medium text-foreground">{a.label}</span>
+                <span className="block truncate text-[11px] text-muted-foreground">{a.role}</span>
+              </span>
             </li>
           ))}
         </ul>
       </div>
 
       <div>
-        <p className={LABEL}>Approval badges</p>
+        <Heading note="four states, because can't tell is not no">Approval badges</Heading>
         <div className="flex flex-wrap gap-2">
           {APPROVAL_STATES.map((s) => (
-            <span key={s} className={cn("rounded-full px-2 py-0.5 text-[11px] font-medium", APPROVAL_BADGE[s].className)}>
+            <span key={s} className={cn("rounded-full px-2.5 py-1 text-[11px] font-medium", APPROVAL_BADGE[s].className)}>
               {APPROVAL_BADGE[s].word}
             </span>
           ))}
@@ -59,7 +70,7 @@ export function SharedPrimitives({ className }: { className?: string }) {
       </div>
 
       <div>
-        <p className={LABEL}>Approve / reject</p>
+        <Heading note="undo returns to pending">Decision rows</Heading>
         <div className="space-y-1.5">
           {(["a", "b", "c"] as const).map((k) => (
             <div key={k} className="rounded-lg border border-border bg-background/40 px-3 py-2">

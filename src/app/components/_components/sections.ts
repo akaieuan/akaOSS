@@ -79,7 +79,7 @@ export const LIBRARY_GROUPS: LibraryGroup[] = [
     slug: "scales",
     title: "Scales & palette",
     blurb:
-      "The AI-generation ordinal in four densities, from the full five-button scale down to an inline pill, plus the atomic accent and badge palette they draw from.",
+      "How much of this did a person do. One five-point scale from Human to AI in four densities, slider to inline pill, plus the five accents and four approval badges the kit draws from.",
     specimens: [
       { id: "ai-scale", title: "AI Generation Scale" },
       { id: "shared", title: "Shared Primitives" },

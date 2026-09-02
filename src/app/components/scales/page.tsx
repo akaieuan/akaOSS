@@ -49,16 +49,16 @@ export default function ScalesPage() {
         id="ai-scale"
         title="AI Generation Scale"
         meta="four densities"
-        description="One five-point ordinal: Human, Mostly Human, Collaborative, Mostly AI, AI, in four densities, from a settings panel down to a table cell. All four read the level names and the emerald → blue → amber → violet → rose accent progression from a single shared module, so a level cannot mean one thing in the slider and another in the badge. Accents stay punctuation: dots, fills, the thumb. Every label sits on foreground or muted-foreground, never on colour."
+        description="One question, how much of this did a person do, answered on a five-point scale from Human to AI. Every density shows the same thing: a track filled to the current level, revealing the spectrum from emerald to rose as it goes, and the level in plain words. Colour is the cue; the words carry the meaning. Labels sit on foreground and muted-foreground, never on colour."
         cols={2}
       >
         <Specimen label="Slider" hint="ai-generation-slider">
           <SliderSpecimen />
           <Note>
-            Reach for this when the human sets the value. One row, ~58px, and it
-            holds at 320px. The current level reads in the header and the two
-            endpoints carry the axis, so the middle labels never need to render.
-            Drag it, or focus it and use ← → and Home / End.
+            Reach for this when the person sets the value. The readout says the
+            level and what it means, and the track fills as far as the thumb,
+            revealing the spectrum. Drag it, tap either end, or focus it and
+            use the arrow keys, Home and End.
           </Note>
         </Specimen>
 
@@ -71,19 +71,13 @@ export default function ScalesPage() {
             ))}
             <div className="flex items-center gap-3 pt-1">
               <AiGenerationMeter value={2} compact />
-              <span className="font-mono text-meta text-muted-foreground">
-                compact
-              </span>
+              <span className="text-meta text-muted-foreground">compact</span>
             </div>
           </div>
           <Note>
             Reach for this to show provenance in a list row or a header without
-            inviting interaction. Read-only by design: a single{" "}
-            <code className="font-mono text-[0.875em] text-foreground">
-              role=&quot;img&quot;
-            </code>{" "}
-            element with no focusable children, so fifty rows do not become
-            fifty tab stops.
+            inviting interaction. Read-only by design: one image element with
+            no focusable children, so fifty rows do not become fifty tab stops.
           </Note>
         </Specimen>
 
@@ -98,27 +92,24 @@ export default function ScalesPage() {
           </div>
           <Note>
             Reach for this in a table cell or a queue row where even the meter is
-            too much furniture. Static by default; given an{" "}
-            <code className="font-mono text-[0.875em] text-foreground">
-              onAction
-            </code>{" "}
-            it grows ‹ › steppers with real 24px targets that go inert at the
-            ends of the scale without dropping keyboard focus.
+            too much furniture. Static by default; given an action handler it
+            grows ‹ › steppers with real 24px targets that go inert at the ends
+            of the scale without dropping keyboard focus.
           </Note>
         </Specimen>
 
-        <Specimen label="Segmented scale" hint="ai-generation-scale">
-          {/* Five equal buttons cannot shrink below their labels, around
-              230px the row is wider than its container. The well scrolls
-              rather than bleeding, which is also the honest demonstration of
-              why the other three densities exist. */}
+        {/* Five segments cannot shrink below their labels, so this one takes
+            the whole row; the scroll box is the fallback for a narrow phone. */}
+        <Specimen label="Segmented" hint="ai-generation-scale" className="md:col-span-2">
           <div className="overflow-x-auto pb-1">
             <SegmentedScaleSpecimen />
           </div>
           <Note>
-            The original, and still the right call in a settings panel or a form
-            where every option should be visible and directly clickable at once.
-            It needs the width, below roughly 400px, use the slider.
+            The explicit form, for a settings panel or a form where every option
+            should be visible and directly tappable. Five segments in one pill,
+            the chosen one raised, each carrying its colour so the order reads
+            before the words do. It needs about 400px; below that, use the
+            slider.
           </Note>
         </Specimen>
       </DemoSection>
@@ -127,7 +118,7 @@ export default function ScalesPage() {
         id="shared"
         title="Shared Primitives"
         meta="shared-primitives"
-        description="The atomic palette the rest of the kit draws from: the five accent swatches, the four approval badges (pending, approved, rejected, and couldn't tell), and the decision row in situ."
+        description="The palette the rest of the kit draws from. Five accents, each with one job; the four approval badges, because can't tell is not no; and the decision row that sets them."
       >
         <Specimen label="Shared palette" hint="interactive">
           <SharedPrimitives />
