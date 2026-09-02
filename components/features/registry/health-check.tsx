@@ -63,7 +63,7 @@ function CopyBtn({ text }: { text: string }) {
   );
 }
 
-export default function TestPageClient() {
+export function RegistryHealthCheck() {
   const [results, setResults] = useState<Result[]>([]);
   const [base, setBase] = useState<"local" | "prod">("local");
   const [running, setRunning] = useState(false);

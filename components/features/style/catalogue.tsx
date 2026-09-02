@@ -1,6 +1,6 @@
 /**
  * Catalogue scaffolding for the brand demo. Deliberately the same visual
- * idiom as `app/components/_components/demo-ui.tsx`. The same well
+ * idiom as `components/features/library/catalogue.tsx`. The same well
  * (`rounded-2xl border border-border/40 bg-card/40`), the same figcaption
  * rule, the same section divider, so the product catalogue and the brand
  * catalogue read as one system rather than two sites.

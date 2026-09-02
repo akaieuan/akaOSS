@@ -8,7 +8,7 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
 import { AssistNotComplete } from "@/components/ui/assist-not-complete";
-import { PaperTOC } from "./PaperTOC";
+import { PaperTOC } from "@/components/features/paper/paper-toc";
 
 export const metadata: Metadata = {
   title: "The paper · akaOSS",

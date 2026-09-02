@@ -1,5 +1,5 @@
-// Reuse the paper's .paper-body typography for rendered research posts.
-import "../paper/paper.css";
+// The paper's .paper-body typography, shared with rendered research posts.
+import "@/app/prose.css";
 
 export default function ResearchLayout({
   children,

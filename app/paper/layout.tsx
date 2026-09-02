@@ -1,4 +1,4 @@
-import "./paper.css";
+import "@/app/prose.css";
 
 export default function PaperLayout({
   children,

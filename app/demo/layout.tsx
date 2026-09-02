@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
-import { DemoNav } from "./_components/DemoNav";
+import { DemoNav } from "@/components/features/style/style-nav";
 
 export const metadata: Metadata = {
   title: "Brand system · akaOSS",

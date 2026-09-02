@@ -16,7 +16,7 @@ import {
   Specimen,
   TileGrid,
   Well,
-} from "../_components/demo-ui";
+} from "@/components/features/style/catalogue";
 import { demoNeighbours } from "@/lib/style";
 
 export const metadata: Metadata = {

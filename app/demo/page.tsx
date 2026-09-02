@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { DemoHeader } from "./_components/demo-ui";
+import { DemoHeader } from "@/components/features/style/catalogue";
 import { DEMO_SECTIONS } from "@/lib/style";
 
 export default function DemoOverview() {

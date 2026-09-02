@@ -10,9 +10,9 @@ import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
 import { Hairline } from "@/components/ui/hairline";
-import { MandatedGate } from "@/components/inertial/MandatedGate";
-import { AuditChain } from "@/components/inertial/AuditChain";
-import { VerificationContrast } from "@/components/inertial/VerificationContrast";
+import { MandatedGate } from "@/components/features/research/inertial/mandated-gate";
+import { AuditChain } from "@/components/features/research/inertial/audit-chain";
+import { VerificationContrast } from "@/components/features/research/inertial/verification-contrast";
 import { getResearchPost, getResearchPosts, extractToc, formatDate } from "@/lib/research";
 import { Bolded, ChipRow } from "@/components/features/research/post-chips";
 

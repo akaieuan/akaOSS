@@ -8,7 +8,7 @@ import {
   Mono,
   Note,
   Well,
-} from "../_components/demo-ui";
+} from "@/components/features/style/catalogue";
 import { demoNeighbours } from "@/lib/style";
 import { CONTRAST, readTokenTables, type TokenTable } from "@/lib/tokens";
 

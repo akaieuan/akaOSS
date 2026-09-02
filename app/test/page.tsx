@@ -1,5 +1,5 @@
 import { notFound } from "next/navigation";
-import TestPageClient from "./TestPageClient";
+import { RegistryHealthCheck } from "@/components/features/registry/health-check";
 
 export const metadata = {
   title: "Registry health · akaOSS (dev)",
@@ -16,5 +16,5 @@ export default function TestPage() {
   if (process.env.NODE_ENV !== "development") {
     notFound();
   }
-  return <TestPageClient />;
+  return <RegistryHealthCheck />;
 }
