@@ -13,6 +13,14 @@ const nextConfig: NextConfig = {
         destination: "https://www.akaoss.dev/:path",
         permanent: true,
       },
+      // The brand catalogue was /demo; it is /style now, the name fkayion
+      // uses for the same page. Unlisted and noindex, so this is belt and
+      // braces for anyone who bookmarked it.
+      { source: "/demo", destination: "/style", permanent: true },
+      { source: "/demo/:path*", destination: "/style/:path*", permanent: true },
+      // The inertial exhibits used to have their own page; they now render
+      // inline in the essay that earns them.
+      { source: "/inertial", destination: "/research/006-signals-not-verdicts", permanent: true },
     ];
   },
 };

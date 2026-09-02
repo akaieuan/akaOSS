@@ -26,7 +26,7 @@ Three projects, one loop: HITL Kit renders the gate, eval-kit measures it, tag-k
 
 | Project | What it is | Status |
 |---|---|---|
-| [**HITL Kit**](https://github.com/akaieuan/HITL-KIT) · [site](https://www.akaoss.dev/projects/hitl-kit) | The protocol and surfaces of the approval moment: typed HITL events, composable gates, 19 React primitives via the shadcn CLI (registry served from this repo), six `@hitl-kit/*` packages on npm — schemas, gates, LangGraph / AI-SDK / MCP adapters. | v0.6 |
+| [**HITL Kit**](https://github.com/akaieuan/HITL-KIT) · [site](https://www.akaoss.dev/projects/hitl-kit) | The protocol and surfaces of the approval moment: typed HITL events, composable gates, React primitives via the shadcn CLI (registry served from this repo), six `@hitl-kit/*` packages on npm — schemas, gates, LangGraph / AI-SDK / MCP adapters. | v0.6 |
 | [**eval-kit**](https://github.com/akaieuan/eval-kit) · [site](https://www.akaoss.dev/projects/eval-kit) | Measures whether the approval was real: mandated-gate compliance and discretionary ask-precision/blocker-recall scored from the trace — never averaged — plus a five-dimension human rubric. Humans score, not LLMs. | v0.4.0 on npm |
 | [**tag-kit**](https://github.com/akaieuan/tag-kit) · [site](https://www.akaoss.dev/projects/tag-kit) | Calibrates the reviewers: structured tagging with per-modality scoping and scope-aware inter-rater agreement scoring. Zero-dependency core, headless React. | v0.3.1 on npm |
 
@@ -44,26 +44,31 @@ Separate work, same standards — these serve the building of software, not the 
 This is the **site** repo. The projects above live in their own repos; this one holds:
 
 ```
-src/app/               routes: / · /projects/[slug] · /research · /paper · /registry · /components
-src/components/hitl/   the 19 registry primitives (source of truth for the shadcn registry)
-src/components/site/   chrome: nav, footer, theming, the PixelHead mark
-registry.json          shadcn registry manifest → built into public/r/*.json
-content/research/      findings feed posts (markdown + frontmatter)
-content/paper.md       An AI Measurement Problem
-experiments/           reproducible experiments backing research posts (self-contained, npm-installed)
+app/                    routes only: metadata, shell, imports
+components/ui/          site vocabulary: nav, footer, theme, copy button
+components/brand/       the marks: PixelHead, the project glyphs
+components/features/    the sections each page composes, one folder per area
+components/hitl/        GENERATED from @hitl-kit/ui by `pnpm hitl:sync`; do not edit
+lib/                    data and loaders: projects, facts, research, the catalogue contents
+lib/registry-items.ts   GENERATED, the registry index
+public/r/               GENERATED, the shadcn registry served at /r/*.json
+content/                the paper and the research posts (markdown + frontmatter)
+experiments/            reproducible experiments backing research posts
+scripts/                hitl-sync, facts, structure-check, smoke-test
 ```
 
 - **Stack:** Next.js 16 (App Router) · Tailwind v4 CSS-first · next-themes (dark default, light "warm paper", `d` hotkey + header toggle) · file-based content, no CMS, no database.
-- **The registry:** `src/components/hitl/*` → `pnpm registry:build` → `public/r/*.json`, served at `/r/*.json`. Existing consumer URLs on `hitlkit.dev/r/*` keep resolving via a domain alias to this site. CI fails on registry drift.
-- **The research feed:** posts in `content/research/` follow a fixed shape — question, runs against real models, human-scored results, checked-in run JSON, repro link. Aggregate scores are internal signal, not leaderboard fodder.
+- **The registry:** the primitives live in the HITL Kit repo as `@hitl-kit/ui`. `pnpm hitl:sync` copies the built registry into `public/r/` and derives `components/hitl/` and `lib/registry-items.ts` from it; `pnpm hitl:check` fails CI on drift. Existing consumer URLs on `hitlkit.dev/r/*` keep resolving via a domain alias to this site.
+- **The research feed:** posts in `content/research/` follow a fixed shape: question, runs against real models, human-scored results, checked-in run JSON, repro link. Aggregate scores are internal signal, not leaderboard fodder.
+- **The layout is checked:** `pnpm structure:check` enforces the rules in `docs/superpowers/specs/2026-09-02-site-structure-design.md`. It runs in `pnpm verify` and CI.
 
 ## Develop
 
 ```bash
 pnpm install
 pnpm dev              # http://localhost:3000
-pnpm verify           # typecheck + registry drift check + production build
-pnpm registry:build   # rebuild public/r after editing registry components
+pnpm verify           # typecheck + structure + registry drift + facts drift + production build
+pnpm hitl:sync        # pull the built registry from ../hitl-ai2 and regenerate the site's copies
 ```
 
 ## License

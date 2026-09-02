@@ -1,0 +1,426 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+/* ── Tokens ──────────────────────────────────────────────────────────────
+   Ported verbatim from the studio reference (circleheads-site). Light is the
+   "warm paper" theme, .dark the "warm near-black" default. Compat aliases keep
+   every token the existing site + registry components already consume alive in
+   BOTH themes (accent-emerald → accent-green, border-strong, card-alpha,
+   card-border[-hover], hairline, radius-card/pill). */
+
+/* Light theme: neutral paper. The site is dark by default; light is the
+   same design with the values inverted, not a second design. */
+:root {
+  color-scheme: light;
+
+  --background: oklch(0.975 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(0.995 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(0.995 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.2 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.93 0 0);
+  --secondary-foreground: oklch(0.21 0 0);
+  --muted: oklch(0.93 0 0);
+  --muted-foreground: oklch(0.47 0 0);
+  --accent: oklch(0.93 0 0);
+  --accent-foreground: oklch(0.21 0 0);
+  --destructive: oklch(0.577 0.245 27.325);
+  --border: oklch(0.15 0 0 / 12%);
+  --input: oklch(0.15 0 0 / 16%);
+  --ring: oklch(0.47 0 0);
+
+  /* The glossy card: a faint top-lit gradient, a hairline edge, a one-pixel
+     highlight along the top, and a soft drop. Colour never lives on the
+     surface; it lives in the icon. */
+  --gloss-top: oklch(1 0 0 / 70%);
+  --gloss-bottom: oklch(0.985 0 0);
+  --gloss-edge: oklch(0.15 0 0 / 10%);
+  --gloss-edge-hover: oklch(0.15 0 0 / 18%);
+  --gloss-highlight: oklch(1 0 0 / 90%);
+  --gloss-shadow: 0 1px 2px oklch(0 0 0 / 6%), 0 24px 48px -32px oklch(0 0 0 / 25%);
+  --gloss-sheen: oklch(1 0 0 / 60%);
+
+  /* Accents, punctuation, never fills (see reference ADR 0002). */
+  --accent-blue: oklch(0.55 0.19 259);
+  --accent-green: oklch(0.5 0.09 152);
+  --accent-amber: oklch(0.62 0.13 75);
+  --accent-rose: oklch(0.58 0.16 15);
+  --accent-violet: oklch(0.52 0.15 295);
+
+  --radius: 0.625rem;
+
+  /* ── Compat aliases (consumed by existing pages + registry components) ── */
+  --accent-emerald: var(--accent-green);
+  --border-strong: oklch(0.19 0.01 95 / 20%);
+  --card-alpha: oklch(0.19 0.01 95 / 3%);
+  --card-border: oklch(0.19 0.01 95 / 8%);
+  --card-border-hover: oklch(0.19 0.01 95 / 14%);
+  --hairline: oklch(0.19 0.01 95 / 8%);
+  --radius-card: 1.0625rem;
+  --radius-pill: 0.5rem;
+}
+
+/* Dark theme: true black, neutral, hierarchy from alpha not hue. Site default. */
+.dark {
+  color-scheme: dark;
+
+  --background: oklch(0.09 0 0);
+  --foreground: oklch(0.94 0 0);
+  --card: oklch(0.14 0 0);
+  --card-foreground: oklch(0.94 0 0);
+  --popover: oklch(0.15 0 0);
+  --popover-foreground: oklch(0.94 0 0);
+  --primary: oklch(0.94 0 0);
+  --primary-foreground: oklch(0.1 0 0);
+  --secondary: oklch(0.19 0 0);
+  --secondary-foreground: oklch(0.94 0 0);
+  --muted: oklch(0.18 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.19 0 0);
+  --accent-foreground: oklch(0.94 0 0);
+  --destructive: oklch(0.704 0.191 22.216);
+  --border: oklch(1 0 0 / 9%);
+  --input: oklch(1 0 0 / 13%);
+  --ring: oklch(0.6 0 0);
+
+  --gloss-top: oklch(1 0 0 / 7%);
+  --gloss-bottom: oklch(0.13 0 0);
+  --gloss-edge: oklch(1 0 0 / 9%);
+  --gloss-edge-hover: oklch(1 0 0 / 16%);
+  --gloss-highlight: oklch(1 0 0 / 9%);
+  --gloss-shadow: 0 1px 2px oklch(0 0 0 / 50%), 0 28px 56px -32px oklch(0 0 0 / 80%);
+  --gloss-sheen: oklch(1 0 0 / 5%);
+
+  --accent-blue: oklch(0.68 0.15 259);
+  --accent-green: oklch(0.71 0.11 152);
+  --accent-amber: oklch(0.83 0.12 80);
+  --accent-rose: oklch(0.7 0.15 15);
+  --accent-violet: oklch(0.75 0.11 295);
+
+  /* ── Compat aliases ── */
+  --accent-emerald: var(--accent-green);
+  --border-strong: oklch(1 0 0 / 18%);
+  --card-alpha: oklch(1 0 0 / 3%);
+  --card-border: oklch(1 0 0 / 6%);
+  --card-border-hover: oklch(1 0 0 / 10%);
+  --hairline: oklch(1 0 0 / 6%);
+}
+
+@theme inline {
+  /* shadcn slots */
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+
+  /* Accent palette + compat alias */
+  --color-accent-blue: var(--accent-blue);
+  --color-accent-green: var(--accent-green);
+  --color-accent-amber: var(--accent-amber);
+  --color-accent-rose: var(--accent-rose);
+  --color-accent-violet: var(--accent-violet);
+  --color-accent-emerald: var(--accent-emerald);
+
+  /* Compat surface tokens */
+  --color-border-strong: var(--border-strong);
+  --color-card-alpha: var(--card-alpha);
+  --color-card-border: var(--card-border);
+  --color-card-border-hover: var(--card-border-hover);
+  --color-hairline: var(--hairline);
+
+  /* Radius scale derived from a single --radius */
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+  --radius-card: var(--radius-card);
+  --radius-pill: var(--radius-pill);
+
+  --font-sans: var(--font-sans);
+  --font-mono: var(--font-mono);
+
+  /* The site's one column. Narrower than a document, wider than a phone:
+     three tiles across at desktop, and prose that never runs past 38rem. */
+  --container-site: 58rem;
+
+  /* ── Type scale ──────────────────────────────────────────────────────
+     Every size the site chrome sets is one of these eight steps. Each step
+     owns its line-height and tracking, so a call site says
+     `text-title-2 font-light` and nothing else. The two largest are fluid
+     (clamp), which retires the `text-3xl md:text-4xl` pairs; Inter's
+     optical-size axis (loaded in layout.tsx, opsz 14–32) means they also
+     render in the Display cut without a second font. Tailwind's own
+     text-xs / text-sm stay for single-line UI and mono commands. The
+     registry primitives under components/hitl keep their own sizes and are
+     not on this scale. */
+  --text-meta: 0.6875rem; /* 11px · mono: ids, dates, hints, chips */
+  --text-meta--line-height: 1.5;
+  --text-small: 0.8125rem; /* 13px · captions, card blurbs, meta lines */
+  --text-small--line-height: 1.55;
+  --text-body: 0.9375rem; /* 15px · prose */
+  --text-body--line-height: 1.6;
+  --text-lede: 1.0625rem; /* 17px · the paragraph under a heading */
+  --text-lede--line-height: 1.55;
+  --text-title-3: 1.125rem; /* 18px · card titles, list rows */
+  --text-title-3--line-height: 1.35;
+  --text-title-3--letter-spacing: -0.01em;
+  --text-title-2: 1.375rem; /* 22px · section headings */
+  --text-title-2--line-height: 1.25;
+  --text-title-2--letter-spacing: -0.02em;
+  --text-title-1: clamp(1.75rem, 1.25rem + 1.6vw, 2.25rem); /* 28→36px · page heading */
+  --text-title-1--line-height: 1.12;
+  --text-title-1--letter-spacing: -0.025em;
+  --text-display: clamp(2.25rem, 1.5rem + 2.6vw, 3rem); /* 36→48px · the hero */
+  --text-display--line-height: 1.05;
+  --text-display--letter-spacing: -0.03em;
+
+  /* ── Motion ──────────────────────────────────────────────────────────
+     One easing, set as Tailwind's default so every transition-* utility
+     already on the site inherits it. Quart-out: quick to start, long to
+     settle. 200ms is the hover band; the hero reveal (700ms) is the only
+     thing that runs longer. The same curve is declared on html below for
+     the plain-CSS consumers (.card-link, .settle). */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+  --default-transition-duration: 200ms;
+  --default-transition-timing-function: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+@layer base {
+  /* Focus outlines at full ring alpha: --ring is tuned per theme to clear
+     WCAG 1.4.11's 3:1 against --background. */
+  * {
+    @apply border-border outline-ring;
+  }
+  body {
+    @apply bg-background text-foreground;
+  }
+  button:not(:disabled),
+  [role="button"]:not(:disabled) {
+    cursor: pointer;
+  }
+  /* Keyboard focus, one treatment for every link, card and control: a 2px
+     ring, offset so it never touches the element's own border. Not
+     animated on purpose; focus should land, not arrive. */
+  :focus-visible {
+    outline: 2px solid var(--ring);
+    outline-offset: 2px;
+  }
+}
+
+html {
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
+  /* Runtime copy of the theme's easing for the plain-CSS rules below. */
+  --ease-out-quart: cubic-bezier(0.25, 1, 0.5, 1);
+}
+
+/* Headings balance their lines; paragraphs avoid orphans. Both are
+   progressive: a browser without text-wrap wraps exactly as before. */
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+}
+p {
+  text-wrap: pretty;
+}
+
+body {
+  font-family: var(--font-sans);
+}
+
+::selection {
+  background: var(--accent-blue);
+  color: var(--background);
+}
+
+/* Display idiom, refined and restrained: Inter, light weight + tight tracking. */
+.font-serif {
+  font-family: var(--font-sans);
+  font-weight: 300;
+  letter-spacing: -0.025em;
+}
+.font-mono {
+  font-family: var(--font-mono);
+}
+
+/* Micro-label: small sans, wide-tracked, uppercase, quiet. Used for footer
+   column heads, chrome eyebrows and specimen captions. Mono is reserved for
+   things that are actually code: commands, ids, paths. */
+.label {
+  font-family: var(--font-sans);
+  font-size: 0.6875rem;
+  font-weight: 500;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--muted-foreground) 80%, transparent);
+}
+
+/* Signature studio card, translucent fill + hairline border brightening on hover. */
+.card-surface {
+  background: var(--card-alpha);
+  border: 1px solid var(--card-border);
+  border-radius: var(--radius-card);
+  transition: border-color 200ms ease, background-color 200ms ease;
+}
+.card-surface:hover {
+  border-color: var(--card-border-hover);
+}
+
+.hairline {
+  border-color: var(--hairline);
+}
+
+.underline-anim {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-size: 0% 1px;
+  background-position: 0 100%;
+  background-repeat: no-repeat;
+  transition: background-size 250ms ease;
+}
+.underline-anim:hover {
+  background-size: 100% 1px;
+}
+
+/* ── The card ──────────────────────────────────────────────────────────
+   One card idiom for the site chrome. `.card` is the surface; add
+   `.card-link` when it is a link, for the rise and the fill. Padding stays
+   a utility on the element (p-5 for tiles, p-6 for feature cards). The
+   registry primitives ship their own surfaces and do not use this. */
+@layer components {
+  .card {
+    border-radius: calc(var(--radius) * 1.8);
+    border: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
+    background: color-mix(in oklab, var(--card) 40%, transparent);
+  }
+  .card-link {
+    transition:
+      transform 200ms var(--ease-out-quart),
+      background-color 200ms var(--ease-out-quart),
+      border-color 200ms var(--ease-out-quart);
+  }
+  .card-link:hover {
+    transform: translateY(-2px);
+    background: var(--card);
+  }
+  .card-link:active {
+    transform: translateY(0);
+    transition-duration: 80ms;
+  }
+
+  /* ── The glossy card ──────────────────────────────────────────────
+     Black glass: a faint top-lit gradient over the card colour, a sheen in
+     the top-left corner, a hairline edge, a one-pixel highlight along the
+     top, and a soft drop. No colour on the surface, ever; the pixel icon
+     carries it. Hover lifts it two pixels and brightens the edge. */
+  .card-gloss {
+    position: relative;
+    overflow: hidden;
+    border-radius: 18px;
+    border: 1px solid var(--gloss-edge);
+    background:
+      radial-gradient(120% 70% at 0% 0%, var(--gloss-sheen), transparent 60%),
+      linear-gradient(180deg, var(--gloss-top), transparent 55%),
+      var(--gloss-bottom);
+    box-shadow:
+      inset 0 1px 0 var(--gloss-highlight),
+      var(--gloss-shadow);
+    transition:
+      transform 220ms var(--ease-out-quart),
+      border-color 220ms var(--ease-out-quart);
+  }
+  a.card-gloss:hover,
+  a:hover > .card-gloss,
+  a.card-gloss:focus-visible {
+    transform: translateY(-2px);
+    border-color: var(--gloss-edge-hover);
+  }
+  a.card-gloss:active,
+  a:active > .card-gloss {
+    transform: translateY(0);
+    transition-duration: 80ms;
+  }
+}
+
+/* ── Settle ────────────────────────────────────────────────────────────
+   Below-the-fold blocks settle into place as they enter the viewport: a
+   12px rise and a fade, driven by scroll position rather than a timer, so
+   nothing plays while it is off screen and nothing has to be observed from
+   JavaScript. Animates `translate`, not `transform`, so it composes with
+   .card-link's hover. Progressive: a browser without scroll-driven
+   animations, or a visitor with reduced motion, sees the content in place. */
+@keyframes settle {
+  from {
+    opacity: 0;
+    translate: 0 12px;
+  }
+  to {
+    opacity: 1;
+    translate: none;
+  }
+}
+@supports (animation-timeline: view()) {
+  @media (prefers-reduced-motion: no-preference) {
+    .settle {
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 60%;
+    }
+  }
+}
+
+/* Reduced motion: every transition and timed animation collapses to a
+   frame. The mark handles itself (PixelHead paints one still frame) and
+   .settle is gated above, so this only needs to cover the utilities. */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+* {
+  scrollbar-width: thin;
+  scrollbar-color: var(--border-strong) transparent;
+}
+*::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+*::-webkit-scrollbar-track {
+  background: transparent;
+}
+*::-webkit-scrollbar-thumb {
+  background: var(--border-strong);
+  border-radius: 4px;
+}
+*::-webkit-scrollbar-thumb:hover {
+  background: var(--muted-foreground);
+}

@@ -15,8 +15,8 @@
  */
 import { readFileSync, writeFileSync } from "node:fs";
 import { join } from "node:path";
-import { PROJECTS } from "../src/lib/projects.js";
-import type { Facts } from "../src/lib/facts.js";
+import { PROJECTS } from "../lib/projects.js";
+import type { Facts } from "../lib/facts.js";
 
 const NPM_REGISTRY = "https://registry.npmjs.org";
 const PYPI = "https://pypi.org/pypi";
