@@ -8,8 +8,8 @@ import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { arrowLink, arrowNudge, primaryCta, reveal, stagger } from "@/components/features/home/shared";
 
 import {
-  DemoHeader,
-  DemoPager,
+  StyleHeader,
+  StylePager,
   DemoSection,
   Mono,
   Note,
@@ -17,7 +17,7 @@ import {
   TileGrid,
   Well,
 } from "@/components/features/style/catalogue";
-import { demoNeighbours } from "@/lib/style";
+import { styleNeighbours } from "@/lib/style";
 
 export const metadata: Metadata = {
   title: "Primitives · Brand system · akaOSS",
@@ -81,11 +81,11 @@ const TYPE_SCALE = [
 ];
 
 export default function PrimitivesDemo() {
-  const { prev, next } = demoNeighbours("primitives");
+  const { prev, next } = styleNeighbours("primitives");
 
   return (
     <>
-      <DemoHeader
+      <StyleHeader
         title="Primitives."
         lede={
           <>
@@ -509,7 +509,7 @@ The accent used as a full fill in the one place the site
         </Well>
       </DemoSection>
 
-      <DemoPager prev={prev} next={next} />
+      <StylePager prev={prev} next={next} />
     </>
   );
 }

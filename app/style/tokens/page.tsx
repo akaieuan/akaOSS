@@ -2,14 +2,14 @@ import type { Metadata } from "next";
 import type { ReactNode } from "react";
 
 import {
-  DemoHeader,
-  DemoPager,
+  StyleHeader,
+  StylePager,
   DemoSection,
   Mono,
   Note,
   Well,
 } from "@/components/features/style/catalogue";
-import { demoNeighbours } from "@/lib/style";
+import { styleNeighbours } from "@/lib/style";
 import { CONTRAST, readTokenTables, type TokenTable } from "@/lib/tokens";
 
 export const metadata: Metadata = {
@@ -104,11 +104,11 @@ function TokenRow({ chip, children }: { chip: ReactNode; children: ReactNode }) 
 
 export default async function TokensDemo() {
   const { light, dark } = await readTokenTables();
-  const { prev, next } = demoNeighbours("tokens");
+  const { prev, next } = styleNeighbours("tokens");
 
   return (
     <>
-      <DemoHeader
+      <StyleHeader
         title="Tokens."
         lede={
           <>
@@ -429,7 +429,7 @@ export default async function TokensDemo() {
         </div>
       </DemoSection>
 
-      <DemoPager prev={prev} next={next} />
+      <StylePager prev={prev} next={next} />
     </>
   );
 }

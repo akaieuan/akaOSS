@@ -1,13 +1,13 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { DemoHeader } from "@/components/features/style/catalogue";
-import { DEMO_SECTIONS } from "@/lib/style";
+import { StyleHeader } from "@/components/features/style/catalogue";
+import { STYLE_SECTIONS } from "@/lib/style";
 
-export default function DemoOverview() {
+export default function StyleOverview() {
   return (
     <>
-      <DemoHeader
+      <StyleHeader
         title="The brand system."
         lede={
           <>
@@ -24,14 +24,14 @@ export default function DemoOverview() {
             cannot drift from what the site actually does.
           </>
         }
-        meta={`${DEMO_SECTIONS.length} sections · not in the nav, not in the sitemap`}
+        meta={`${STYLE_SECTIONS.length} sections · not in the nav, not in the sitemap`}
       />
 
       <div className="grid gap-3 sm:grid-cols-2">
-        {DEMO_SECTIONS.map((section) => (
+        {STYLE_SECTIONS.map((section) => (
           <Link
             key={section.slug}
-            href={`/demo/${section.slug}`}
+            href={`/style/${section.slug}`}
             className="group card card-link settle flex flex-col gap-2 p-6"
           >
             <div className="flex items-baseline justify-between gap-3">

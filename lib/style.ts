@@ -1,14 +1,13 @@
 /**
- * The brand catalogue's table of contents. `/components` catalogues the HITL
- * *product* primitives; this catalogues the things the site itself is made
- * of: the mark, the small site helpers, the token palette.
+ * The brand catalogue's table of contents. `/components` catalogues the
+ * product primitives; this catalogues the site's own vocabulary, at `/style`.
  *
  * Unlisted on purpose: nothing here is linked from the main nav or the
  * sitemap. It is reachable by URL, the same way the studio reference keeps
- * its own demo section.
+ * its own style catalogue.
  */
 
-export type DemoSectionMeta = {
+export type StyleSectionMeta = {
   slug: string;
   title: string;
   blurb: string;
@@ -16,7 +15,7 @@ export type DemoSectionMeta = {
   contents: string[];
 };
 
-export const DEMO_SECTIONS: DemoSectionMeta[] = [
+export const STYLE_SECTIONS: StyleSectionMeta[] = [
   {
     slug: "marks",
     title: "Marks",
@@ -65,16 +64,16 @@ export const DEMO_SECTIONS: DemoSectionMeta[] = [
   },
 ];
 
-export const DEMO_NAV = [
-  { href: "/demo", title: "Overview" },
-  ...DEMO_SECTIONS.map((s) => ({ href: `/demo/${s.slug}`, title: s.title })),
+export const STYLE_NAV = [
+  { href: "/style", title: "Overview" },
+  ...STYLE_SECTIONS.map((s) => ({ href: `/style/${s.slug}`, title: s.title })),
 ];
 
 /** Prev/next neighbours for the pager, so the catalogue reads as a sequence. */
-export function demoNeighbours(slug: string) {
-  const i = DEMO_NAV.findIndex((n) => n.href === `/demo/${slug}`);
+export function styleNeighbours(slug: string) {
+  const i = STYLE_NAV.findIndex((n) => n.href === `/style/${slug}`);
   return {
-    prev: i > 0 ? DEMO_NAV[i - 1] : undefined,
-    next: i >= 0 && i < DEMO_NAV.length - 1 ? DEMO_NAV[i + 1] : undefined,
+    prev: i > 0 ? STYLE_NAV[i - 1] : undefined,
+    next: i >= 0 && i < STYLE_NAV.length - 1 ? STYLE_NAV[i + 1] : undefined,
   };
 }

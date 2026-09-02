@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
-import { DemoNav } from "@/components/features/style/style-nav";
+import { StyleNav } from "@/components/features/style/style-nav";
 
 export const metadata: Metadata = {
   title: "Brand system · akaOSS",
@@ -14,14 +14,14 @@ export const metadata: Metadata = {
   robots: { index: false, follow: false },
 };
 
-export default function DemoLayout({
+export default function StyleLayout({
   children,
 }: {
   children: React.ReactNode;
 }) {
   return (
     <>
-      {/* No `active` key: /demo is not one of the nav's destinations, and
+      {/* No `active` key: /style is not one of the nav's destinations, and
           nothing in the bar should light up for it. */}
       <Nav />
 
@@ -29,7 +29,7 @@ export default function DemoLayout({
         {/* Sticky rail on large screens. */}
         <aside className="sticky top-24 hidden h-fit w-56 shrink-0 lg:block">
           <p className="label mb-4">Brand</p>
-          <DemoNav variant="rail" />
+          <StyleNav variant="rail" />
           <Link
             href="/components"
             className="mt-6 flex items-center gap-1.5 border-t border-border/60 pt-4 text-xs text-muted-foreground transition-colors hover:text-foreground"
@@ -41,7 +41,7 @@ export default function DemoLayout({
         <main className="min-w-0 flex-1 pb-24">
           {/* Same navigation, scrollable strip, below lg. */}
           <div className="lg:hidden">
-            <DemoNav variant="bar" />
+            <StyleNav variant="bar" />
           </div>
           {children}
         </main>

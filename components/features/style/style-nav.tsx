@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { DEMO_NAV } from "@/lib/style";
+import { STYLE_NAV } from "@/lib/style";
 
 /**
  * `rail` is the sticky column on large screens; `bar` is the horizontally
@@ -12,7 +12,7 @@ import { DEMO_NAV } from "@/lib/style";
  *
  * Client-only for `usePathname`. The current-page marker is the whole point.
  */
-export function DemoNav({ variant }: { variant: "rail" | "bar" }) {
+export function StyleNav({ variant }: { variant: "rail" | "bar" }) {
   const pathname = usePathname();
 
   if (variant === "bar") {
@@ -21,7 +21,7 @@ export function DemoNav({ variant }: { variant: "rail" | "bar" }) {
         aria-label="Brand catalogue"
         className="-mx-6 flex gap-4 overflow-x-auto border-b border-border/60 px-6 pb-3 md:-mx-8 md:px-8"
       >
-        {DEMO_NAV.map((item) => (
+        {STYLE_NAV.map((item) => (
           <Link
             key={item.href}
             href={item.href}
@@ -42,7 +42,7 @@ export function DemoNav({ variant }: { variant: "rail" | "bar" }) {
 
   return (
     <nav aria-label="Brand catalogue" className="flex flex-col gap-0.5">
-      {DEMO_NAV.map((item, i) => (
+      {STYLE_NAV.map((item, i) => (
         <Link
           key={item.href}
           href={item.href}

@@ -1,5 +1,5 @@
 /**
- * Catalogue scaffolding for the brand demo. Deliberately the same visual
+ * Catalogue scaffolding for the brand catalogue at `/style`. Deliberately the same visual
  * idiom as `components/features/library/catalogue.tsx`. The same well
  * (`rounded-2xl border border-border/40 bg-card/40`), the same figcaption
  * rule, the same section divider, so the product catalogue and the brand
@@ -18,7 +18,7 @@ import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
 /** The masthead every brand page opens with. */
-export function DemoHeader({
+export function StyleHeader({
   title,
   lede,
   meta,
@@ -217,7 +217,7 @@ export function Mono({ children }: { children: ReactNode }) {
 }
 
 /** Prev/next between sub-pages. */
-export function DemoPager({
+export function StylePager({
   prev,
   next,
 }: {

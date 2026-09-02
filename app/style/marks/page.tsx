@@ -2,8 +2,8 @@ import type { Metadata } from "next";
 
 import { PixelHead, type PixelIcon } from "@/components/brand/pixel-head";
 import {
-  DemoHeader,
-  DemoPager,
+  StyleHeader,
+  StylePager,
   DemoSection,
   Mono,
   Note,
@@ -11,7 +11,7 @@ import {
   TileGrid,
   Well,
 } from "@/components/features/style/catalogue";
-import { demoNeighbours } from "@/lib/style";
+import { styleNeighbours } from "@/lib/style";
 
 export const metadata: Metadata = {
   title: "Marks · Brand system · akaOSS",
@@ -96,11 +96,11 @@ const MODES = [
 const GRIDS = [12, 16, 22, 30, 40];
 
 export default function MarksDemo() {
-  const { prev, next } = demoNeighbours("marks");
+  const { prev, next } = styleNeighbours("marks");
 
   return (
     <>
-      <DemoHeader
+      <StyleHeader
         title="Marks."
         lede={
           <>
@@ -666,7 +666,7 @@ in the looping mode they are ignored entirely. The four specimens
         </Well>
       </DemoSection>
 
-      <DemoPager prev={prev} next={next} />
+      <StylePager prev={prev} next={next} />
     </>
   );
 }
