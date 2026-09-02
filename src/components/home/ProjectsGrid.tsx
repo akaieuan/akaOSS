@@ -1,67 +1,77 @@
 import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { PixelHead } from "@/components/site/PixelHead";
-import { ACCENT_CLASSES } from "@/lib/content";
-import { PROJECTS, PROJECT_BADGES } from "@/lib/projects";
-import { arrowNudge } from "./shared";
+import { ACCENT_COLORS, PROJECTS, PROJECT_BADGES, type Project } from "@/lib/projects";
+import { SectionHead } from "./SectionHead";
 
-const GROUPS: { key: "measurement" | "tooling"; label: string }[] = [
-  { key: "measurement", label: "Human-in-the-loop measurement" },
-  { key: "tooling", label: "Developer tooling" },
-];
+const TILE: Record<Project["accent"], string> = {
+  violet: "bg-tile-violet",
+  amber: "bg-tile-amber",
+  blue: "bg-tile-blue",
+  emerald: "bg-tile-green",
+  rose: "bg-tile-rose",
+};
 
-/* Per-project badges: the human figure for HITL Kit (the human in the
-   loop), a three-tier podium for eval-kit (measurement, ranked), a code
-   tag for tag-kit, the terminal prompt for the developer tooling. */
-export function ProjectsGrid() {
+const GROUP_LABEL: Record<Project["group"], string> = {
+  measurement: "Measurement",
+  tooling: "Tooling",
+};
+
+/**
+ * A project is its glyph. Each tile is a tinted field with the project's own
+ * pixel mark drawn large in the project's accent, a soft glow of the same
+ * colour behind it, and nothing else on the surface; the name and what it
+ * is sit underneath. The flagship takes the full row, the other four pair
+ * up, so five projects fill the grid with no gap.
+ */
+function ProjectTile({ p, featured = false }: { p: Project; featured?: boolean }) {
+  const accent = ACCENT_COLORS[p.accent];
   return (
-    <section id="projects" className="scroll-mt-16 pt-4 pb-16">
-      {GROUPS.map((group) => (
-        <div key={group.key} className="mt-10 first:mt-0">
-          <span className="label block">{group.label}</span>
-          <div className="mt-5 grid grid-cols-1 gap-3 md:grid-cols-2 lg:grid-cols-3">
-            {PROJECTS.filter((p) => p.group === group.key).map((p) => {
-              const accent = ACCENT_CLASSES[p.accent];
-              return (
-                <Link
-                  key={p.slug}
-                  href={`/projects/${p.slug}`}
-                  className="group card card-link settle p-5"
-                >
-                  <div className="flex items-center gap-2.5">
-                    <span
-                      className={cn("h-1.5 w-1.5 rounded-full", accent.dot)}
-                    />
-                    <h2 className="text-title-3 font-light text-foreground">
-                      {p.name}
-                    </h2>
-                    <span className="ml-auto flex items-center gap-3">
-                      <PixelHead
-                        size={36}
-                        grid={18}
-                        gap={0.12}
-                        icon={PROJECT_BADGES[p.slug] ?? "spark"}
-                        once
-                      />
-                      <ArrowUpRight
-                        aria-hidden
-                        className={cn(arrowNudge, "text-muted-foreground group-hover:text-foreground")}
-                      />
-                    </span>
-                  </div>
-                  <p className="mt-3 text-body text-foreground/80">
-                    {p.oneLiner}
-                  </p>
-                  <p className="mt-3 font-mono text-meta text-muted-foreground">
-                    {p.status}
-                  </p>
-                </Link>
-              );
-            })}
-          </div>
+    <li className={cn("settle", featured && "md:col-span-2")}>
+      <Link href={`/projects/${p.slug}`} className="group block">
+        <div className={cn("tile", TILE[p.accent], featured ? "aspect-[2.4/1]" : "aspect-[4/3]")}>
+          <span
+            aria-hidden
+            className="pointer-events-none absolute inset-0"
+            style={{
+              background: `radial-gradient(55% 65% at 50% 52%, color-mix(in oklab, ${accent} 22%, transparent), transparent 72%)`,
+            }}
+          />
+          <PixelHead
+            size={featured ? 150 : 112}
+            grid={18}
+            gap={0.14}
+            icon={PROJECT_BADGES[p.slug] ?? "spark"}
+            color={accent}
+            still
+            className="relative"
+          />
         </div>
-      ))}
+        <p className="mt-3 flex items-center gap-2 text-[14px] text-foreground">
+          <span className="size-1.5 shrink-0 rounded-full" style={{ background: accent }} aria-hidden />
+          {p.name}
+        </p>
+        <p className="mt-0.5 text-[12.5px] text-muted-foreground/60">
+          {GROUP_LABEL[p.group]}
+          <span aria-hidden> · </span>
+          {p.oneLiner}
+        </p>
+      </Link>
+    </li>
+  );
+}
+
+export function ProjectsGrid() {
+  const [flagship, ...rest] = PROJECTS;
+  return (
+    <section id="projects" className="scroll-mt-16 pb-16">
+      <SectionHead title="Projects" href="/projects" link="all projects" />
+      <ul className="m-0 mt-5 grid list-none grid-cols-1 gap-x-5 gap-y-8 p-0 md:grid-cols-2">
+        {flagship && <ProjectTile p={flagship} featured />}
+        {rest.map((p) => (
+          <ProjectTile key={p.slug} p={p} />
+        ))}
+      </ul>
     </section>
   );
 }

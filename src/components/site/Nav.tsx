@@ -53,19 +53,18 @@ export function Nav({ active }: { active?: NavActive }) {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/60 backdrop-blur-md">
       <div className="mx-auto flex h-12 max-w-5xl items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 md:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
-          {/* The chrome mark: single elongated sparkle, solid, held still */}
-          <PixelHead size={22} grid={16} gap={0.12} icon="spark" still />
-          {/* Nothing in this bar can shrink. Three link labels, a wordmark and
-              the theme toggle all size to their content, so below 375px the row
-              needs 371px and the toggle lands off-screen, unreachable, with the
-              whole page scrolling sideways. The wordmark is the one element the
-              mark beside it already stands in for, so it is what gives way. */}
-          <span className="hidden text-sm font-light tracking-[0.06em] text-foreground min-[375px]:inline">
-            {BRAND.name}
+          {/* The chrome mark: the human in the loop, held still */}
+          <PixelHead size={22} grid={16} gap={0.12} icon="head" still />
+          {/* Nothing in this bar can shrink. The wordmark is the one element
+              the mark beside it already stands in for, so below 375px it is
+              what gives way. */}
+          <span className="hidden text-[14px] text-foreground min-[375px]:inline">
+            <span className="font-medium">aka</span>
+            <span className="font-light">OSS</span>
           </span>
         </Link>
 
-        <nav className="flex items-center gap-2.5 text-small font-light tracking-[0.06em] text-muted-foreground sm:gap-4 md:gap-6 md:text-sm">
+        <nav className="flex items-center gap-3 text-[12.5px] text-muted-foreground/70 sm:gap-5 md:gap-6 md:text-[13px]">
           {/* Toolkits, CSS-only dropdown revealed on hover/focus */}
           <div className="group relative">
             <Link
@@ -110,10 +109,10 @@ export function Nav({ active }: { active?: NavActive }) {
                           />
                         </span>
                         <span className="flex min-w-0 flex-col gap-0.5">
-                          <span className="text-small font-normal tracking-normal text-foreground">
+                          <span className="text-[13px] text-foreground">
                             {p.name}
                           </span>
-                          <span className="font-mono text-meta tracking-normal text-muted-foreground">
+                          <span className="text-[11.5px] text-muted-foreground/70">
                             {p.meta}
                           </span>
                         </span>
@@ -123,7 +122,7 @@ export function Nav({ active }: { active?: NavActive }) {
                 ))}
                 <Link
                   href="/projects"
-                  className="mt-1 rounded-xl px-3 py-2 text-xs tracking-normal text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="mt-1 rounded-xl px-3 py-2 text-[12px] text-muted-foreground/70 transition-colors hover:bg-muted hover:text-foreground"
                 >
                   All toolkits →
                 </Link>

@@ -52,13 +52,13 @@ import { Specimen } from "./demo-ui";
 
 // ─── Scales ──────────────────────────────────────────────────────────────────
 
-export function SliderSpecimen() {
+export function SliderSpecimen({ hint = "section 2 draft" }: { hint?: string }) {
   const [value, setValue] = useState(2);
   return (
     <AiGenerationSlider
       value={value}
       onAction={(a) => setValue(a.value)}
-      hint="section 2 draft"
+      hint={hint || undefined}
       ariaLabel="AI generation level for section 2 draft"
     />
   );

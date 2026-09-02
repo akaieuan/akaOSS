@@ -10,32 +10,38 @@
    BOTH themes (accent-emerald → accent-green, border-strong, card-alpha,
    card-border[-hover], hairline, radius-card/pill). */
 
-/* Light theme: warm paper. */
+/* Light theme: neutral paper. The site is dark by default; light is the
+   same design with the values inverted, not a second design. */
 :root {
   color-scheme: light;
 
-  /* Grayer paper than the reference (owner's call): cards read as lifted
-     near-white surfaces against it instead of blending in. */
-  --background: oklch(0.955 0.003 107);
-  --foreground: oklch(0.16 0.002 107);
-  --card: oklch(0.993 0.002 107);
-  --card-foreground: oklch(0.16 0.002 107);
-  --popover: oklch(0.993 0.002 107);
-  --popover-foreground: oklch(0.16 0.002 107);
-  --primary: oklch(0.2 0.003 107);
-  --primary-foreground: oklch(0.985 0.002 107);
-  /* Support surfaces stay on the background's hue (107) at near-zero chroma
-     so nothing reads beige against the gray paper. */
-  --secondary: oklch(0.925 0.003 107);
-  --secondary-foreground: oklch(0.21 0.003 107);
-  --muted: oklch(0.925 0.003 107);
-  --muted-foreground: oklch(0.48 0.004 107);
-  --accent: oklch(0.925 0.003 107);
-  --accent-foreground: oklch(0.21 0.003 107);
+  --background: oklch(0.975 0 0);
+  --foreground: oklch(0.15 0 0);
+  --card: oklch(0.995 0 0);
+  --card-foreground: oklch(0.15 0 0);
+  --popover: oklch(0.995 0 0);
+  --popover-foreground: oklch(0.15 0 0);
+  --primary: oklch(0.2 0 0);
+  --primary-foreground: oklch(0.985 0 0);
+  --secondary: oklch(0.93 0 0);
+  --secondary-foreground: oklch(0.21 0 0);
+  --muted: oklch(0.93 0 0);
+  --muted-foreground: oklch(0.47 0 0);
+  --accent: oklch(0.93 0 0);
+  --accent-foreground: oklch(0.21 0 0);
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.19 0.005 107 / 14%);
-  --input: oklch(0.19 0.005 107 / 18%);
-  --ring: oklch(0.48 0.004 107);
+  --border: oklch(0.15 0 0 / 12%);
+  --input: oklch(0.15 0 0 / 16%);
+  --ring: oklch(0.47 0 0);
+
+  /* Tile tints: the soft coloured surfaces a project or a primitive sits on.
+     Each is the accent at a whisper of chroma, so a row of tiles reads as
+     one family with five identities, never as five coloured boxes. */
+  --tile-violet: oklch(0.93 0.02 295);
+  --tile-amber: oklch(0.94 0.025 80);
+  --tile-blue: oklch(0.93 0.02 259);
+  --tile-green: oklch(0.94 0.02 152);
+  --tile-rose: oklch(0.94 0.02 15);
 
   /* Accents, punctuation, never fills (see reference ADR 0002). */
   --accent-blue: oklch(0.55 0.19 259);
@@ -57,28 +63,34 @@
   --radius-pill: 0.5rem;
 }
 
-/* Dark theme: warm near-black; hierarchy from alpha, not hue. Site default. */
+/* Dark theme: true black, neutral, hierarchy from alpha not hue. Site default. */
 .dark {
   color-scheme: dark;
 
-  --background: oklch(0.146 0.002 107);
-  --foreground: oklch(0.937 0.003 107);
-  --card: oklch(0.176 0.002 107);
-  --card-foreground: oklch(0.937 0.003 107);
-  --popover: oklch(0.176 0.002 107);
-  --popover-foreground: oklch(0.937 0.003 107);
-  --primary: oklch(0.937 0.003 107);
-  --primary-foreground: oklch(0.155 0.002 107);
-  --secondary: oklch(0.22 0.002 107);
-  --secondary-foreground: oklch(0.937 0.003 107);
-  --muted: oklch(0.21 0.002 107);
-  --muted-foreground: oklch(0.63 0.004 107);
-  --accent: oklch(0.22 0.002 107);
-  --accent-foreground: oklch(0.937 0.003 107);
+  --background: oklch(0.09 0 0);
+  --foreground: oklch(0.94 0 0);
+  --card: oklch(0.14 0 0);
+  --card-foreground: oklch(0.94 0 0);
+  --popover: oklch(0.15 0 0);
+  --popover-foreground: oklch(0.94 0 0);
+  --primary: oklch(0.94 0 0);
+  --primary-foreground: oklch(0.1 0 0);
+  --secondary: oklch(0.19 0 0);
+  --secondary-foreground: oklch(0.94 0 0);
+  --muted: oklch(0.18 0 0);
+  --muted-foreground: oklch(0.62 0 0);
+  --accent: oklch(0.19 0 0);
+  --accent-foreground: oklch(0.94 0 0);
   --destructive: oklch(0.704 0.191 22.216);
-  --border: oklch(1 0 0 / 10%);
+  --border: oklch(1 0 0 / 9%);
   --input: oklch(1 0 0 / 13%);
-  --ring: oklch(0.6 0.004 107);
+  --ring: oklch(0.6 0 0);
+
+  --tile-violet: oklch(0.2 0.025 295);
+  --tile-amber: oklch(0.2 0.025 75);
+  --tile-blue: oklch(0.2 0.025 259);
+  --tile-green: oklch(0.2 0.02 152);
+  --tile-rose: oklch(0.2 0.02 15);
 
   --accent-blue: oklch(0.68 0.15 259);
   --accent-green: oklch(0.71 0.11 152);
@@ -124,6 +136,13 @@
   --color-accent-violet: var(--accent-violet);
   --color-accent-emerald: var(--accent-emerald);
 
+  /* Tile tints */
+  --color-tile-violet: var(--tile-violet);
+  --color-tile-amber: var(--tile-amber);
+  --color-tile-blue: var(--tile-blue);
+  --color-tile-green: var(--tile-green);
+  --color-tile-rose: var(--tile-rose);
+
   /* Compat surface tokens */
   --color-border-strong: var(--border-strong);
   --color-card-alpha: var(--card-alpha);
@@ -144,6 +163,10 @@
 
   --font-sans: var(--font-sans);
   --font-mono: var(--font-mono);
+
+  /* The site's one column. Narrower than a document, wider than a phone:
+     three tiles across at desktop, and prose that never runs past 38rem. */
+  --container-site: 58rem;
 
   /* ── Type scale ──────────────────────────────────────────────────────
      Every size the site chrome sets is one of these eight steps. Each step
@@ -247,13 +270,16 @@ body {
   font-family: var(--font-mono);
 }
 
-/* Micro-label (MICRO_LABEL): mono, small, wide-tracked, uppercase. */
+/* Micro-label: small sans, wide-tracked, uppercase, quiet. Used for footer
+   column heads, chrome eyebrows and specimen captions. Mono is reserved for
+   things that are actually code: commands, ids, paths. */
 .label {
-  font-family: var(--font-mono);
+  font-family: var(--font-sans);
   font-size: 0.6875rem;
+  font-weight: 500;
   letter-spacing: 0.18em;
   text-transform: uppercase;
-  color: var(--muted-foreground);
+  color: color-mix(in oklab, var(--muted-foreground) 80%, transparent);
 }
 
 /* Signature studio card, translucent fill + hairline border brightening on hover. */
@@ -304,6 +330,32 @@ body {
     background: var(--card);
   }
   .card-link:active {
+    transform: translateY(0);
+    transition-duration: 80ms;
+  }
+
+  /* ── The tile ──────────────────────────────────────────────────────
+     A soft tinted surface with one thing centred on it: a mark, a live
+     primitive. The name sits under the tile, not inside it, so the tile
+     stays an image. Hover lifts the surface a hair and warms the tint. */
+  .tile {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+    border-radius: 18px;
+    background: var(--tile, var(--card));
+    transition:
+      transform 220ms var(--ease-out-quart),
+      filter 220ms var(--ease-out-quart);
+  }
+  a:hover .tile,
+  a:focus-visible .tile {
+    transform: translateY(-2px);
+    filter: brightness(1.12);
+  }
+  a:active .tile {
     transform: translateY(0);
     transition-duration: 80ms;
   }
