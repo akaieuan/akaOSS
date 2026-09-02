@@ -58,20 +58,32 @@ const rects = (list: [number, number, number, number][]): Hit => (c, r) =>
 const mask = (rows: string[], ox: number, oy: number): Hit => (c, r) =>
   rows[r - oy]?.[c - ox] === "#";
 
-/* ── HITL Kit: the circleheads figure, with two violet dots for eyes ───── */
+/* ── HITL Kit: a person inside the circle, violet dots for eyes ─────────── */
 
-function inFigure(c: number, r: number) {
-  const x = ((c + 0.5) / GRID) * 2 - 1;
-  const y = ((r + 0.5) / GRID) * 2 - 1;
-  if (Math.hypot(x, y + 0.42) < 0.37) return true;
-  const tx = x / 0.58;
-  const ty = (y - 0.55) / 0.28;
-  return tx * tx + ty * ty < 1;
+/**
+ * The same circle as the others, drawn as a one-cell ring, with a solid
+ * silhouette inside it: head over shoulders, two cells of violet for eyes.
+ * Positive rather than knocked out, because at card size a person has to
+ * read as a person before anything else.
+ */
+function silhouette(): Cell[] {
+  const cells: Cell[] = [];
+  const mid = (GRID - 1) / 2;
+  const radius = GRID * 0.47;
+  const eyeAt = (c: number, r: number) => r === 7 && (c === 8 || c === 11);
+  for (let r = 0; r < GRID; r++) {
+    for (let c = 0; c < GRID; c++) {
+      const d = Math.hypot(c - mid, r - mid);
+      const ring = d <= radius && d > radius - 1.15;
+      const head = Math.hypot(c - mid, r - 7.5) <= 3.1;
+      const dx = (c - mid) / 5.4;
+      const dy = (r - 16) / 3.4;
+      const shoulders = r >= 12.5 && r <= 15.5 && dx * dx + dy * dy <= 1;
+      if (ring || head || shoulders) cells.push({ c, r, fill: eyeAt(c, r) ? V : "currentColor" });
+    }
+  }
+  return cells;
 }
-const eyes = rects([
-  [8, 5, 8, 5],
-  [11, 5, 11, 5],
-]);
 
 /* ── eval-kit: three bars, three greens, tallest in the middle ─────────── */
 
@@ -124,7 +136,7 @@ const cube = mask(CUBE, 5, 5);
 const core = rects([[9, 9, 10, 10]]);
 
 const GLYPHS: Record<ProjectSlug, Cell[]> = {
-  "hitl-kit": disc(inFigure, (c, r) => (eyes(c, r) ? V : null)),
+  "hitl-kit": silhouette(),
   "eval-kit": disc(bars, (c, r) =>
     inRect(BAR_L, c, r) ? mix(G, 55, "black") : inRect(BAR_M, c, r) ? G : mix(G, 65),
   ),

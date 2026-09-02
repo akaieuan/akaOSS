@@ -14,14 +14,14 @@ function ProjectCard({ p }: { p: Project }) {
   return (
     <li className="settle">
       <Link href={`/projects/${p.slug}`} className="card-gloss group flex h-full flex-col p-7">
-        {/* Title row: the name on the left, the glyph on the right, on one line. */}
-        <div className="flex items-start justify-between gap-5">
-          <div className="min-w-0 pt-0.5">
-            <h3 className="text-[17px] font-medium leading-snug tracking-tight text-foreground">{p.name}</h3>
-            <p className="mt-2 text-[13.5px] font-light leading-relaxed text-muted-foreground/80">{p.oneLiner}</p>
-          </div>
-          <ProjectGlyph slug={p.slug} size={64} className="-mr-1 -mt-1 shrink-0 text-foreground" />
+        {/* Title row: the name on the left, the glyph on the right, on one line.
+            The description runs the full width beneath so the glyph never
+            squeezes it into a column. */}
+        <div className="flex items-center justify-between gap-5">
+          <h3 className="min-w-0 text-[17px] font-medium leading-snug tracking-tight text-foreground">{p.name}</h3>
+          <ProjectGlyph slug={p.slug} size={56} className="-mr-1 shrink-0 text-foreground" />
         </div>
+        <p className="mt-3 text-[13.5px] font-light leading-relaxed text-muted-foreground/80">{p.blurb}</p>
 
         <p className="mt-auto flex items-center gap-2 pt-7 text-[11.5px] text-muted-foreground/55">
           <span className="shrink-0 text-muted-foreground/70">{GROUP_LABEL[p.group]}</span>

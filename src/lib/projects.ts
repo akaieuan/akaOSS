@@ -19,6 +19,8 @@ export interface Project {
   group: ProjectGroup;
   name: string;
   oneLiner: string;
+  /** Two to three lines for a card. Every project's is about the same length, so a row of cards reads level. */
+  blurb: string;
   why: string[]; // paragraphs from copy bank
   /** Long-form sections. The "small research paper" treatment: why it was
    * built and how, sourced from each repo's own docs. */
@@ -72,6 +74,8 @@ export const PROJECTS: Project[] = [
     group: "measurement",
     name: "HITL Kit",
     oneLiner: "Human-in-the-loop AI, measured properly.",
+    blurb:
+      "Twenty React primitives for the moment an agent hands control to a person: interrupts, approvals, evidence, and provenance.",
     why: [
       "HITL Kit is the argument that we should measure AI differently, and the components that make the alternative buildable.",
       `${HITL_PRIMITIVE_COUNT} React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.`,
@@ -147,6 +151,8 @@ export const PROJECTS: Project[] = [
     name: "eval-kit",
     oneLiner:
       "Scores whether your agent respects human authority, stops when it must, asks when it should.",
+    blurb:
+      "Scores whether your agent respects human authority: stops when it must, asks when it should, never averaged into one number.",
     why: [
       "Agent protocols now standardise that an agent CAN pause for approval. Nothing measures whether it does, whether approval actually preceded the irreversible call, or whether the agent asked when it faced a real blocker.",
       "Mandated and discretionary gates are never averaged. Compliance is binary and ordering-sensitive; asking is a precision/recall problem. Collapsing them destroys the only information worth having.",
@@ -256,6 +262,8 @@ export const PROJECTS: Project[] = [
     name: "tag-kit",
     oneLiner:
       "Structured tagging primitives for human-in-the-loop annotation workflows.",
+    blurb:
+      "Structured tagging primitives for human-in-the-loop annotation: scoped tags you can aggregate and score, not free-text labels.",
     why: [
       "Bring your own taxonomy, bring your own UI, bring your own scoring loop, tag-kit ships the substrate.",
       "Most “tagging” features in HITL tools are unstructured strings: you type a label, it gets stored next to the decision, and then nobody can aggregate or score across them later.",
@@ -322,6 +330,8 @@ export const PROJECTS: Project[] = [
     group: "tooling",
     name: "Collapse",
     oneLiner: "A Claude Code skill-building framework.",
+    blurb:
+      "A Claude Code skill-building framework: lessons, notebooks and docs compile into skills and MCP tools, linted and written atomically.",
     why: [
       "Claude's default knowledge is stack-agnostic, but most developers live inside one stack at a time. The same idea: reactive state, lifecycle, error boundaries, circuit composition: lands differently in React, Vue, Nuxt, and Qiskit, and a “generic” answer costs round-trips. Collapsed skills carry your cross-stack vocabulary so Claude reaches for the right idiom on the first try.",
       "Three pluggable ingestors (MDX lessons, Jupyter .ipynb / MyST .md, and a one-file extension pattern for any source format) feed a typed pipeline that compiles each pattern into a SKILL.md and atomically writes it to ~/.claude/skills/.",
@@ -383,6 +393,8 @@ export const PROJECTS: Project[] = [
     name: "Hologram",
     oneLiner:
       "Live observability, guided skills, and an agent (MCP) surface for Blender → glTF pipelines.",
+    blurb:
+      "Live observability for Blender → glTF pipelines: an append-only log, a dashboard beside the assets, and an MCP surface for the agent.",
     why: [
       "Plenty of tools inspect a .glb. Hologram is the only one that puts a live feed of your agent's pipeline activity next to the assets it's producing, and hands that same pipeline to the agent as MCP tools, now including a render so the agent can see an export, not just count its nodes.",
       "Hologram watches a glTF asset pipeline and streams what's happening to a local dashboard in real time, including the tool calls your AI coding agent is making right now.",
