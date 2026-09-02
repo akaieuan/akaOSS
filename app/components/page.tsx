@@ -2,8 +2,8 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
 import { REGISTRY_ITEMS } from "@/lib/registry-items";
-import { LibraryHeader } from "./_components/demo-ui";
-import { LegacyAnchorRedirect } from "./_components/LegacyAnchorRedirect";
+import { LibraryHeader } from "@/components/features/library/catalogue";
+import { LegacyAnchorRedirect } from "@/components/features/library/legacy-anchor-redirect";
 import {
   LIBRARY_GROUPS,
   LIBRARY_SPECIMEN_COUNT,

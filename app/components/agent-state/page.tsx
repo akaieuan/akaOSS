@@ -8,12 +8,12 @@ import {
   LibraryHeader,
   LibraryPager,
   Specimen,
-} from "../_components/demo-ui";
+} from "@/components/features/library/catalogue";
 import {
   ContextStripSpecimen,
   MiniTraceSpecimen,
   ToolCallSpecimen,
-} from "../_components/live";
+} from "@/components/features/library/specimens";
 import { groupBySlug, pagerFor } from "@/lib/library";
 
 const GROUP = groupBySlug("agent-state");

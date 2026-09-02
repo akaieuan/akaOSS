@@ -1,10 +1,10 @@
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
-import { Hero } from "@/components/home/Hero";
-import { ProjectsGrid } from "@/components/home/ProjectsGrid";
-import { Primitives } from "@/components/home/Primitives";
-import { Thesis } from "@/components/home/Thesis";
-import { LatestFinding } from "@/components/home/LatestFinding";
+import { Hero } from "@/components/features/home/hero";
+import { ProjectsGrid } from "@/components/features/home/projects-grid";
+import { Primitives } from "@/components/features/home/primitives";
+import { Thesis } from "@/components/features/home/thesis";
+import { LatestFinding } from "@/components/features/home/latest-finding";
 
 /* The landing is a composition of atomic server sections. Interactive
    islands (theme, the mark, the live primitives) live inside the sections

@@ -5,7 +5,7 @@ import { AiGenerationBadge } from "@/components/hitl/AiGenerationBadge";
 import { SubagentStatusCard } from "@/components/hitl/SubagentStatusCard";
 import { AI_GENERATION_LEVELS } from "@/components/hitl/ai-generation-levels";
 import { REGISTRY_ITEMS } from "@/lib/registry-items";
-import { SliderSpecimen } from "@/app/components/_components/live";
+import { SliderSpecimen } from "@/components/features/library/specimens";
 import { SectionHead } from "@/components/ui/section-head";
 
 const COUNT = REGISTRY_ITEMS.filter((i) => i.type === "registry:ui").length;

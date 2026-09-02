@@ -5,7 +5,7 @@ import { ArrowUpRight } from "lucide-react";
 import { Hairline } from "@/components/ui/hairline";
 import { AssistNotComplete } from "@/components/ui/assist-not-complete";
 import { ThemeToggle } from "@/components/ui/theme-toggle";
-import { arrowLink, arrowNudge, primaryCta, reveal, stagger } from "@/components/home/shared";
+import { arrowLink, arrowNudge, primaryCta, reveal, stagger } from "@/components/features/home/shared";
 
 import {
   DemoHeader,
@@ -99,7 +99,7 @@ export default function PrimitivesDemo() {
             . These are the handful of site-level helpers under{" "}
             <Mono>components/ui/</Mono>, plus the class idioms in{" "}
             <Mono>globals.css</Mono> and{" "}
-            <Mono>components/home/shared.ts</Mono> that do the rest of the
+            <Mono>components/features/home/shared.ts</Mono> that do the rest of the
             work. Small surface on purpose: most of the page furniture is one
             class string used consistently rather than a component.
           </>
@@ -363,7 +363,7 @@ It is how every section on the site announces itself without
       <DemoSection
         id="links"
         title="Link idioms"
-        meta="components/home/shared.ts · globals.css"
+        meta="components/features/home/shared.ts · globals.css"
         description={
           <>
             Four shapes a link takes, all of them class strings rather than

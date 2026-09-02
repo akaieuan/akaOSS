@@ -48,7 +48,7 @@ import {
 } from "@/components/hitl/fixtures";
 import type { ApprovalState, BatchQueueItem, ContextChipItem } from "@/components/hitl/core";
 
-import { Specimen } from "./demo-ui";
+import { Specimen } from "./catalogue";
 
 // ─── Scales ──────────────────────────────────────────────────────────────────
 

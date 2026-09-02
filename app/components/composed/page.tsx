@@ -5,8 +5,8 @@ import {
   LibraryHeader,
   LibraryPager,
   Specimen,
-} from "../_components/demo-ui";
-import { ResearchAgentSpecimen, WritingAgentSpecimen } from "../_components/live";
+} from "@/components/features/library/catalogue";
+import { ResearchAgentSpecimen, WritingAgentSpecimen } from "@/components/features/library/specimens";
 import { groupBySlug, pagerFor } from "@/lib/library";
 
 const GROUP = groupBySlug("composed");

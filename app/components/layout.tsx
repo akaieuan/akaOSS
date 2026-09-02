@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
-import { LibraryNav } from "./_components/LibraryNav";
+import { LibraryNav } from "@/components/features/library/library-nav";
 
 export const metadata: Metadata = {
   title: "Component library · HITL Kit · akaOSS",

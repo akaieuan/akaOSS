@@ -5,14 +5,14 @@ import {
   LibraryHeader,
   LibraryPager,
   Specimen,
-} from "../_components/demo-ui";
+} from "@/components/features/library/catalogue";
 import {
   ApprovalSpecimens,
   BatchSpecimen,
   EditablePlanSpecimen,
   InterruptCardSpecimens,
   QASpecimen,
-} from "../_components/live";
+} from "@/components/features/library/specimens";
 import { groupBySlug, pagerFor } from "@/lib/library";
 
 const GROUP = groupBySlug("decision");
