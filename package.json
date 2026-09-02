@@ -9,9 +9,9 @@
     "start": "next start",
     "lint": "eslint",
     "typecheck": "tsc --noEmit",
-    "registry:build": "shadcn build",
-    "registry:check": "pnpm registry:build && git diff --exit-code public/r registry.json && echo '✓ registry up to date'",
-    "verify": "pnpm typecheck && pnpm registry:check && pnpm facts:check && pnpm build",
+    "hitl:sync": "node scripts/hitl-sync.mjs",
+    "hitl:check": "node scripts/hitl-sync.mjs --check",
+    "verify": "pnpm typecheck && pnpm hitl:check && pnpm facts:check && pnpm build",
     "smoke-test": "bash scripts/smoke-test.sh local",
     "smoke-test:prod": "bash scripts/smoke-test.sh prod",
     "facts:build": "tsx scripts/facts.ts",
@@ -31,7 +31,8 @@
     "rehype-slug": "^6.0.0",
     "remark-gfm": "^4.0.1",
     "tailwind-merge": "^3.5.0",
-    "tw-animate-css": "^1.4.0"
+    "tw-animate-css": "^1.4.0",
+    "zod": "^3.23.0"
   },
   "devDependencies": {
     "@tailwindcss/postcss": "^4",
@@ -40,7 +41,6 @@
     "@types/react-dom": "^19",
     "eslint": "^9",
     "eslint-config-next": "16.2.4",
-    "shadcn": "^4.3.1",
     "tailwindcss": "^4",
     "tsx": "^4.23.12",
     "typescript": "^5"
@@ -56,7 +56,8 @@
       "js-yaml@3": "^3.15.1",
       "js-yaml@4": "^4.3.1",
       "undici": "^7.29.0",
-      "nanoid@3": "^3.3.17"
+      "nanoid@3": "^3.3.17",
+      "browserslist": ">=4.28.7"
     },
     "auditConfig": {
       "ignoreGhsas": [

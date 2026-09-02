@@ -67,15 +67,15 @@ function isFenceKind(lang: string | undefined): lang is FenceKind {
 function RunPlaceholderCard({ kind, path }: { kind: FenceKind; path: string }) {
   const spec = FENCE_KINDS[kind];
   return (
-    <div className="my-6 rounded-2xl border border-border/40 bg-card/40 p-5">
+    <div className="card my-6 p-5">
       <div className="mb-3 flex items-center gap-2">
         <span className="h-1.5 w-1.5 rounded-full bg-[color:var(--accent-amber)]" />
         <span className="label">{spec.label} · run artifact</span>
       </div>
-      <div className="overflow-x-auto rounded-lg border border-border bg-background/60 px-3 py-2 font-mono text-[11.5px] text-foreground">
+      <div className="overflow-x-auto rounded-lg border border-border bg-background/60 px-3 py-2 font-mono text-xs text-foreground">
         {path || "(no path provided)"}
       </div>
-      <p className="mt-3 font-mono text-[10.5px] leading-relaxed text-muted-foreground/80">
+      <p className="mt-3 font-mono text-meta text-muted-foreground">
         {spec.hint}
       </p>
     </div>
@@ -164,23 +164,23 @@ export default async function ResearchPostPage({
             Research
           </Link>
 
-          <h1 className="mt-6 max-w-3xl text-3xl leading-[1.15] font-light tracking-tight text-foreground md:text-4xl">
+          <h1 className="mt-6 max-w-3xl text-title-1 font-light text-foreground">
             {post.title}
           </h1>
 
-          <p className="mt-4 font-mono text-[13px] text-muted-foreground">
+          <p className="mt-4 font-mono text-small text-muted-foreground">
             {formatDate(post.date)}
             {post.experiment && (
               <>
-                <span className="mx-2 text-muted-foreground/50">·</span>
-                <span className="text-muted-foreground/80">
+                <span className="mx-2 text-muted-foreground/40">·</span>
+                <span className="text-muted-foreground">
                   {post.experiment}
                 </span>
               </>
             )}
             {post.status === "in-progress" && (
               <>
-                <span className="mx-2 text-muted-foreground/50">·</span>
+                <span className="mx-2 text-muted-foreground/40">·</span>
                 <span className="text-[color:var(--accent-amber)]">
                   in progress
                 </span>
@@ -207,7 +207,7 @@ export default async function ResearchPostPage({
                     >
                       <a
                         href={`#${entry.id}`}
-                        className="block text-[13px] leading-snug text-muted-foreground transition-colors hover:text-foreground"
+                        className="block text-small leading-snug text-muted-foreground transition-colors hover:text-foreground"
                       >
                         {entry.text}
                       </a>
@@ -223,7 +223,7 @@ export default async function ResearchPostPage({
             {post.keyFindings.length > 0 && (
               <section
                 aria-label="Key findings"
-                className="mb-10 rounded-2xl border border-border/40 bg-card/60 p-6"
+                className="card mb-10 p-6"
               >
                 <p className="label mb-4 text-[color:var(--accent-amber)]">
                   Key findings
@@ -232,7 +232,7 @@ export default async function ResearchPostPage({
                   {post.keyFindings.map((paragraph, i) => (
                     <p
                       key={i}
-                      className="text-sm leading-relaxed text-muted-foreground md:text-[15px]"
+                      className="text-body text-muted-foreground"
                     >
                       <Bolded text={paragraph} />
                     </p>
@@ -255,7 +255,7 @@ export default async function ResearchPostPage({
             </div>
 
             {post.keywords.length > 0 && (
-              <p className="mt-10 text-[13px] leading-relaxed text-muted-foreground/80">
+              <p className="mt-10 text-small text-muted-foreground">
                 <span className="label mr-2">Keywords</span>
                 {post.keywords.join(", ")}
               </p>

@@ -170,7 +170,7 @@ export function Pill({
     <span
       className={cn(
         "inline-flex items-center rounded-full border border-border px-3 py-1 text-muted-foreground",
-        mono ? "font-mono text-[11px]" : "text-xs",
+        mono ? "font-mono text-meta" : "text-xs",
         className,
       )}
     >

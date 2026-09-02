@@ -1,7 +1,5 @@
 import type { Metadata } from "next";
 
-import { QAFlow, type QAQuestion } from "@/components/hitl/QAFlow";
-
 import {
   DemoSection,
   LibraryHeader,
@@ -13,6 +11,7 @@ import {
   BatchSpecimen,
   EditablePlanSpecimen,
   InterruptCardSpecimens,
+  QASpecimen,
 } from "../_components/live";
 import { groupBySlug, pagerFor } from "../_components/sections";
 
@@ -22,37 +21,6 @@ export const metadata: Metadata = {
   title: "Decision · component library · akaOSS",
   description: GROUP.blurb,
 };
-
-const QA_QUESTIONS: QAQuestion[] = [
-  {
-    id: "mech",
-    kind: "single",
-    prompt: "Preferred mechanism?",
-    options: [
-      "Carbon pricing",
-      "Regulation",
-      "Voluntary markets",
-      "Technology mandates",
-    ],
-  },
-  {
-    id: "challenges",
-    kind: "multi",
-    prompt: "Implementation challenges?",
-    options: [
-      "Stakeholder alignment",
-      "Monitoring & verification",
-      "Political feasibility",
-      "Cost-effectiveness",
-    ],
-  },
-  {
-    id: "notes",
-    kind: "text",
-    prompt: "Other notes",
-    placeholder: "Any additional context…",
-  },
-];
 
 export default function DecisionPage() {
   return (
@@ -68,7 +36,7 @@ export default function DecisionPage() {
         id="hitl"
         title="Interrupt Cards"
         meta="hitl-card"
-        description="Human-in-the-loop interrupt cards rendered inline in a chat thread. Three semantic variants, each with idle, expanded, confirmed, and dismissed states. Click any card to expand it."
+        description="Human-in-the-loop interrupt cards rendered inline in a chat thread. Three semantic variants, each with idle, expanded, confirmed, and dismissed states, and every resolution can be undone. Click any card to expand it."
         cols={3}
       >
         <InterruptCardSpecimens />
@@ -78,7 +46,7 @@ export default function DecisionPage() {
         id="approval"
         title="Approve / Reject"
         meta="approve-reject-row"
-        description="The core binary decision row used across review, download, and notes panels. Three terminal states: pending, approved, rejected, with an undo back to pending."
+        description="The core decision row used across review, download, and notes panels. Three answers, not two: approve, reject, and can't tell, because an unresolved question is not a no. Undo returns to pending."
       >
         <ApprovalSpecimens />
       </DemoSection>
@@ -87,10 +55,10 @@ export default function DecisionPage() {
         id="qa"
         title="QA Flow"
         meta="qa-flow"
-        description="Multi-question approval card: single choice, multi-select, and a freeform text field. Submits to a confirmed state."
+        description="Multi-question approval card: single choice, multi-select, and a freeform text field. Submits to a resolved line that keeps the answers visible and can be reopened."
       >
         <Specimen label="QA form" hint="fill out, then Continue">
-          <QAFlow questions={QA_QUESTIONS} />
+          <QASpecimen />
         </Specimen>
       </DemoSection>
 
@@ -98,7 +66,7 @@ export default function DecisionPage() {
         id="batch"
         title="Batch Approval Queue"
         meta="batch-queue"
-        description="Sequential approve-reject flow across mixed agent items. Auto-advances to the next item and resolves to a summary state."
+        description="Sequential approve-reject flow across mixed agent items. Auto-advances to the next item, can step back one, and resolves to a summary state."
       >
         <Specimen label="Kitchen sink batch" hint="5 items">
           <BatchSpecimen />

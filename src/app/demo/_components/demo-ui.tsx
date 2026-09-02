@@ -30,10 +30,10 @@ export function DemoHeader({
   return (
     <header className="pt-4 pb-14">
       <p className="label">Brand system · unlisted</p>
-      <h1 className="mt-6 text-3xl font-light tracking-tight text-foreground md:text-4xl">
+      <h1 className="mt-6 text-title-1 font-light text-foreground">
         {title}
       </h1>
-      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-6 max-w-2xl text-lede text-muted-foreground">
         {lede}
       </p>
       {meta ? <p className="label mt-6">{meta}</p> : null}
@@ -69,7 +69,7 @@ export function DemoSection({
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <h2
           id={`${id}-title`}
-          className="text-xl font-light tracking-tight text-foreground"
+          className="text-title-2 font-light text-foreground"
         >
           {title}
         </h2>
@@ -77,7 +77,7 @@ export function DemoSection({
       </div>
 
       {description ? (
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-3 max-w-2xl text-body text-muted-foreground">
           {description}
         </p>
       ) : null}
@@ -148,16 +148,16 @@ export function Specimen({
   return (
     <figure
       className={cn(
-        "flex min-w-0 flex-col gap-4 rounded-2xl border border-border/40 bg-card/40 p-5",
+        "card flex min-w-0 flex-col gap-4 p-5",
         className,
       )}
     >
       <figcaption className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-border/40 pb-3">
-        <span className="min-w-0 truncate font-mono text-[11px] text-foreground">
+        <span className="min-w-0 truncate font-mono text-meta text-foreground">
           {label}
         </span>
         {hint ? (
-          <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-[10px] text-muted-foreground/70">
+          <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-meta text-muted-foreground">
             {hint}
           </span>
         ) : null}
@@ -172,7 +172,7 @@ export function Specimen({
         {children}
       </div>
       {footnote ? (
-        <p className="border-t border-border/40 pt-3 text-[11px] leading-relaxed text-muted-foreground">
+        <p className="border-t border-border/40 pt-3 text-meta text-muted-foreground">
           {footnote}
         </p>
       ) : null}
@@ -191,7 +191,7 @@ export function Well({
   return (
     <div
       className={cn(
-        "min-w-0 rounded-2xl border border-border/40 bg-card/40 p-5",
+        "card min-w-0 p-5",
         className,
       )}
     >
@@ -203,7 +203,7 @@ export function Well({
 /** A quiet aside under a section: caveats, reduced-motion behaviour, etc. */
 export function Note({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-4 max-w-2xl border-l border-border/60 pl-4 text-[13px] leading-relaxed text-muted-foreground">
+    <p className="mt-4 max-w-2xl border-l border-border/60 pl-4 text-small text-muted-foreground">
       {children}
     </p>
   );
@@ -212,7 +212,7 @@ export function Note({ children }: { children: ReactNode }) {
 /** Inline machine data: prop names, token names, icon ids. */
 export function Mono({ children }: { children: ReactNode }) {
   return (
-    <code className="font-mono text-[0.9em] text-foreground/90">{children}</code>
+    <code className="font-mono text-[0.875em] text-foreground">{children}</code>
   );
 }
 

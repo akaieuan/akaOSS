@@ -70,13 +70,13 @@ function TokenMeta({
 }) {
   return (
     <div className="min-w-0">
-      <p className="font-mono text-[12px] text-foreground [overflow-wrap:anywhere]">
+      <p className="font-mono text-xs text-foreground [overflow-wrap:anywhere]">
         {token}
       </p>
-      <p className="mt-1 text-[12px] leading-relaxed text-muted-foreground">
+      <p className="mt-1 text-small text-muted-foreground">
         {note}
       </p>
-      <dl className="mt-2 grid grid-cols-[2.6rem_minmax(0,1fr)] gap-x-2 gap-y-0.5 font-mono text-[10px] text-muted-foreground/70">
+      <dl className="mt-2 grid grid-cols-[2.6rem_minmax(0,1fr)] gap-x-2 gap-y-0.5 font-mono text-meta text-muted-foreground">
         <dt>light</dt>
         <dd className="[overflow-wrap:anywhere]">
           {light[token] ?? "not authored"}
@@ -208,11 +208,9 @@ export default async function TokensDemo() {
           <>
             Two working values and two that exist to satisfy shadcn&rsquo;s
             slot contract. The site uses <Mono>--foreground</Mono> and{" "}
-            <Mono>--muted-foreground</Mono> for effectively everything;
-            hierarchy below that comes from opacity on the foreground
-            (<Mono>text-foreground/80</Mono>,{" "}
-            <Mono>text-muted-foreground/70</Mono>) rather than from more
-            tokens.
+            <Mono>--muted-foreground</Mono> for effectively everything; the
+            one step between them is <Mono>text-foreground/80</Mono>, a
+            secondary line, rather than another token.
           </>
         }
       >
@@ -283,7 +281,7 @@ export default async function TokensDemo() {
                 </span>
               ))}
             </div>
-            <p className="mt-6 text-sm leading-relaxed text-foreground/80">
+            <p className="mt-6 text-body text-foreground/80">
               A sentence ending in an accent
               <span style={{ color: "var(--accent-amber)" }}>.</span> That dot,
               a 6px status dot, and a hover underline are the whole of it.
@@ -324,7 +322,7 @@ export default async function TokensDemo() {
             <tbody>
               {CONTRAST.map((c) => (
                 <tr key={c.token} className="border-b border-border/40 last:border-b-0">
-                  <td className="py-3 pr-4 font-mono text-[11px] text-foreground [overflow-wrap:anywhere]">
+                  <td className="py-3 pr-4 font-mono text-meta text-foreground [overflow-wrap:anywhere]">
                     {c.token}
                   </td>
                   <td className="py-3 pr-4">
@@ -337,8 +335,8 @@ export default async function TokensDemo() {
                       <span
                         className={
                           c.light < 4.5
-                            ? "font-mono text-[11px] text-[color:var(--accent-amber)]"
-                            : "font-mono text-[11px] text-muted-foreground"
+                            ? "font-mono text-meta text-[color:var(--accent-amber)]"
+                            : "font-mono text-meta text-muted-foreground"
                         }
                       >
                         {c.light.toFixed(2)}:1
@@ -352,7 +350,7 @@ export default async function TokensDemo() {
                         className="size-2.5 shrink-0 rounded-full border border-border"
                         style={{ background: c.darkHex }}
                       />
-                      <span className="font-mono text-[11px] text-muted-foreground">
+                      <span className="font-mono text-meta text-muted-foreground">
                         {c.dark.toFixed(2)}:1
                       </span>
                     </span>
@@ -423,7 +421,7 @@ export default async function TokensDemo() {
               <span
                 className={`h-14 w-14 border border-border bg-card/60 ${r.cls}`}
               />
-              <span className="font-mono text-[10px] text-muted-foreground/70">
+              <span className="font-mono text-meta text-muted-foreground">
                 {r.step} {r.mult}
               </span>
             </div>

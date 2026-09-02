@@ -4,7 +4,7 @@ import { useState } from "react";
 import { Check, X } from "lucide-react";
 
 import { ApproveRejectRow } from "@/components/hitl/ApproveRejectRow";
-import type { ApprovalStatus } from "@/components/hitl/types";
+import type { ApprovalState } from "@/components/hitl/core";
 
 import { CONTRAST_ITEM, fmtP, fmtSpan } from "./fixtures";
 import { Field, Label, Mono, Panel, ScoreMeter } from "./ui";
@@ -34,8 +34,8 @@ function Decision({
   state,
   onDecide,
 }: {
-  state: ApprovalStatus;
-  onDecide: (s: ApprovalStatus) => void;
+  state: ApprovalState;
+  onDecide: (s: ApprovalState) => void;
 }) {
   return (
     <div className="mt-auto border-t border-border/50 pt-4">
@@ -43,17 +43,25 @@ function Decision({
       <ApproveRejectRow
         state={state}
         accentClass="bg-[color:var(--accent-amber)]"
-        onApprove={() => onDecide("approved")}
-        onReject={() => onDecide("rejected")}
-        onUndo={() => onDecide("pending")}
+        onAction={(a) =>
+          onDecide(
+            a.kind === "approve"
+              ? "approved"
+              : a.kind === "reject"
+                ? "rejected"
+                : a.kind === "abstain"
+                  ? "abstained"
+                  : "pending",
+          )
+        }
       />
     </div>
   );
 }
 
 export function VerificationContrast() {
-  const [located, setLocated] = useState<ApprovalStatus>("pending");
-  const [blind, setBlind] = useState<ApprovalStatus>("pending");
+  const [located, setLocated] = useState<ApprovalState>("pending");
+  const [blind, setBlind] = useState<ApprovalState>("pending");
 
   return (
     <div className="space-y-4">

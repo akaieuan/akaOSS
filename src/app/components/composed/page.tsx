@@ -1,14 +1,12 @@
 import type { Metadata } from "next";
 
-import { WritingAgent } from "@/components/hitl/WritingAgent";
-import { ResearchAgent } from "@/components/hitl/ResearchAgent";
-
 import {
   DemoSection,
   LibraryHeader,
   LibraryPager,
   Specimen,
 } from "../_components/demo-ui";
+import { ResearchAgentSpecimen, WritingAgentSpecimen } from "../_components/live";
 import { groupBySlug, pagerFor } from "../_components/sections";
 
 const GROUP = groupBySlug("composed");
@@ -35,7 +33,7 @@ export default function ComposedPage() {
         description="A compound widget for a draft in progress: title, target section, word range, evidence notes, and the same six status states the subagent card uses."
       >
         <Specimen label="Write doc agent" hint="click a status chip to cycle">
-          <WritingAgent />
+          <WritingAgentSpecimen />
         </Specimen>
       </DemoSection>
 
@@ -46,7 +44,7 @@ export default function ComposedPage() {
         description="Three operating modes for a long-running research task: create a new session, follow up on an existing one, or read a single URL."
       >
         <Specimen label="Research agent" hint="switch modes, top right">
-          <ResearchAgent />
+          <ResearchAgentSpecimen />
         </Specimen>
       </DemoSection>
 

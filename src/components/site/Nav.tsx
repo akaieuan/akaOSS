@@ -22,7 +22,7 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
   {
     label: "Human-in-the-loop measurement",
     links: [
-      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "React primitives via the shadcn CLI · copy, paste, own", icon: "head" },
+      { href: "/components", name: "HITL Kit", meta: "20 primitives, live · npm or the shadcn CLI", icon: "head" },
       { href: "/projects/eval-kit", name: "eval-kit", meta: "scores whether the agent respects human authority", icon: "podium" },
       { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps", icon: "codetag" },
     ],
@@ -37,8 +37,9 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
 ];
 
 const LINKS: { href: string; key: NavActive; label: string }[] = [
-  { href: "/research", key: "research", label: "Research" },
+  { href: "/components", key: "components", label: "Components" },
   { href: "/registry", key: "registry", label: "Registry" },
+  { href: "/research", key: "research", label: "Research" },
 ];
 
 const linkClass = (isActive: boolean) =>
@@ -64,7 +65,7 @@ export function Nav({ active }: { active?: NavActive }) {
           </span>
         </Link>
 
-        <nav className="flex items-center gap-2.5 text-[13px] font-light tracking-[0.06em] text-muted-foreground sm:gap-4 md:gap-6 md:text-sm">
+        <nav className="flex items-center gap-2.5 text-small font-light tracking-[0.06em] text-muted-foreground sm:gap-4 md:gap-6 md:text-sm">
           {/* Toolkits, CSS-only dropdown revealed on hover/focus */}
           <div className="group relative">
             <Link
@@ -79,7 +80,7 @@ export function Nav({ active }: { active?: NavActive }) {
             </Link>
             {/* The dropdown is a hover affordance, desktop only. On touch,
                 Toolkits is a plain link straight to /projects. */}
-            <div className="invisible absolute left-0 top-full z-50 hidden w-80 translate-y-1 pt-3 opacity-0 transition-all duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 md:block">
+            <div className="invisible absolute left-0 top-full z-50 hidden w-80 translate-y-1 pt-3 opacity-0 transition-[opacity,translate,visibility] duration-150 group-hover:visible group-hover:translate-y-0 group-hover:opacity-100 group-focus-within:visible group-focus-within:translate-y-0 group-focus-within:opacity-100 md:block">
               {/* Solid surface. No translucency, page text must never bleed through */}
               <div className="flex flex-col gap-0.5 rounded-2xl border border-border bg-popover p-2 shadow-lg">
                 {PROJECT_GROUPS.map((group, gi) => (
@@ -90,7 +91,7 @@ export function Nav({ active }: { active?: NavActive }) {
                       gi > 0 && "mt-1.5 border-t border-border/60 pt-1.5",
                     )}
                   >
-                    <span className="px-3 pt-1.5 pb-1 font-mono text-[10px] tracking-[0.14em] uppercase text-muted-foreground/70">
+                    <span className="label px-3 pt-1.5 pb-1">
                       {group.label}
                     </span>
                     {group.links.map((p) => (
@@ -109,10 +110,10 @@ export function Nav({ active }: { active?: NavActive }) {
                           />
                         </span>
                         <span className="flex min-w-0 flex-col gap-0.5">
-                          <span className="text-[13px] font-normal tracking-normal text-foreground">
+                          <span className="text-small font-normal tracking-normal text-foreground">
                             {p.name}
                           </span>
-                          <span className="font-mono text-[10px] leading-relaxed tracking-normal text-muted-foreground">
+                          <span className="font-mono text-meta tracking-normal text-muted-foreground">
                             {p.meta}
                           </span>
                         </span>
@@ -122,7 +123,7 @@ export function Nav({ active }: { active?: NavActive }) {
                 ))}
                 <Link
                   href="/projects"
-                  className="mt-1 rounded-xl px-3 py-2 text-[11px] tracking-normal text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
+                  className="mt-1 rounded-xl px-3 py-2 text-xs tracking-normal text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
                 >
                   All toolkits →
                 </Link>

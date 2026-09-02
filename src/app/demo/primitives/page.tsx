@@ -25,6 +25,61 @@ export const metadata: Metadata = {
     "The small site-level helpers: the edge-fading hairline, the canonical Assist-Not-Complete link, the theme toggle, and the class idioms that carry the page furniture.",
 };
 
+/* The eight steps of the type scale, largest first. Class strings are
+   written out in full so Tailwind sees them. */
+const TYPE_SCALE = [
+  {
+    name: "display",
+    note: "the hero · 36→48px fluid",
+    className: "text-display font-light text-foreground",
+    sample: "Measured properly.",
+  },
+  {
+    name: "title-1",
+    note: "page heading · 28→36px fluid",
+    className: "text-title-1 font-light text-foreground",
+    sample: "An AI measurement problem",
+  },
+  {
+    name: "title-2",
+    note: "section heading · 22px",
+    className: "text-title-2 font-light text-foreground",
+    sample: "Why it exists.",
+  },
+  {
+    name: "title-3",
+    note: "card title · 18px",
+    className: "text-title-3 font-light text-foreground",
+    sample: "Interrupt card",
+  },
+  {
+    name: "lede",
+    note: "the paragraph under a heading · 17px",
+    className: "text-lede text-muted-foreground",
+    sample:
+      "Most AI systems are evaluated on whether they can complete tasks autonomously.",
+  },
+  {
+    name: "body",
+    note: "prose · 15px / 1.6",
+    className: "text-body text-muted-foreground",
+    sample:
+      "In deployment they need to assist humans instead, which is a different question with a different answer.",
+  },
+  {
+    name: "small",
+    note: "captions, blurbs · 13px",
+    className: "text-small text-muted-foreground",
+    sample: "Six discrete execution states for a running agent.",
+  },
+  {
+    name: "meta",
+    note: "ids, dates, hints · 11px mono",
+    className: "font-mono text-meta text-muted-foreground",
+    sample: "npx shadcn@latest add hitl-card",
+  },
+];
+
 export default function PrimitivesDemo() {
   const { prev, next } = demoNeighbours("primitives");
 
@@ -49,7 +104,7 @@ export default function PrimitivesDemo() {
             class string used consistently rather than a component.
           </>
         }
-        meta="3 components · 6 class idioms"
+        meta="3 components · 7 class idioms"
       />
 
       {/* ── Hairline ──────────────────────────────────────────────────── */}
@@ -100,12 +155,12 @@ export default function PrimitivesDemo() {
         }
       >
         <Well className="flex flex-col gap-5">
-          <p className="text-sm leading-relaxed text-foreground/80">
+          <p className="text-body text-foreground/80">
             Default label, in a sentence: every primitive in the registry is
             an argument for <AssistNotComplete />, made in code rather than
             prose.
           </p>
-          <p className="text-sm leading-relaxed text-foreground/80">
+          <p className="text-body text-foreground/80">
             With a custom label: the paradigm is also called{" "}
             <AssistNotComplete label="assist, not complete" /> when the
             sentence wants a lower-case reading.
@@ -130,8 +185,9 @@ export default function PrimitivesDemo() {
           <>
             The one interactive control in the chrome. It renders the icon for
             the theme you would switch <em>to</em>, not the one you are in,
-            and it holds the sun until it has mounted so the server-rendered
-            markup and the hydrated markup agree.
+            and lets the stylesheet choose which, through{" "}
+            <Mono>dark:</Mono> variants, so the server-rendered markup and
+            the hydrated markup agree without a mounted flag.
           </>
         }
       >
@@ -151,11 +207,11 @@ export default function PrimitivesDemo() {
           <Specimen
             label="in a bar"
             hint="as the nav uses it"
-            footnote="size-8, rounded-2xl, transparent until hover."
+            footnote="size-8, rounded-full, transparent until hover. Keyboard focus is the global ring."
             center
             minH={64}
           >
-            <div className="flex items-center gap-4 rounded-xl border border-border/60 bg-background/60 px-3 py-2 text-[13px] font-light tracking-[0.06em] text-muted-foreground">
+            <div className="flex items-center gap-4 rounded-xl border border-border/60 bg-background/60 px-3 py-2 text-small font-light tracking-[0.06em] text-muted-foreground">
               <span>Research</span>
               <span>Registry</span>
               <ThemeToggle />
@@ -202,7 +258,7 @@ It is how every section on the site announces itself without
             minH={64}
           >
             <p className="label">Open source · by akaieuan</p>
-            <h3 className="mt-3 text-lg leading-snug font-light tracking-tight text-foreground">
+            <h3 className="mt-3 text-title-3 font-light text-foreground">
               Open-source software for human-in-the-loop AI
               <span className="text-[color:var(--accent-amber)]">.</span>
             </h3>
@@ -221,41 +277,33 @@ It is how every section on the site announces itself without
       {/* ── Display type ──────────────────────────────────────────────── */}
       <DemoSection
         id="type"
-        title="Display type"
+        title="Type scale"
         meta="globals.css"
         description={
           <>
-            Two families, no third. <Mono>--font-sans</Mono> is Inter and does
-            everything human-readable; <Mono>--font-mono</Mono> is JetBrains
-            Mono and does everything machine-readable: prop names, token
-            names, icon ids, install commands. The display idiom is not a
-            serif despite the class name: <Mono>.font-serif</Mono> re-points
-            at Inter at weight 300 with tight tracking, kept as a name so
-            markdown and older markup that reaches for it lands somewhere
-            deliberate.
+            Two families, no third. <Mono>--font-sans</Mono> is Inter, loaded
+            with its optical-size axis so the two largest steps render in the
+            Display cut; <Mono>--font-mono</Mono> is JetBrains Mono and does
+            everything machine-readable: prop names, token names, icon ids,
+            install commands. Every size the site chrome sets is one of eight
+            named steps in <Mono>globals.css</Mono>, each owning its
+            line-height and tracking, so a heading says{" "}
+            <Mono>text-title-2 font-light</Mono> and nothing else. The two
+            largest are fluid. <Mono>.font-serif</Mono> survives as a name
+            for markdown and older markup; the registry primitives keep their
+            own sizes.
           </>
         }
       >
-        <Well className="flex flex-col gap-6">
-          <div>
-            <p className="label mb-3">Display · font-light tracking-tight</p>
-            <p className="text-3xl font-light tracking-tight text-foreground">
-              An AI measurement problem
-            </p>
-          </div>
-          <div>
-            <p className="label mb-3">Body · --font-sans</p>
-            <p className="max-w-xl text-sm leading-relaxed text-muted-foreground">
-              Most AI systems are evaluated on whether they can complete tasks
-              autonomously. In deployment they need to assist humans instead.
-            </p>
-          </div>
-          <div>
-            <p className="label mb-3">Machine · --font-mono</p>
-            <p className="font-mono text-[13px] text-foreground/80">
-              npx shadcn@latest add hitl-card
-            </p>
-          </div>
+        <Well className="flex flex-col gap-7">
+          {TYPE_SCALE.map((step) => (
+            <div key={step.name} className="flex flex-col gap-2">
+              <p className="label">
+                {step.name} · {step.note}
+              </p>
+              <p className={`${step.className} max-w-2xl`}>{step.sample}</p>
+            </div>
+          ))}
         </Well>
       </DemoSection>
 
@@ -263,47 +311,49 @@ It is how every section on the site announces itself without
       <DemoSection
         id="surfaces"
         title="Card surfaces"
-        meta="globals.css · inline idiom"
+        meta="globals.css · .card"
         description={
           <>
-            Two card languages coexist. The newer one is inline, {" "}
-            <Mono>rounded-2xl border border-border/40 bg-card/40</Mono>, what
-            every well on this page and in <Mono>/components</Mono> uses. The
-            older one is <Mono>.card-surface</Mono>, driven by the{" "}
-            <Mono>--card-alpha</Mono> / <Mono>--card-border</Mono> compat
-            tokens and brightening its border on hover.
+            One card language. <Mono>.card</Mono> is the surface, what every
+            well on this page and in <Mono>/components</Mono> uses; add{" "}
+            <Mono>.card-link</Mono> when it is a link, for a 2px rise and a
+            solid fill on the house easing, with a short press on{" "}
+            <Mono>:active</Mono>. <Mono>.card-surface</Mono> is the older
+            idiom, driven by the <Mono>--card-alpha</Mono> /{" "}
+            <Mono>--card-border</Mono> compat tokens, kept because registry
+            components consume those tokens; the site chrome no longer uses it.
           </>
         }
       >
         <TileGrid min={200}>
           <Specimen
-            label="border-border/40 bg-card/40"
-            hint="inline"
-            footnote="The catalogue well. Flat until something above it changes."
+            label=".card"
+            hint="surface"
+            footnote="The catalogue well. Flat; nothing happens on hover."
             minH={72}
           >
-            <div className="rounded-2xl border border-border/40 bg-card/40 p-4 text-[13px] text-muted-foreground">
+            <div className="card p-4 text-small text-muted-foreground">
               A specimen well.
             </div>
           </Specimen>
           <Specimen
-            label=".card-surface"
+            label=".card .card-link"
             hint="hover me"
-            footnote="Border brightens over 200ms. Compat tokens, still consumed by registry components."
+            footnote="A 2px rise and a solid fill over 200ms, quart-out. Press it: 80ms back down. The site never scales or shadows a card."
             minH={72}
           >
-            <div className="card-surface p-4 text-[13px] text-muted-foreground">
-              Hover to brighten the border.
+            <div className="card card-link p-4 text-small text-muted-foreground">
+              Hover to rise. Press to land.
             </div>
           </Specimen>
           <Specimen
-            label=".hover-lift"
-            hint="hover me"
-            footnote="A 1px rise. The whole hover vocabulary. The site never scales or shadows a card."
+            label=".card-surface"
+            hint="legacy"
+            footnote="Border brightens over 200ms. Compat tokens, still consumed by registry components."
             minH={72}
           >
-            <div className="hover-lift rounded-2xl border border-border/40 bg-card/40 p-4 text-[13px] text-muted-foreground">
-              Hover to lift 1px.
+            <div className="card-surface p-4 text-small text-muted-foreground">
+              Hover to brighten the border.
             </div>
           </Specimen>
         </TileGrid>
@@ -317,9 +367,10 @@ It is how every section on the site announces itself without
         description={
           <>
             Four shapes a link takes, all of them class strings rather than
-            components: the primary call to action, the arrow link, the
-            underline that draws itself on hover, and the plain
-            colour-transition link that everything else uses.
+            components: the primary call to action (a pill, the one button
+            shape on the site, with a 2% press on <Mono>:active</Mono>), the
+            arrow link, the underline that draws itself on hover, and the
+            plain colour-transition link that everything else uses.
           </>
         }
       >
@@ -360,14 +411,18 @@ It is how every section on the site announces itself without
       <DemoSection
         id="entrance"
         title="Entrance"
-        meta="reveal · stagger(n)"
+        meta="reveal · stagger(n) · .settle"
         description={
           <>
-            The landing page&rsquo;s only animation besides the mark: a 700ms
-            fade up, staggered 120ms per element top to bottom. It is gated
-            behind <Mono>motion-safe:</Mono> on every class in the string, so
-            under reduced motion the elements are simply there. Reload this
-            page to see it again.
+            The hero&rsquo;s entrance: a 700ms rise and fade on the house
+            easing, staggered 120ms per element top to bottom, gated behind{" "}
+            <Mono>motion-safe:</Mono> on every class in the string, so under
+            reduced motion the elements are simply there. Reload this page to
+            see it again. Everything below the fold uses{" "}
+            <Mono>.settle</Mono> instead: the same 12px rise, driven by scroll
+            position through <Mono>animation-timeline: view()</Mono>, so it
+            plays as the block enters and needs no observer. The second well
+            below settles line by line.
           </>
         }
       >
@@ -379,6 +434,13 @@ It is how every section on the site announces itself without
               style={stagger(i)}
             >
               {t}, delayed {i * 120}ms
+            </p>
+          ))}
+        </Well>
+        <Well className="mt-3 flex flex-col gap-3 py-8">
+          {["Enters", "as the", "block", "scrolls in"].map((t) => (
+            <p key={t} className="settle text-body text-muted-foreground">
+              {t}
             </p>
           ))}
         </Well>
@@ -406,7 +468,7 @@ It is how every section on the site announces itself without
         }
       >
         <Well>
-          <ul className="flex flex-col gap-3 text-sm leading-relaxed text-muted-foreground">
+          <ul className="flex flex-col gap-3 text-body text-muted-foreground">
             <li className="flex gap-3">
               <span
                 aria-hidden

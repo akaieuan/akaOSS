@@ -1,15 +1,18 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "hitl-types",
-  "title": "HITL type definitions",
-  "description": "Shared TypeScript types for HITL primitives: AgentStatus, ApprovalStatus, HitlCardState, RightTab.",
+  "type": "registry:lib",
+  "title": "HITL UI types",
+  "description": "The props every decision surface shares (busy, error, help, allowAbstain, allowUndo, autoFocus) and the interrupt card's local state. Event and action types come from @hitl-kit/core.",
+  "dependencies": [
+    "@hitl-kit/core"
+  ],
   "files": [
     {
-      "path": "src/components/hitl/types.ts",
-      "content": "export type RightTab = \"human\" | \"search\" | \"read\" | \"write\" | \"notes\";\nexport type ApprovalStatus = \"pending\" | \"approved\" | \"rejected\";\nexport type HitlCardState = \"idle\" | \"expanded\" | \"confirmed\" | \"dismissed\";\nexport type AgentStatus =\n  | \"idle\"\n  | \"running\"\n  | \"completed\"\n  | \"error\"\n  | \"skipped\"\n  | \"cancelled\";\n",
+      "path": "components/hitl/types.ts",
       "type": "registry:lib",
-      "target": "components/hitl/types.ts"
+      "target": "components/hitl/types.ts",
+      "content": "/**\n * UI-only types. Every event and action type lives in `@hitl-kit/core`;\n * this file holds only what the components need that the protocol does not.\n */\n\nexport type {\n  AgentStatus,\n  ApprovalState,\n  HitlAction,\n} from \"@hitl-kit/core\";\n\n/** The interrupt card's local lifecycle. */\nexport type HitlCardState = \"idle\" | \"expanded\" | \"confirmed\" | \"dismissed\";\n\n/**\n * Props every decision surface accepts on top of its event.\n *\n * - `busy`: the consumer is resolving the last action (a resume in flight).\n *   The bar disables and announces it. Heuristic 1, visibility of status.\n * - `error`: the last action failed. Rendered inline with Retry. Heuristic 9.\n * - `help`: one plain sentence under the header. Heuristic 10.\n * - `allowAbstain`: offer \"Can't tell\". Default true. Heuristic 5.\n * - `allowUndo`: keep Undo on the resolved line. Default true. Heuristic 3.\n * - `autoFocus`: focus the primary action on mount, for queues. Heuristic 7.\n */\nexport interface DecisionSurfaceProps {\n  busy?: boolean;\n  error?: string;\n  help?: string;\n  allowAbstain?: boolean;\n  allowUndo?: boolean;\n  autoFocus?: boolean;\n  className?: string;\n}\n"
     }
-  ],
-  "type": "registry:lib"
+  ]
 }

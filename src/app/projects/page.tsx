@@ -25,10 +25,10 @@ export default function ProjectsIndexPage() {
         {/* Hero */}
         <section className="py-20">
           <p className="label mb-5">Open-source studio</p>
-          <h1 className="max-w-2xl text-4xl leading-[1.1] font-light tracking-tight text-foreground md:text-5xl">
+          <h1 className="max-w-2xl text-display font-light text-foreground">
             Five projects. One studio.
           </h1>
-          <p className="mt-6 max-w-md leading-relaxed text-muted-foreground">
+          <p className="mt-6 max-w-md text-lede text-muted-foreground">
             A human-in-the-loop measurement family and a pair of developer
             tools. Each ships independently.
           </p>
@@ -60,7 +60,7 @@ export default function ProjectsIndexPage() {
                     <Link
                       key={project.slug}
                       href={`/projects/${project.slug}`}
-                      className="group relative flex flex-col overflow-hidden rounded-2xl border border-border/40 bg-card/40 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card"
+                      className="group relative flex flex-col overflow-hidden card card-link settle p-5"
                     >
                       <div className="mb-4 flex items-center gap-2">
                         <span
@@ -72,11 +72,11 @@ export default function ProjectsIndexPage() {
                         </span>
                       </div>
 
-                      <p className="mb-2.5 text-lg font-light leading-snug tracking-tight text-foreground">
+                      <p className="mb-2.5 text-title-3 font-light text-foreground">
                         {project.oneLiner}
                       </p>
 
-                      <p className="mb-5 flex-1 text-[13px] leading-relaxed text-muted-foreground">
+                      <p className="mb-5 flex-1 text-small text-muted-foreground">
                         {project.why[1] ?? project.why[0]}
                       </p>
 
@@ -85,13 +85,13 @@ export default function ProjectsIndexPage() {
                           {project.packages.slice(0, 3).map((pkg) => (
                             <span
                               key={pkg}
-                              className="rounded-full border border-border px-3 py-1 font-mono text-[11px] text-muted-foreground"
+                              className="rounded-full border border-border px-3 py-1 font-mono text-meta text-muted-foreground"
                             >
                               {pkg}
                             </span>
                           ))}
                           {project.packages.length > 3 && (
-                            <span className="rounded-full border border-border px-3 py-1 font-mono text-[11px] text-muted-foreground">
+                            <span className="rounded-full border border-border px-3 py-1 font-mono text-meta text-muted-foreground">
                               +{project.packages.length - 3}
                             </span>
                           )}
@@ -99,7 +99,7 @@ export default function ProjectsIndexPage() {
                       )}
 
                       <div className="mt-auto flex items-center justify-between gap-4 border-t border-border/60 pt-4">
-                        <code className="min-w-0 truncate font-mono text-[11px] text-muted-foreground">
+                        <code className="min-w-0 truncate font-mono text-meta text-muted-foreground">
                           {project.install[0].command}
                         </code>
                         <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />

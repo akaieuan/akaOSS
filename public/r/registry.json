@@ -8,10 +8,13 @@
       "type": "registry:lib",
       "title": "cn utility",
       "description": "Tailwind classname merge helper used by every HITL Kit primitive.",
-      "dependencies": ["clsx", "tailwind-merge"],
+      "dependencies": [
+        "clsx",
+        "tailwind-merge"
+      ],
       "files": [
         {
-          "path": "src/lib/utils.ts",
+          "path": "lib/utils.ts",
           "type": "registry:lib",
           "target": "lib/utils.ts"
         }
@@ -20,13 +23,35 @@
     {
       "name": "hitl-types",
       "type": "registry:lib",
-      "title": "HITL type definitions",
-      "description": "Shared TypeScript types for HITL primitives: AgentStatus, ApprovalStatus, HitlCardState, RightTab.",
+      "title": "HITL UI types",
+      "description": "The props every decision surface shares (busy, error, help, allowAbstain, allowUndo, autoFocus) and the interrupt card's local state. Event and action types come from @hitl-kit/core.",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
       "files": [
         {
-          "path": "src/components/hitl/types.ts",
+          "path": "components/hitl/types.ts",
           "type": "registry:lib",
           "target": "components/hitl/types.ts"
+        }
+      ]
+    },
+    {
+      "name": "hitl-shared",
+      "type": "registry:lib",
+      "title": "Shared decision pieces",
+      "description": "The card frame, decision bar, resolved line, inline error, help line and chip that every decision surface is built from. One vocabulary, one set of button styles.",
+      "dependencies": [
+        "lucide-react"
+      ],
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json"
+      ],
+      "files": [
+        {
+          "path": "components/hitl/internal/ui.tsx",
+          "type": "registry:lib",
+          "target": "components/hitl/internal/ui.tsx"
         }
       ]
     },
@@ -34,70 +59,16 @@
       "name": "hitl-subagent-meta",
       "type": "registry:lib",
       "title": "Subagent status metadata",
-      "description": "Shared icon and color mapping for the six agent execution states (idle, running, completed, error, skipped, cancelled).",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-types.json"
+      "description": "Shared icon, color and plain label for the six agent execution states (idle, running, completed, error, skipped, cancelled).",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
       ],
       "files": [
         {
-          "path": "src/components/hitl/subagent-meta.ts",
+          "path": "components/hitl/subagent-meta.ts",
           "type": "registry:lib",
           "target": "components/hitl/subagent-meta.ts"
-        }
-      ]
-    },
-    {
-      "name": "hitl-card",
-      "type": "registry:ui",
-      "title": "Interrupt Card",
-      "description": "In-thread approval boundary for agent actions. Three semantic variants (search, review, write). Four states (idle, expanded, confirmed, dismissed).",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json",
-        "https://www.hitlkit.dev/r/hitl-types.json"
-      ],
-      "files": [
-        {
-          "path": "src/components/hitl/HitlCard.tsx",
-          "type": "registry:ui",
-          "target": "components/hitl/HitlCard.tsx"
-        }
-      ]
-    },
-    {
-      "name": "subagent-status-card",
-      "type": "registry:ui",
-      "title": "Subagent Status Card",
-      "description": "Single-row agent status with icon, label, detail, and state badge. Use to wrap any in-progress agentic task.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json",
-        "https://www.hitlkit.dev/r/hitl-types.json",
-        "https://www.hitlkit.dev/r/hitl-subagent-meta.json"
-      ],
-      "files": [
-        {
-          "path": "src/components/hitl/SubagentStatusCard.tsx",
-          "type": "registry:ui",
-          "target": "components/hitl/SubagentStatusCard.tsx"
-        }
-      ]
-    },
-    {
-      "name": "mini-trace",
-      "type": "registry:ui",
-      "title": "MiniTrace",
-      "description": "Collapsible step-by-step renderer for agent reasoning. Thought, action, result. Makes supporting facts visible per §3.3 of the paper.",
-      "dependencies": ["lucide-react"],
-      "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
-      ],
-      "files": [
-        {
-          "path": "src/components/hitl/MiniTrace.tsx",
-          "type": "registry:ui",
-          "target": "components/hitl/MiniTrace.tsx"
         }
       ]
     },
@@ -108,9 +79,89 @@
       "description": "The five-point AI-generation ordinal and its accent progression, shared by every scale variant so a level cannot mean one thing in the slider and another in the badge.",
       "files": [
         {
-          "path": "src/components/hitl/ai-generation-levels.ts",
+          "path": "components/hitl/ai-generation-levels.ts",
           "type": "registry:lib",
           "target": "components/hitl/ai-generation-levels.ts"
+        }
+      ]
+    },
+    {
+      "name": "hitl-fixtures",
+      "type": "registry:lib",
+      "title": "Demo events",
+      "description": "Valid core events for the decision surfaces, for demos and tests. Spread one onto its primitive or feed it to HitlEventRenderer.",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
+      "files": [
+        {
+          "path": "components/hitl/fixtures.ts",
+          "type": "registry:lib",
+          "target": "components/hitl/fixtures.ts"
+        }
+      ]
+    },
+    {
+      "name": "hitl-card",
+      "type": "registry:ui",
+      "title": "Interrupt Card",
+      "description": "In-thread approval boundary for agent actions. Three semantic variants (search, review, write). Idle, expanded, confirmed and dismissed, and every resolution can be undone.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
+      ],
+      "files": [
+        {
+          "path": "components/hitl/HitlCard.tsx",
+          "type": "registry:ui",
+          "target": "components/hitl/HitlCard.tsx"
+        }
+      ]
+    },
+    {
+      "name": "subagent-status-card",
+      "type": "registry:ui",
+      "title": "Subagent Status Card",
+      "description": "Single-row agent status with icon, label, detail, and state in words. Use to wrap any in-progress agentic task.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-subagent-meta.json"
+      ],
+      "files": [
+        {
+          "path": "components/hitl/SubagentStatusCard.tsx",
+          "type": "registry:ui",
+          "target": "components/hitl/SubagentStatusCard.tsx"
+        }
+      ]
+    },
+    {
+      "name": "mini-trace",
+      "type": "registry:ui",
+      "title": "MiniTrace",
+      "description": "Collapsible step-by-step renderer for agent reasoning. Thought, action, result. Makes supporting facts visible per §3.3 of the paper.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
+      ],
+      "files": [
+        {
+          "path": "components/hitl/MiniTrace.tsx",
+          "type": "registry:ui",
+          "target": "components/hitl/MiniTrace.tsx"
         }
       ]
     },
@@ -119,13 +170,17 @@
       "type": "registry:ui",
       "title": "AI Generation Scale",
       "description": "Five-segment ordinal scale indicating AI involvement in a piece of work. Embodies the scaffolding and expertise-matching principle from Dhillon et al. (2024).",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
         "https://www.hitlkit.dev/r/hitl-utils.json",
-        "https://www.hitlkit.dev/r/hitl-ai-levels.json"
+        "https://www.hitlkit.dev/r/hitl-ai-levels.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/AiGenerationScale.tsx",
+          "path": "components/hitl/AiGenerationScale.tsx",
           "type": "registry:ui",
           "target": "components/hitl/AiGenerationScale.tsx"
         }
@@ -135,14 +190,17 @@
       "name": "ai-generation-slider",
       "type": "registry:ui",
       "title": "AI Generation Slider",
-      "description": "The compact drag form of the AI generation scale. One header row and one track, ~52px tall, no wrapping at 320px. Pointer drag snaps to five stops; arrow keys step and Home/End jump. Full slider ARIA.",
+      "description": "The compact drag form of the AI generation scale. One header row and one track, no wrapping at 320px. Pointer drag snaps to five stops; arrow keys step and Home/End jump. Full slider ARIA.",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
         "https://www.hitlkit.dev/r/hitl-utils.json",
         "https://www.hitlkit.dev/r/hitl-ai-levels.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/AiGenerationSlider.tsx",
+          "path": "components/hitl/AiGenerationSlider.tsx",
           "type": "registry:ui",
           "target": "components/hitl/AiGenerationSlider.tsx"
         }
@@ -152,14 +210,17 @@
       "name": "ai-generation-meter",
       "type": "registry:ui",
       "title": "AI Generation Meter",
-      "description": "At-a-glance, read-only provenance for a list row or a header. Five thin segments filled to the current level plus the level name, in one ~20px row, as a single role=img element with no focusable children.",
+      "description": "At-a-glance, read-only provenance for a list row or a header. Five thin segments filled to the current level plus the level name, as a single role=img element with no focusable children.",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
         "https://www.hitlkit.dev/r/hitl-utils.json",
         "https://www.hitlkit.dev/r/hitl-ai-levels.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/AiGenerationMeter.tsx",
+          "path": "components/hitl/AiGenerationMeter.tsx",
           "type": "registry:ui",
           "target": "components/hitl/AiGenerationMeter.tsx"
         }
@@ -169,14 +230,18 @@
       "name": "ai-generation-badge",
       "type": "registry:ui",
       "title": "AI Generation Badge",
-      "description": "The densest form of the AI generation scale: one pill with a five-dot micro-indicator and the level name, for a table cell or a queue row. Static by default; given onChange it grows stepper buttons with 24px hit areas.",
+      "description": "The densest form of the AI generation scale: one pill with a five-dot micro-indicator and the level name. Static by default; given onAction it grows stepper buttons with 24px hit areas.",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
         "https://www.hitlkit.dev/r/hitl-utils.json",
-        "https://www.hitlkit.dev/r/hitl-ai-levels.json"
+        "https://www.hitlkit.dev/r/hitl-ai-levels.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/AiGenerationBadge.tsx",
+          "path": "components/hitl/AiGenerationBadge.tsx",
           "type": "registry:ui",
           "target": "components/hitl/AiGenerationBadge.tsx"
         }
@@ -187,13 +252,17 @@
       "type": "registry:ui",
       "title": "Context Chips",
       "description": "Pill chips representing context attached to an agent run. Notes, files, URLs. Removable with overflow truncation.",
-      "dependencies": ["lucide-react"],
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/ContextChips.tsx",
+          "path": "components/hitl/ContextChips.tsx",
           "type": "registry:ui",
           "target": "components/hitl/ContextChips.tsx"
         }
@@ -203,14 +272,19 @@
       "name": "qa-flow",
       "type": "registry:ui",
       "title": "QA Flow",
-      "description": "Multi-question approval card. Single-choice, multi-select, and freeform text. Submits to a confirmed state.",
-      "dependencies": ["lucide-react"],
+      "description": "Multi-question approval card. Single-choice, multi-select, and freeform text. Submits to a resolved line that keeps the answers visible and can be reopened.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/QAFlow.tsx",
+          "path": "components/hitl/QAFlow.tsx",
           "type": "registry:ui",
           "target": "components/hitl/QAFlow.tsx"
         }
@@ -221,15 +295,18 @@
       "type": "registry:ui",
       "title": "Writing Agent",
       "description": "Compound widget for a draft-in-progress document. Title, target section, word range, evidence notes, and six status states.",
-      "dependencies": ["lucide-react"],
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
         "https://www.hitlkit.dev/r/hitl-utils.json",
-        "https://www.hitlkit.dev/r/hitl-types.json",
-        "https://www.hitlkit.dev/r/hitl-subagent-meta.json"
+        "https://www.hitlkit.dev/r/hitl-subagent-meta.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/WritingAgent.tsx",
+          "path": "components/hitl/WritingAgent.tsx",
           "type": "registry:ui",
           "target": "components/hitl/WritingAgent.tsx"
         }
@@ -240,13 +317,17 @@
       "type": "registry:ui",
       "title": "Research Agent",
       "description": "Three-mode config surface for a long-running research task. Create, follow-up, read URL.",
-      "dependencies": ["lucide-react"],
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/ResearchAgent.tsx",
+          "path": "components/hitl/ResearchAgent.tsx",
           "type": "registry:ui",
           "target": "components/hitl/ResearchAgent.tsx"
         }
@@ -256,14 +337,19 @@
       "name": "batch-queue",
       "type": "registry:ui",
       "title": "Batch Approval Queue",
-      "description": "Sequential approve and reject flow across mixed agent items. Auto-advances and resolves to a summary state.",
-      "dependencies": ["lucide-react"],
+      "description": "Sequential approve and reject flow across mixed agent items. Auto-advances, can step back one item, and resolves to a summary state.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/BatchQueue.tsx",
+          "path": "components/hitl/BatchQueue.tsx",
           "type": "registry:ui",
           "target": "components/hitl/BatchQueue.tsx"
         }
@@ -274,12 +360,15 @@
       "type": "registry:ui",
       "title": "Search Result Card",
       "description": "Ranked search result card with rank badge, metadata, snippet, and relevance bar.",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
         "https://www.hitlkit.dev/r/hitl-utils.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/SearchResultCard.tsx",
+          "path": "components/hitl/SearchResultCard.tsx",
           "type": "registry:ui",
           "target": "components/hitl/SearchResultCard.tsx"
         }
@@ -289,15 +378,18 @@
       "name": "approve-reject-row",
       "type": "registry:ui",
       "title": "Approve / Reject Row",
-      "description": "The canonical binary decision row. Pending, approved, rejected. Optional undo.",
-      "dependencies": ["lucide-react"],
+      "description": "The canonical decision row. Approve, reject, or can't tell; pending, approved, rejected, abstained; undo back to pending.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
         "https://www.hitlkit.dev/r/hitl-utils.json",
-        "https://www.hitlkit.dev/r/hitl-types.json"
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/ApproveRejectRow.tsx",
+          "path": "components/hitl/ApproveRejectRow.tsx",
           "type": "registry:ui",
           "target": "components/hitl/ApproveRejectRow.tsx"
         }
@@ -307,13 +399,17 @@
       "name": "shared-primitives",
       "type": "registry:ui",
       "title": "Shared Primitives",
-      "description": "The atomic palette. Accent swatches, approval badge variants, and approve and reject rows.",
+      "description": "The atomic palette. Accent swatches, the four approval badges, and the decision row that sets them.",
+      "dependencies": [
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/approve-reject-row.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/SharedPrimitives.tsx",
+          "path": "components/hitl/SharedPrimitives.tsx",
           "type": "registry:ui",
           "target": "components/hitl/SharedPrimitives.tsx"
         }
@@ -323,14 +419,19 @@
       "name": "diff-result",
       "type": "registry:ui",
       "title": "Diff Result",
-      "description": "Before/after diff card for proposed text or code edits. Per-hunk red/green strips, accept and reject states. The HITL-AI primitive for any in-place edit the human should approve before it lands.",
-      "dependencies": ["lucide-react"],
+      "description": "Before/after diff card for proposed text or code edits. Per-hunk red/green strips; apply, keep original, or can't tell; undo. The primitive for any in-place edit the human should approve before it lands.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/DiffResult.tsx",
+          "path": "components/hitl/DiffResult.tsx",
           "type": "registry:ui",
           "target": "components/hitl/DiffResult.tsx"
         }
@@ -340,14 +441,19 @@
       "name": "citation-result",
       "type": "registry:ui",
       "title": "Citation Result",
-      "description": "Single source-backed citation card. Claim on top, source attribution below, optional supporting quote and confidence badge. Verify or reject.",
-      "dependencies": ["lucide-react"],
+      "description": "Single source-backed citation card. Claim on top, source attribution below, optional supporting quote and confidence. Verify, reject, or can't tell; undo.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/CitationResult.tsx",
+          "path": "components/hitl/CitationResult.tsx",
           "type": "registry:ui",
           "target": "components/hitl/CitationResult.tsx"
         }
@@ -357,14 +463,19 @@
       "name": "editable-plan",
       "type": "registry:ui",
       "title": "Editable Plan",
-      "description": "Multi-step plan the human can reorder, rename, add to, or delete from before the agent executes. Locked steps cannot be removed.",
-      "dependencies": ["lucide-react"],
+      "description": "Multi-step plan the human can reorder, rename, add to, or delete from before the agent executes. Locked steps cannot be removed. Submit or cancel; undo.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/EditablePlan.tsx",
+          "path": "components/hitl/EditablePlan.tsx",
           "type": "registry:ui",
           "target": "components/hitl/EditablePlan.tsx"
         }
@@ -374,16 +485,43 @@
       "name": "tool-call-preview",
       "type": "registry:ui",
       "title": "Tool Call Preview",
-      "description": "Preview a tool call (name, args, optional rationale and signals) so the human can approve or reject before execution. Pairs with the gates layer for confidence/cost/scope checks.",
-      "dependencies": ["lucide-react"],
+      "description": "Preview a tool call (name, args, optional rationale and signals) so the human can approve, reject, or say they can't tell before execution. External scopes are flagged. Pairs with the gates layer.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
       "registryDependencies": [
-        "https://www.hitlkit.dev/r/hitl-utils.json"
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
       ],
       "files": [
         {
-          "path": "src/components/hitl/ToolCallPreview.tsx",
+          "path": "components/hitl/ToolCallPreview.tsx",
           "type": "registry:ui",
           "target": "components/hitl/ToolCallPreview.tsx"
+        }
+      ]
+    },
+    {
+      "name": "evidence-pointer",
+      "type": "registry:ui",
+      "title": "Evidence Pointer",
+      "description": "Where a claim is grounded, not merely that it is. One row per pointer with source, locator in human units, and excerpt; sources consulted but not drawn from are listed so silence never reads as safety. Grounded, not supported, or can't tell; undo.",
+      "dependencies": [
+        "lucide-react",
+        "@hitl-kit/core"
+      ],
+      "registryDependencies": [
+        "https://www.hitlkit.dev/r/hitl-utils.json",
+        "https://www.hitlkit.dev/r/hitl-types.json",
+        "https://www.hitlkit.dev/r/hitl-shared.json"
+      ],
+      "files": [
+        {
+          "path": "components/hitl/EvidencePointer.tsx",
+          "type": "registry:ui",
+          "target": "components/hitl/EvidencePointer.tsx"
         }
       ]
     }

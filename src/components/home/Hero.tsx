@@ -13,7 +13,7 @@ export function Hero() {
         </span>
         <h1
           className={cn(
-            "mt-6 max-w-xl text-lg leading-snug font-light tracking-tight md:text-2xl",
+            "mt-6 max-w-2xl text-display font-light text-foreground",
             reveal,
           )}
           style={stagger(1)}
@@ -23,7 +23,7 @@ export function Hero() {
         </h1>
         <p
           className={cn(
-            "mt-5 max-w-md leading-relaxed text-muted-foreground",
+            "mt-6 max-w-lg text-lede text-muted-foreground",
             reveal,
           )}
           style={stagger(2)}

@@ -67,7 +67,7 @@ export function Footer() {
             <span className="text-xs font-light tracking-[0.06em] text-muted-foreground">
               © {new Date().getFullYear()} {BRAND.name}
             </span>
-            <span className="text-[11px] whitespace-nowrap italic text-foreground/40">
+            <span className="text-meta whitespace-nowrap italic text-foreground/40">
               {"// Assist-Not-Complete"}
             </span>
           </div>

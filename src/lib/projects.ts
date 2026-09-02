@@ -1,3 +1,10 @@
+import { REGISTRY_ITEMS } from "./registry-items";
+
+/** Derived from the generated registry index; never hand-typed. */
+const HITL_PRIMITIVE_COUNT = REGISTRY_ITEMS.filter(
+  (i) => i.type === "registry:ui",
+).length;
+
 export type ProjectSlug =
   | "hitl-kit"
   | "eval-kit"
@@ -67,7 +74,7 @@ export const PROJECTS: Project[] = [
     oneLiner: "Human-in-the-loop AI, measured properly.",
     why: [
       "HITL Kit is the argument that we should measure AI differently, and the components that make the alternative buildable.",
-      "Nineteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
+      `${HITL_PRIMITIVE_COUNT} React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.`,
       "Together: the paper is the argument, the components are the proof the argument is implementable, the registry is how you adopt it.",
     ],
     deepDive: [
@@ -91,7 +98,7 @@ export const PROJECTS: Project[] = [
         paragraphs: [
           "The architecture is a protocol with adapters. @hitl-kit/core defines Zod event schemas, a framework-agnostic wire format for human-in-the-loop moments (approvals, interrupts, traces, generation-scale changes). @hitl-kit/react ships HitlEventRenderer, a typed dispatcher that maps validated events to UI primitives. @hitl-kit/gates adds composable decision gates: confidence, cost, scope, approval-chain, rate-limit, pure functions that wrap any adapter's emit point and decide allow, deny, or escalate.",
           "Three adapters carry the protocol into real agent stacks: LangGraph (emit events from interrupt() nodes, resume with typed Commands), the Vercel AI SDK (typed tool() wrappers), and MCP (an MCP server exposing the primitive event kinds as tools, so any MCP-aware client can emit schema-validated HITL events). The paper becomes the protocol; the protocol becomes the platform.",
-          "The UI primitives themselves distribute the shadcn way: copy, paste, own. No fork, no vendor lock-in, no wrapper SDK: the registry serves JSON that the shadcn CLI resolves into your own codebase, with the same tokens, the same conventions, and full ownership of the code afterward. The kit was originally extracted from Agatha, a research-agent workspace. The primitives earned their shapes in a real product before they were generalized.",
+          "The UI primitives live in one package, @hitl-kit/ui, and distribute two ways from that one source: as the package, or the shadcn way, copy, paste, own. The registry JSON the CLI resolves into your codebase is generated from the package source and drift-checked, so the copy you install and the copy the site demonstrates cannot disagree. Every primitive takes its core event as props and reports the human's decision through one typed onAction, whose vocabulary is shared: approve, reject, can't tell, undo. The kit was originally extracted from Agatha, a research-agent workspace. The primitives earned their shapes in a real product before they were generalized.",
         ],
       },
     ],
@@ -118,8 +125,8 @@ export const PROJECTS: Project[] = [
     ],
     features: [
       {
-        title: "Nineteen React primitives",
-        body: "Nineteen React primitives for human-in-the-loop agentic UIs. Each primitive is the physical embodiment of a specific claim from the paper.",
+        title: `${HITL_PRIMITIVE_COUNT} React primitives, one API`,
+        body: `${HITL_PRIMITIVE_COUNT} React primitives for human-in-the-loop agentic UIs, from one package, @hitl-kit/ui. Props are the event; every decision comes back through one typed onAction, and every surface offers approve, reject, can't tell, and undo.`,
       },
       {
         title: "Copy, paste, own",

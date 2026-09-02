@@ -5,7 +5,7 @@ import { useTheme } from "next-themes";
 import { cn } from "@/lib/utils";
 
 const buttonClass =
-  "inline-flex size-8 items-center justify-center rounded-2xl border border-transparent text-muted-foreground transition-all outline-none select-none hover:bg-muted hover:text-foreground focus-visible:border-ring focus-visible:ring-3 focus-visible:ring-ring/30 active:translate-y-px dark:hover:bg-muted/50";
+  "inline-flex size-8 items-center justify-center rounded-full border border-transparent text-muted-foreground transition-[background-color,color,translate] select-none hover:bg-muted hover:text-foreground active:translate-y-px dark:hover:bg-muted/50";
 
 /**
  * Which icon shows is decided by CSS (`dark:` variants), not by state. The

@@ -37,10 +37,10 @@ export default async function PaperPage() {
         <article className="min-w-0 flex-1 pb-24">
           <div className="mb-10">
             <p className="label mb-4">Perspective · 2026</p>
-            <h1 className="text-4xl leading-[1.1] font-light tracking-tight text-foreground md:text-5xl">
+            <h1 className="text-display font-light text-foreground">
               An AI Measurement Problem
             </h1>
-            <p className="mt-5 max-w-2xl text-base leading-relaxed text-muted-foreground">
+            <p className="mt-5 max-w-2xl text-lede text-muted-foreground">
               Why 95% of enterprise AI pilots fail, and how the{" "}
               <AssistNotComplete className="text-foreground hover:text-[color:var(--accent-blue)]" />{" "}
               paradigm reframes how we design, evaluate, and deploy these

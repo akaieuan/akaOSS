@@ -32,10 +32,10 @@ export default function DemoOverview() {
           <Link
             key={section.slug}
             href={`/demo/${section.slug}`}
-            className="group flex flex-col gap-2 rounded-2xl border border-border/40 bg-card/40 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card"
+            className="group card card-link settle flex flex-col gap-2 p-6"
           >
             <div className="flex items-baseline justify-between gap-3">
-              <h2 className="text-lg font-light tracking-tight text-foreground">
+              <h2 className="text-title-3 font-light text-foreground">
                 {section.title}
               </h2>
               <ArrowUpRight
@@ -43,10 +43,10 @@ export default function DemoOverview() {
                 className="size-4 shrink-0 self-center text-muted-foreground transition-all group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
               />
             </div>
-            <p className="text-[13px] leading-relaxed text-muted-foreground">
+            <p className="text-small text-muted-foreground">
               {section.blurb}
             </p>
-            <p className="mt-auto pt-3 font-mono text-[10px] leading-relaxed text-muted-foreground/70">
+            <p className="mt-auto pt-3 font-mono text-meta text-muted-foreground">
               {section.contents.join(" · ")}
             </p>
           </Link>
@@ -55,12 +55,12 @@ export default function DemoOverview() {
 
       <section className="mt-12 border-t border-border/60 pt-8">
         <p className="label">Why it is unlisted</p>
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-3 max-w-2xl text-body text-muted-foreground">
           Nothing here is secret. It is simply not a destination. The brand
           catalogue is a working surface for whoever is changing the mark or
           the palette, and putting it in the nav would imply the site has four
           top-level ideas when it has three. It is absent from the nav, absent
-          from the sitemap, and marked <code className="font-mono text-[0.9em] text-foreground/90">noindex</code>.
+          from the sitemap, and marked <code className="font-mono text-[0.875em] text-foreground">noindex</code>.
         </p>
       </section>
     </>

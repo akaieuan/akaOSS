@@ -27,13 +27,13 @@ export function ProjectsGrid() {
                 <Link
                   key={p.slug}
                   href={`/projects/${p.slug}`}
-                  className="group rounded-2xl border border-border/40 bg-card/40 p-5 transition-all duration-200 hover:bg-card hover:-translate-y-0.5"
+                  className="group card card-link settle p-5"
                 >
                   <div className="flex items-center gap-2.5">
                     <span
                       className={cn("h-1.5 w-1.5 rounded-full", accent.dot)}
                     />
-                    <h2 className="text-lg font-light tracking-tight text-foreground">
+                    <h2 className="text-title-3 font-light text-foreground">
                       {p.name}
                     </h2>
                     <span className="ml-auto flex items-center gap-3">
@@ -50,10 +50,10 @@ export function ProjectsGrid() {
                       />
                     </span>
                   </div>
-                  <p className="mt-3 text-sm leading-relaxed text-foreground/80">
+                  <p className="mt-3 text-body text-foreground/80">
                     {p.oneLiner}
                   </p>
-                  <p className="mt-3 font-mono text-[11px] leading-relaxed text-muted-foreground">
+                  <p className="mt-3 font-mono text-meta text-muted-foreground">
                     {p.status}
                   </p>
                 </Link>

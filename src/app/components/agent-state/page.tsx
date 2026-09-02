@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 
 import { SubagentStatusCard } from "@/components/hitl/SubagentStatusCard";
-import type { AgentStatus } from "@/components/hitl/types";
+import type { AgentStatus } from "@/components/hitl/core";
 
 import {
   DemoSection,
