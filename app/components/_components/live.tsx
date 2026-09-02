@@ -16,7 +16,7 @@
  * reimplements a primitive, if a specimen looks wrong, the component is wrong.
  * The surrounding frame (`DemoSection`, `Specimen`) stays on the server.
  *
- * `src/components/hitl/` is generated from `@hitl-kit/ui` by `pnpm hitl:sync`.
+ * `components/hitl/` is generated from `@hitl-kit/ui` by `pnpm hitl:sync`.
  */
 
 import { useState } from "react";

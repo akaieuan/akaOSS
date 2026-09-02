@@ -23,7 +23,7 @@ export const metadata: Metadata = {
  * The analytic knockouts, in source order. These are functions in normalized
  * -1..1 space; the disc is drawn and the shape is punched out of it.
  * Names are the literal `icon` values, read from `KNOCKOUTS` in
- * `src/components/site/PixelHead.tsx`, not invented.
+ * `components/site/PixelHead.tsx`, not invented.
  */
 const KNOCKOUTS: { id: PixelIcon; shape: string; use: string }[] = [
   {
@@ -306,7 +306,7 @@ passing <Mono>grid=40</Mono> to <Mono>nyz</Mono> changes nothing.
           and footer render <Mono>grid={"{16}"}</Mono>{" "}
           <Mono>gap={"{0.12}"}</Mono> <Mono>icon=&quot;spark&quot;</Mono>{" "}
           <Mono>still</Mono>, and{" "}
-          <Mono>src/app/icon.svg</Mono> is that same sampling baked to
+          <Mono>app/icon.svg</Mono> is that same sampling baked to
           rectangles, verified pixel-for-pixel against the component, all 256
           cells.
         </Note>

@@ -28,7 +28,7 @@ jobs:
       - name: Install dependencies
         run: pnpm install --frozen-lockfile
 
-      # src/components/hitl, public/r and src/lib/registry-items.ts are
+      # components/hitl, public/r and lib/registry-items.ts are
       # generated from @hitl-kit/ui (hitl-ai2/packages/ui). Without the
       # library checkout the script derives the site's copy from the
       # committed public/r/*.json and fails if the three disagree.

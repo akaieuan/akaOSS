@@ -43,7 +43,7 @@ export const LAYERS = [
 ];
 
 // The library is an overview plus five sub-pages (see
-// src/app/components/_components/sections.ts). These hrefs point at the
+// app/components/_components/sections.ts). These hrefs point at the
 // canonical destination for each pattern. The older one-page form
 // (/components#hitl, #agent-status, …) still resolves: LegacyAnchorRedirect on
 // the overview forwards every one of those anchors to the page it now lives on.

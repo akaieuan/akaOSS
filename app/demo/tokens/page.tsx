@@ -115,7 +115,7 @@ export default async function TokensDemo() {
             Every swatch below is filled with <Mono>var(--token)</Mono>, so it
             is the live value in whichever theme you are reading in. The
             authored values printed beside it are parsed out of{" "}
-            <Mono>src/app/globals.css</Mono> at build time rather than
+            <Mono>app/globals.css</Mono> at build time rather than
             restated here, a palette page that keeps its own copy of the
             palette goes wrong quietly. Flip the theme and the whole page
             moves with it.

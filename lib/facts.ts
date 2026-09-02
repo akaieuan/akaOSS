@@ -9,7 +9,7 @@
  * Reading the JSON at module scope keeps the site build hermetic: the network
  * is touched by `facts:build`, never by `next build`.
  */
-import factsJson from "../../facts.json" with { type: "json" };
+import factsJson from "@/facts.json" with { type: "json" };
 
 export interface Facts {
   /**

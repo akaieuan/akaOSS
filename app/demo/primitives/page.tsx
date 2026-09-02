@@ -97,9 +97,9 @@ export default function PrimitivesDemo() {
               /components
             </Link>
             . These are the handful of site-level helpers under{" "}
-            <Mono>src/components/site/</Mono>, plus the class idioms in{" "}
+            <Mono>components/site/</Mono>, plus the class idioms in{" "}
             <Mono>globals.css</Mono> and{" "}
-            <Mono>src/components/home/shared.ts</Mono> that do the rest of the
+            <Mono>components/home/shared.ts</Mono> that do the rest of the
             work. Small surface on purpose: most of the page furniture is one
             class string used consistently rather than a component.
           </>

@@ -34,7 +34,7 @@ export async function readTokenTables(): Promise<{
   light: TokenTable;
   dark: TokenTable;
 }> {
-  const file = path.join(process.cwd(), "src", "app", "globals.css");
+  const file = path.join(process.cwd(), "app", "globals.css");
   const css = await fs.readFile(file, "utf-8");
   // Comments first: the token blocks are heavily annotated, and a `/* ... */`
   // can otherwise swallow or fake a declaration.

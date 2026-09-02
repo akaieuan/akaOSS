@@ -230,7 +230,7 @@ const KNOCKOUTS = {
  */
 const ICON_MASKS = {
   /** The chrome-size akaOSS mark: one elongated four-point sparkle, solid.
-   * Keep in sync with the favicon generator (src/app/icon.svg). */
+   * Keep in sync with the favicon generator (app/icon.svg). */
   sparkmark: `
 ........##........
 ........##........
