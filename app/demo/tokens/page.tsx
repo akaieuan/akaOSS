@@ -9,8 +9,8 @@ import {
   Note,
   Well,
 } from "../_components/demo-ui";
-import { demoNeighbours } from "../_components/sections";
-import { CONTRAST, readTokenTables, type TokenTable } from "../_components/tokens";
+import { demoNeighbours } from "@/lib/style";
+import { CONTRAST, readTokenTables, type TokenTable } from "@/lib/tokens";
 
 export const metadata: Metadata = {
   title: "Tokens · Brand system · akaOSS",

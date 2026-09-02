@@ -17,7 +17,7 @@ import {
   SegmentedScaleSpecimen,
   SliderSpecimen,
 } from "../_components/live";
-import { groupBySlug, pagerFor } from "../_components/sections";
+import { groupBySlug, pagerFor } from "@/lib/library";
 
 const GROUP = groupBySlug("scales");
 

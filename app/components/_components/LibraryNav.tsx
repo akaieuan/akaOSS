@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { LIBRARY_GROUPS } from "./sections";
+import { LIBRARY_GROUPS } from "@/lib/library";
 
 /**
  * `rail` is the sticky column on large screens: every group, and under each

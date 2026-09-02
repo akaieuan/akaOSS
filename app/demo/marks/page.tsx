@@ -11,7 +11,7 @@ import {
   TileGrid,
   Well,
 } from "../_components/demo-ui";
-import { demoNeighbours } from "../_components/sections";
+import { demoNeighbours } from "@/lib/style";
 
 export const metadata: Metadata = {
   title: "Marks · Brand system · akaOSS",

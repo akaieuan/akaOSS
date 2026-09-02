@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { Nav } from "@/components/site/Nav";
 import { Footer } from "@/components/site/Footer";
-import { getResearchPosts, ChipRow, formatDate } from "./posts";
+import { getResearchPosts, formatDate } from "@/lib/research";
+import { ChipRow } from "@/components/features/research/post-chips";
 
 export const metadata: Metadata = {
   title: "Research · akaOSS",

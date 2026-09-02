@@ -13,14 +13,8 @@ import { Hairline } from "@/components/site/Hairline";
 import { MandatedGate } from "@/components/inertial/MandatedGate";
 import { AuditChain } from "@/components/inertial/AuditChain";
 import { VerificationContrast } from "@/components/inertial/VerificationContrast";
-import {
-  getResearchPost,
-  getResearchPosts,
-  extractToc,
-  Bolded,
-  ChipRow,
-  formatDate,
-} from "../posts";
+import { getResearchPost, getResearchPosts, extractToc, formatDate } from "@/lib/research";
+import { Bolded, ChipRow } from "@/components/features/research/post-chips";
 
 export async function generateStaticParams() {
   const posts = await getResearchPosts();

@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { getResearchPosts } from "@/app/research/posts";
+import { getResearchPosts } from "@/lib/research";
 import { SectionHead } from "./SectionHead";
 
 /* The landing's research list derives from the feed at build time: the

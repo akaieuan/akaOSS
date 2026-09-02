@@ -1,5 +1,5 @@
 import { cn } from "@/lib/utils";
-import { BRAND } from "@/lib/content";
+import { BRAND } from "@/lib/site";
 
 interface AssistNotCompleteProps {
   label?: string;

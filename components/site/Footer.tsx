@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { BRAND } from "@/lib/content";
+import { BRAND } from "@/lib/site";
 import { PixelHead } from "@/components/site/PixelHead";
 
 const footerLink =

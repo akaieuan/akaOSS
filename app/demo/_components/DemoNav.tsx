@@ -3,7 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { cn } from "@/lib/utils";
-import { DEMO_NAV } from "./sections";
+import { DEMO_NAV } from "@/lib/style";
 
 /**
  * `rail` is the sticky column on large screens; `bar` is the horizontally

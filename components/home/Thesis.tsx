@@ -1,4 +1,4 @@
-import { PARADIGM, THESIS } from "@/lib/content";
+import { PARADIGM, THESIS } from "@/lib/site";
 import { SectionHead } from "./SectionHead";
 
 export function Thesis() {

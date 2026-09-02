@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BRAND } from "@/lib/content";
+import { BRAND } from "@/lib/site";
 import { PixelHead, type PixelIcon } from "@/components/site/PixelHead";
 import { ThemeToggle } from "@/components/site/ThemeToggle";
 

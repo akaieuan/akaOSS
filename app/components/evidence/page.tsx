@@ -12,7 +12,7 @@ import {
   EvidenceSpecimen,
   SearchResultSpecimens,
 } from "../_components/live";
-import { groupBySlug, pagerFor } from "../_components/sections";
+import { groupBySlug, pagerFor } from "@/lib/library";
 
 const GROUP = groupBySlug("evidence");
 

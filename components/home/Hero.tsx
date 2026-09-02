@@ -1,7 +1,7 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { BRAND } from "@/lib/content";
+import { BRAND } from "@/lib/site";
 import { PixelHead } from "@/components/site/PixelHead";
 import { reveal, stagger } from "./shared";
 

@@ -7,7 +7,7 @@ import { LegacyAnchorRedirect } from "./_components/LegacyAnchorRedirect";
 import {
   LIBRARY_GROUPS,
   LIBRARY_SPECIMEN_COUNT,
-} from "./_components/sections";
+} from "@/lib/library";
 
 const UI_COUNT = REGISTRY_ITEMS.filter((i) => i.type === "registry:ui").length;
 

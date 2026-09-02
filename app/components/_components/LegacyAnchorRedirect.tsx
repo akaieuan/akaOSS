@@ -2,7 +2,7 @@
 
 import { useEffect } from "react";
 import { useRouter } from "next/navigation";
-import { LEGACY_ANCHORS } from "./sections";
+import { LEGACY_ANCHORS } from "@/lib/library";
 
 /**
  * Keeps every old `/components#<id>` deep link alive.
