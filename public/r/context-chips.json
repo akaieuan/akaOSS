@@ -1,21 +1,23 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry-item.json",
   "name": "context-chips",
+  "type": "registry:ui",
   "title": "Context Chips",
   "description": "Pill chips representing context attached to an agent run. Notes, files, URLs. Removable with overflow truncation.",
   "dependencies": [
-    "lucide-react"
+    "lucide-react",
+    "@hitl-kit/core"
   ],
   "registryDependencies": [
-    "https://www.hitlkit.dev/r/hitl-utils.json"
+    "https://www.hitlkit.dev/r/hitl-utils.json",
+    "https://www.hitlkit.dev/r/hitl-shared.json"
   ],
   "files": [
     {
-      "path": "src/components/hitl/ContextChips.tsx",
-      "content": "\"use client\";\n\nimport { X } from \"lucide-react\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface ContextItem {\n  id: string;\n  label: string;\n  color: string;\n}\n\nexport interface ContextChipsProps {\n  items: ContextItem[];\n  onRemove?: (id: string) => void;\n  maxVisible?: number;\n  className?: string;\n}\n\nexport function ContextChips({\n  items,\n  onRemove,\n  maxVisible,\n  className,\n}: ContextChipsProps) {\n  const visible = maxVisible ? items.slice(0, maxVisible) : items;\n  const overflow = maxVisible ? items.length - maxVisible : 0;\n\n  return (\n    <div className={cn(\"flex flex-wrap items-center gap-1.5\", className)}>\n      {visible.map((item) => (\n        <div\n          key={item.id}\n          className=\"flex items-center gap-1.5 rounded-full border border-border bg-background/40 px-2 py-0.5 text-xs text-foreground\"\n        >\n          <span className={cn(\"h-2 w-2 shrink-0 rounded-full\", item.color)} />\n          <span className=\"max-w-[180px] truncate\">{item.label}</span>\n          {onRemove && (\n            <button\n              onClick={() => onRemove(item.id)}\n              className=\"text-muted-foreground transition-colors hover:text-foreground\"\n              aria-label={`Remove ${item.label}`}\n            >\n              <X className=\"h-2.5 w-2.5\" />\n            </button>\n          )}\n        </div>\n      ))}\n      {overflow > 0 && (\n        <span className=\"rounded-full border border-dashed border-border px-2 py-0.5 text-[10px] text-muted-foreground\">\n          +{overflow} more\n        </span>\n      )}\n    </div>\n  );\n}\n",
+      "path": "components/hitl/ContextChips.tsx",
       "type": "registry:ui",
-      "target": "components/hitl/ContextChips.tsx"
+      "target": "components/hitl/ContextChips.tsx",
+      "content": "\"use client\";\n\nimport { X } from \"lucide-react\";\nimport type { ContextChipItem, ContextChipsAction, ContextChipsEvent } from \"@hitl-kit/core\";\nimport { cn } from \"@/lib/utils\";\nimport { focusRing, motion } from \"@/components/hitl/internal/ui\";\n\nexport type { ContextChipItem };\n\nexport interface ContextChipsProps\n  extends Partial<Omit<ContextChipsEvent, \"items\">>,\n    Pick<ContextChipsEvent, \"items\"> {\n  /** Supply to make chips removable. */\n  onAction?: (action: ContextChipsAction) => void;\n  maxVisible?: number;\n  className?: string;\n}\n\n/** Context Chips. What the agent was handed: notes, files, URLs. Removable when `onAction` is given. */\nexport function ContextChips({ items, onAction, maxVisible, className }: ContextChipsProps) {\n  const visible = maxVisible ? items.slice(0, maxVisible) : items;\n  const overflow = maxVisible ? Math.max(0, items.length - maxVisible) : 0;\n\n  return (\n    <ul className={cn(\"m-0 flex list-none flex-wrap items-center gap-1.5 p-0\", className)} aria-label=\"Context\">\n      {visible.map((item) => (\n        <li\n          key={item.id}\n          className=\"flex items-center gap-1.5 rounded-full border border-border bg-background/40 px-2 py-0.5 text-xs text-foreground\"\n        >\n          <span className={cn(\"h-2 w-2 shrink-0 rounded-full\", item.color)} aria-hidden=\"true\" />\n          <span className=\"max-w-[180px] truncate\">{item.label}</span>\n          {onAction && (\n            <button\n              type=\"button\"\n              onClick={() => onAction({ kind: \"remove\", id: item.id })}\n              className={cn(\"rounded-full text-muted-foreground hover:text-foreground\", motion, focusRing)}\n              aria-label={`Remove ${item.label}`}\n            >\n              <X className=\"h-2.5 w-2.5\" aria-hidden=\"true\" />\n            </button>\n          )}\n        </li>\n      ))}\n      {overflow > 0 && (\n        <li className=\"rounded-full border border-dashed border-border px-2 py-0.5 text-[11px] text-muted-foreground\">\n          +{overflow} more\n        </li>\n      )}\n    </ul>\n  );\n}\n"
     }
-  ],
-  "type": "registry:ui"
+  ]
 }

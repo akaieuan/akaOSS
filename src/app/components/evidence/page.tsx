@@ -1,15 +1,17 @@
 import type { Metadata } from "next";
 
-import { SearchResultCard } from "@/components/hitl/SearchResultCard";
-import { SEARCH_RESULTS } from "@/components/hitl/data";
-
 import {
   DemoSection,
   LibraryHeader,
   LibraryPager,
   Specimen,
 } from "../_components/demo-ui";
-import { CitationSpecimen, DiffSpecimen } from "../_components/live";
+import {
+  CitationSpecimen,
+  DiffSpecimen,
+  EvidenceSpecimen,
+  SearchResultSpecimens,
+} from "../_components/live";
 import { groupBySlug, pagerFor } from "../_components/sections";
 
 const GROUP = groupBySlug("evidence");
@@ -36,25 +38,28 @@ export default function EvidencePage() {
         description="Ranked result cards with metadata, snippet, and a relevance bar. The relevance figure is a signal for the human to weigh, not a verdict the agent has already acted on."
         cols={2}
       >
-        {SEARCH_RESULTS.slice(0, 4).map((r) => (
-          <Specimen
-            key={r.id}
-            label={`Result #${r.rank}`}
-            hint={`${r.venue}, ${r.year} · ${Math.round(r.relevance * 100)}%`}
-          >
-            <SearchResultCard result={r} />
-          </Specimen>
-        ))}
+        <SearchResultSpecimens />
       </DemoSection>
 
       <DemoSection
         id="citation"
         title="Citation Result"
         meta="citation-result"
-        description="A single source-backed citation: the claim on top, the source attribution below, an expandable supporting quote, and an optional confidence badge."
+        description="A single source-backed citation: the claim on top, the source attribution below, an expandable supporting quote, and an optional confidence badge. Verify, reject, or can't tell."
       >
         <Specimen label="Cited claim" hint="expand the supporting quote">
           <CitationSpecimen />
+        </Specimen>
+      </DemoSection>
+
+      <DemoSection
+        id="evidence-pointer"
+        title="Evidence Pointer"
+        meta="evidence-pointer"
+        description="Where a claim is grounded, not merely that it is. One row per pointer with the source, the locator in human units, and the excerpt. Sources the agent consulted and drew nothing from are listed too, so silence never reads as safety."
+      >
+        <Specimen label="Located claim" hint="two pointers, two sources not assessed">
+          <EvidenceSpecimen />
         </Specimen>
       </DemoSection>
 

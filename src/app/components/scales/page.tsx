@@ -100,7 +100,7 @@ export default function ScalesPage() {
             Reach for this in a table cell or a queue row where even the meter is
             too much furniture. Static by default; given an{" "}
             <code className="font-mono text-[0.875em] text-foreground">
-              onChange
+              onAction
             </code>{" "}
             it grows ‹ › steppers with real 24px targets that go inert at the
             ends of the scale without dropping keyboard focus.
@@ -127,7 +127,7 @@ export default function ScalesPage() {
         id="shared"
         title="Shared Primitives"
         meta="shared-primitives"
-        description="The atomic palette the rest of the kit draws from: the five accent swatches, the three approval badge variants, and the approve-and-reject row in situ."
+        description="The atomic palette the rest of the kit draws from: the five accent swatches, the four approval badges (pending, approved, rejected, and couldn't tell), and the decision row in situ."
       >
         <Specimen label="Shared palette" hint="interactive">
           <SharedPrimitives />

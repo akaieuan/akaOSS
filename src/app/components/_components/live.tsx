@@ -15,33 +15,38 @@
  * Each one is a thin leaf that renders the real shipped component. Nothing here
  * reimplements a primitive, if a specimen looks wrong, the component is wrong.
  * The surrounding frame (`DemoSection`, `Specimen`) stays on the server.
+ *
+ * `src/components/hitl/` is generated from `@hitl-kit/ui` by `pnpm hitl:sync`.
  */
 
 import { useState } from "react";
-import {
-  Search,
-  PenLine,
-  GraduationCap,
-  ClipboardList,
-  Globe,
-} from "lucide-react";
+import { ClipboardList } from "lucide-react";
 
 import { AiGenerationScale } from "@/components/hitl/AiGenerationScale";
 import { AiGenerationSlider } from "@/components/hitl/AiGenerationSlider";
 import { AiGenerationBadge } from "@/components/hitl/AiGenerationBadge";
 import { ApproveRejectRow } from "@/components/hitl/ApproveRejectRow";
-import { BatchQueue, type BatchItem } from "@/components/hitl/BatchQueue";
-import { ContextChips, type ContextItem } from "@/components/hitl/ContextChips";
-import { HitlCard, DEMO_HITL_CARDS } from "@/components/hitl/HitlCard";
+import { BatchQueue } from "@/components/hitl/BatchQueue";
+import { ContextChips } from "@/components/hitl/ContextChips";
+import { HitlCard } from "@/components/hitl/HitlCard";
 import { EditablePlan, DEMO_PLAN } from "@/components/hitl/EditablePlan";
-import { MiniTrace, DEMO_TRACE_STEPS } from "@/components/hitl/MiniTrace";
+import { MiniTrace, DEMO_TRACE } from "@/components/hitl/MiniTrace";
+import { ToolCallPreview } from "@/components/hitl/ToolCallPreview";
+import { CitationResult } from "@/components/hitl/CitationResult";
+import { DiffResult } from "@/components/hitl/DiffResult";
+import { EvidencePointer } from "@/components/hitl/EvidencePointer";
+import { QAFlow, DEMO_QA } from "@/components/hitl/QAFlow";
+import { SearchResultCard, DEMO_SEARCH_RESULTS } from "@/components/hitl/SearchResultCard";
+import { WritingAgent, DEMO_WRITING_AGENT } from "@/components/hitl/WritingAgent";
+import { ResearchAgent, DEMO_RESEARCH_AGENT } from "@/components/hitl/ResearchAgent";
 import {
-  ToolCallPreview,
+  DEMO_CITATION,
+  DEMO_DIFF,
+  DEMO_EVIDENCE,
+  DEMO_HITL_CARDS,
   DEMO_TOOL_CALL,
-} from "@/components/hitl/ToolCallPreview";
-import { CitationResult, DEMO_CITATION } from "@/components/hitl/CitationResult";
-import { DiffResult, DEMO_DIFF } from "@/components/hitl/DiffResult";
-import type { ApprovalStatus } from "@/components/hitl/types";
+} from "@/components/hitl/fixtures";
+import type { ApprovalState, BatchQueueItem, ContextChipItem } from "@/components/hitl/core";
 
 import { Specimen } from "./demo-ui";
 
@@ -52,7 +57,7 @@ export function SliderSpecimen() {
   return (
     <AiGenerationSlider
       value={value}
-      onChange={setValue}
+      onAction={(a) => setValue(a.value)}
       hint="section 2 draft"
       ariaLabel="AI generation level for section 2 draft"
     />
@@ -63,7 +68,7 @@ export function BadgeSpecimen() {
   const [value, setValue] = useState(3);
   return (
     <div className="flex flex-wrap items-center gap-3">
-      <AiGenerationBadge value={value} onChange={setValue} />
+      <AiGenerationBadge value={value} onAction={(a) => setValue(a.value)} />
       <span className="font-mono text-meta text-muted-foreground">
         interactive
       </span>
@@ -73,7 +78,7 @@ export function BadgeSpecimen() {
 
 export function SegmentedScaleSpecimen() {
   const [value, setValue] = useState(2);
-  return <AiGenerationScale value={value} onChange={setValue} />;
+  return <AiGenerationScale value={value} onAction={(a) => setValue(a.value)} />;
 }
 
 // ─── Decision ────────────────────────────────────────────────────────────────
@@ -84,8 +89,8 @@ export function InterruptCardSpecimens() {
   return (
     <>
       {DEMO_HITL_CARDS.map((c) => (
-        <Specimen key={c.id} label={c.kind} hint={`kind="${c.kind}"`}>
-          <HitlCard config={c} />
+        <Specimen key={c.id} label={c.variant} hint={`variant="${c.variant}"`}>
+          <HitlCard {...c} />
         </Specimen>
       ))}
     </>
@@ -93,7 +98,11 @@ export function InterruptCardSpecimens() {
 }
 
 export function EditablePlanSpecimen() {
-  return <EditablePlan config={DEMO_PLAN} />;
+  return <EditablePlan {...DEMO_PLAN} />;
+}
+
+export function QASpecimen() {
+  return <QAFlow {...DEMO_QA} />;
 }
 
 const APPROVAL_ITEMS = [
@@ -120,10 +129,10 @@ const APPROVAL_ITEMS = [
 ];
 
 export function ApprovalSpecimens() {
-  const [states, setStates] = useState<ApprovalStatus[]>(
+  const [states, setStates] = useState<ApprovalState[]>(
     APPROVAL_ITEMS.map(() => "pending"),
   );
-  const set = (i: number, s: ApprovalStatus) =>
+  const set = (i: number, s: ApprovalState) =>
     setStates((p) => p.map((x, j) => (j === i ? s : x)));
 
   return (
@@ -133,23 +142,23 @@ export function ApprovalSpecimens() {
           key={item.label}
           className="flex min-w-0 flex-col gap-3 rounded-xl border border-border/40 bg-background/40 p-4"
         >
-          {/* Same reason as `Specimen`: with a `shrink-0` meta on one line, the
-              label eats the whole deficit at 320px ("Download: Carbon Pricing
-              paper" lost 79 of its 185px). Wrapping keeps both intact. */}
-          <div className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1">
-            <span className="min-w-0 truncate text-xs text-foreground">
-              {item.label}
-            </span>
-            <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-meta text-muted-foreground">
-              {item.meta}
-            </span>
-          </div>
           <ApproveRejectRow
+            label={item.label}
+            meta={item.meta}
             state={states[i]}
             accentClass={item.accent}
-            onApprove={() => set(i, "approved")}
-            onReject={() => set(i, "rejected")}
-            onUndo={() => set(i, "pending")}
+            onAction={(a) =>
+              set(
+                i,
+                a.kind === "approve"
+                  ? "approved"
+                  : a.kind === "reject"
+                    ? "rejected"
+                    : a.kind === "abstain"
+                      ? "abstained"
+                      : "pending",
+              )
+            }
           />
         </div>
       ))}
@@ -157,56 +166,34 @@ export function ApprovalSpecimens() {
   );
 }
 
-// BatchItem carries a component in `icon`, which cannot cross a server →
-// client boundary as a prop. The seed data therefore lives on this side.
-const BATCH: BatchItem[] = [
-  { id: "b1", label: "Search: carbon pricing 2024", icon: Search },
-  { id: "b2", label: "Write: Section 2 introduction", icon: PenLine },
-  { id: "b3", label: "Research: IPCC AR6 findings", icon: GraduationCap },
-  { id: "b4", label: "QA: Verify citation accuracy", icon: ClipboardList },
-  { id: "b5", label: "Read: eu-ets.europa.eu", icon: Globe },
+const BATCH: BatchQueueItem[] = [
+  { id: "b1", kind: "search", label: "Search: carbon pricing 2024" },
+  { id: "b2", kind: "write", label: "Write: Section 2 introduction" },
+  { id: "b3", kind: "research", label: "Research: IPCC AR6 findings" },
+  { id: "b4", kind: "qa", label: "QA: Verify citation accuracy" },
+  { id: "b5", kind: "read", label: "Read: eu-ets.europa.eu" },
 ];
 
 export function BatchSpecimen() {
-  return <BatchQueue items={BATCH} />;
+  return <BatchQueue items={BATCH} icons={{ qa: ClipboardList }} />;
 }
 
 // ─── Agent state ─────────────────────────────────────────────────────────────
 
 export function MiniTraceSpecimen() {
-  return <MiniTrace steps={DEMO_TRACE_STEPS} />;
+  return <MiniTrace {...DEMO_TRACE} />;
 }
 
 export function ToolCallSpecimen() {
-  return <ToolCallPreview config={DEMO_TOOL_CALL} />;
+  return <ToolCallPreview {...DEMO_TOOL_CALL} />;
 }
 
-const CONTEXT_SEEDS: ContextItem[] = [
-  {
-    id: "c1",
-    color: "bg-[color:var(--accent-violet)]",
-    label: "AR6 temperature finding",
-  },
-  {
-    id: "c2",
-    color: "bg-[color:var(--accent-blue)]",
-    label: "IPCC AR6 Synthesis.pdf",
-  },
-  {
-    id: "c3",
-    color: "bg-[color:var(--accent-emerald)]",
-    label: "eu-ets.europa.eu",
-  },
-  {
-    id: "c4",
-    color: "bg-[color:var(--accent-amber)]",
-    label: "Price corridor note",
-  },
-  {
-    id: "c5",
-    color: "bg-[color:var(--accent-blue)]",
-    label: "Carbon Markets 2024.pdf",
-  },
+const CONTEXT_SEEDS: ContextChipItem[] = [
+  { id: "c1", color: "bg-[color:var(--accent-violet)]", label: "AR6 temperature finding" },
+  { id: "c2", color: "bg-[color:var(--accent-blue)]", label: "IPCC AR6 Synthesis.pdf" },
+  { id: "c3", color: "bg-[color:var(--accent-emerald)]", label: "eu-ets.europa.eu" },
+  { id: "c4", color: "bg-[color:var(--accent-amber)]", label: "Price corridor note" },
+  { id: "c5", color: "bg-[color:var(--accent-blue)]", label: "Carbon Markets 2024.pdf" },
 ];
 
 export function ContextStripSpecimen() {
@@ -215,7 +202,7 @@ export function ContextStripSpecimen() {
     <div className="space-y-3">
       <ContextChips
         items={items}
-        onRemove={(id) => setItems((p) => p.filter((x) => x.id !== id))}
+        onAction={(a) => setItems((p) => p.filter((x) => x.id !== a.id))}
       />
       <button
         type="button"
@@ -230,10 +217,40 @@ export function ContextStripSpecimen() {
 
 // ─── Evidence ────────────────────────────────────────────────────────────────
 
+export function SearchResultSpecimens() {
+  return (
+    <>
+      {DEMO_SEARCH_RESULTS.map((r) => (
+        <Specimen
+          key={r.id}
+          label={`Result #${r.rank}`}
+          hint={`${r.venue}, ${r.year} · ${Math.round(r.relevance * 100)}%`}
+        >
+          <SearchResultCard {...r} />
+        </Specimen>
+      ))}
+    </>
+  );
+}
+
 export function CitationSpecimen() {
-  return <CitationResult config={DEMO_CITATION} />;
+  return <CitationResult {...DEMO_CITATION} />;
 }
 
 export function DiffSpecimen() {
-  return <DiffResult config={DEMO_DIFF} />;
+  return <DiffResult {...DEMO_DIFF} />;
+}
+
+export function EvidenceSpecimen() {
+  return <EvidencePointer {...DEMO_EVIDENCE} />;
+}
+
+// ─── Composed ────────────────────────────────────────────────────────────────
+
+export function WritingAgentSpecimen() {
+  return <WritingAgent {...DEMO_WRITING_AGENT} showStatusPicker />;
+}
+
+export function ResearchAgentSpecimen() {
+  return <ResearchAgent {...DEMO_RESEARCH_AGENT} />;
 }

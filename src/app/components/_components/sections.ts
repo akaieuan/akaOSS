@@ -61,6 +61,7 @@ export const LIBRARY_GROUPS: LibraryGroup[] = [
     specimens: [
       { id: "search-cards", title: "Search Result Cards" },
       { id: "citation", title: "Citation Result" },
+      { id: "evidence-pointer", title: "Evidence Pointer" },
       { id: "diff", title: "Diff Result" },
     ],
   },
