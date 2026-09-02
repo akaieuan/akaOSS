@@ -1,5 +1,5 @@
 /**
- * Local fixture data for the /inertial exhibits.
+ * Local fixture data for the essay's exhibits.
  *
  * Deliberately self-contained: nothing here imports from the inertial
  * application itself. The exhibits demonstrate the *pattern*: signals rather

@@ -31,6 +31,9 @@ jobs:
       - name: Typecheck
         run: pnpm typecheck
 
+      - name: Lint
+        run: pnpm lint
+
       # The repo layout is a set of rules, not a convention. See
       # docs/superpowers/specs/2026-09-02-site-structure-design.md.
       - name: Check repo structure

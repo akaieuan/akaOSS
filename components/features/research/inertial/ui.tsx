@@ -1,5 +1,5 @@
 /**
- * Presentational atoms shared by the three /inertial exhibits.
+ * Presentational atoms shared by the three essay's exhibits.
  *
  * No "use client", these are pure and get compiled into whichever graph
  * imports them, server or client. All machine data (hashes, scores, ids,
