@@ -12,7 +12,7 @@
     "hitl:sync": "node scripts/hitl-sync.mjs",
     "hitl:check": "node scripts/hitl-sync.mjs --check",
     "structure:check": "node scripts/structure-check.mjs",
-    "verify": "pnpm typecheck && pnpm hitl:check && pnpm facts:check && pnpm build",
+    "verify": "pnpm typecheck && pnpm structure:check && pnpm hitl:check && pnpm facts:check && pnpm build",
     "smoke-test": "bash scripts/smoke-test.sh local",
     "smoke-test:prod": "bash scripts/smoke-test.sh prod",
     "facts:build": "tsx scripts/facts.ts",
