@@ -17,50 +17,6 @@ export const THESIS = {
     "Assist-Not-Complete is a paradigm for building AI systems that collaborate with humans instead of displacing them.",
 };
 
-export const LAYERS = [
-  {
-    num: "I",
-    key: "paper",
-    title: "The paper",
-    subtitle: "An AI Measurement Problem",
-    description:
-      "A perspective piece synthesizing benchmark science, cognitive neuroscience, uncertainty quantification, and enterprise deployment data into the Assist-Not-Complete thesis.",
-    meta: "~ 30 min read · 2026",
-    href: "/paper",
-    accent: "blue" as const,
-  },
-  {
-    num: "II",
-    key: "components",
-    title: "The components",
-    subtitle: "A shadcn-compatible HITL primitive library",
-    description:
-      "Eleven primitives for agentic UIs. Interrupt cards, approve and reject flows, batch queues, subagent states, trace viewers, the AI generation scale. Each one is the physical embodiment of a claim from the paper.",
-    meta: "11 primitives · copy-paste · MIT",
-    href: "/components",
-    accent: "violet" as const,
-  },
-];
-
-// The library is an overview plus five sub-pages (see
-// src/app/components/_components/sections.ts). These hrefs point at the
-// canonical destination for each pattern. The older one-page form
-// (/components#hitl, #agent-status, …) still resolves: LegacyAnchorRedirect on
-// the overview forwards every one of those anchors to the page it now lives on.
-export const PATTERNS = [
-  { name: "Interrupt Card", brief: "In-thread approval boundary for agent actions.", accent: "violet", href: "/components/decision#hitl" },
-  { name: "Subagent Status", brief: "Six discrete execution states for a running agent.", accent: "blue", href: "/components/agent-state#agent-status" },
-  { name: "MiniTrace", brief: "Collapsible thought, action, result viewer.", accent: "violet", href: "/components/agent-state#trace" },
-  { name: "AI Generation Scale", brief: "Five-segment ordinal of AI vs. human contribution.", accent: "amber", href: "/components/scales#ai-scale" },
-  { name: "Context Chips", brief: "Removable pills showing attached notes, files, URLs.", accent: "blue", href: "/components/agent-state#context" },
-  { name: "QA Flow", brief: "Multi-question approval card for agent-to-human handoff.", accent: "emerald", href: "/components/decision#qa" },
-  { name: "Writing Agent", brief: "Compound widget for draft-in-progress with status and evidence.", accent: "blue", href: "/components/composed#writing-agent" },
-  { name: "Research Agent", brief: "Three modes. Create, follow-up, read URL.", accent: "violet", href: "/components/composed#research-agent" },
-  { name: "Batch Queue", brief: "Sequential resolution of mixed agent items.", accent: "amber", href: "/components/decision#batch" },
-  { name: "Search Result Card", brief: "Ranked result with relevance bar and metadata.", accent: "violet", href: "/components/evidence#search-cards" },
-  { name: "Shared Primitives", brief: "Accent swatches, approval badges, approve and reject rows.", accent: "emerald", href: "/components/scales#shared" },
-];
-
 // ─────────────────────────────────────────────────────────────
 // Homepage hybrid (Direction A shell · B feed · C interlock)
 // All prose sourced from mockups/COPY-BANK.md. No invented dates/claims.

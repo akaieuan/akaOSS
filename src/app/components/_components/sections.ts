@@ -6,9 +6,9 @@
  * disagree: the overview cards, the side rail, and the legacy-anchor redirect.
  *
  * The `id` on every entry is LOAD-BEARING. `/components#<id>` links exist in
- * `src/lib/content.ts` (PATTERNS) and in the wild, and every one of those ids
- * still has to resolve. Renaming an id silently breaks an inbound link; adding
- * a new specimen is free. See `LEGACY_ANCHORS` below.
+ * the wild, and every one of those ids still has to resolve. Renaming an id
+ * silently breaks an inbound link; adding a new specimen is free. See
+ * `LEGACY_ANCHORS` below.
  */
 
 export interface LibrarySpecimen {
