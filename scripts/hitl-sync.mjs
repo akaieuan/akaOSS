@@ -61,7 +61,11 @@ function banner(source) {
 
 // ── 1. PULL: registry JSON and vendored core from the library checkout ───────
 if (OFFLINE) {
-  console.log(`· hitl-sync: library checkout not found at ${KIT}; deriving from public/r only`);
+  console.log(
+    process.argv.includes("--offline")
+      ? "· hitl-sync: offline; deriving from public/r only"
+      : `· hitl-sync: library checkout not found at ${KIT}; deriving from public/r only`,
+  );
 } else {
   rmSync(OUT_REGISTRY, { recursive: true, force: true });
   mkdirSync(OUT_REGISTRY, { recursive: true });
