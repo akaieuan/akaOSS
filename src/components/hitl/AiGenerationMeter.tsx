@@ -22,10 +22,10 @@ export interface AiGenerationMeterProps
 }
 
 /**
- * At-a-glance provenance: one short track filled to the current level with
- * the spectrum, plus the level name. Deliberately read-only and a single
- * `role="img"`, so a table of fifty rows does not add fifty tab stops.
- * No "use client": no state, no handlers.
+ * At-a-glance provenance: the whole spectrum shown faintly, lit as far as
+ * the current level, plus the level name. Deliberately read-only and a
+ * single `role="img"`, so a table of fifty rows does not add fifty tab
+ * stops. No "use client": no state, no handlers.
  */
 export function AiGenerationMeter({
   value,
@@ -41,16 +41,19 @@ export function AiGenerationMeter({
     <span
       role="img"
       aria-label={ariaLabel ?? aiLevelDescription(v, labels)}
-      className={cn("inline-flex h-5 max-w-full items-center gap-2 align-middle", className)}
+      className={cn("inline-flex h-5 max-w-full items-center gap-2.5 align-middle", className)}
     >
-      <span className="relative h-1.5 w-12 shrink-0 overflow-hidden rounded-full bg-muted">
+      <span className="relative h-2.5 w-20 shrink-0 overflow-hidden rounded-full bg-muted">
+        {/* The whole spectrum, dimmed: where the level could be. */}
+        <span className="absolute inset-0 opacity-25" style={{ background: AI_GENERATION_SPECTRUM }} />
+        {/* Lit as far as the level: where it is. */}
         <span
           className="absolute inset-y-0 left-0 rounded-full"
           style={{ width: `${fill}%`, background: AI_GENERATION_SPECTRUM, backgroundSize: `${10000 / fill}% 100%` }}
         />
       </span>
       {compact ? null : (
-        <span className="truncate text-[11px] font-medium leading-none text-foreground">{aiLevelName(v, labels)}</span>
+        <span className="truncate text-xs font-medium leading-none text-foreground">{aiLevelName(v, labels)}</span>
       )}
     </span>
   );

@@ -8,10 +8,10 @@ import { motion } from "@/components/hitl/internal/ui";
 import {
   AI_GENERATION_LEVELS,
   AI_GENERATION_MAX,
-  AI_GENERATION_SPECTRUM,
+  aiLevelAccent,
   aiLevelDescription,
-  aiLevelFill,
   aiLevelName,
+  aiLevelTint,
   clampAiLevel,
 } from "@/components/hitl/ai-generation-levels";
 
@@ -26,7 +26,7 @@ export interface AiGenerationBadgeProps
 }
 
 const PILL =
-  "inline-flex h-6 max-w-full items-center gap-2 rounded-full border border-border bg-background/60 px-2.5 align-middle";
+  "inline-flex h-6 max-w-full items-center gap-1.5 rounded-full border px-2.5 align-middle transition-colors duration-150 ease-out motion-reduce:transition-none";
 
 /**
  * 16px glyph with a 24px hit area from the ::before overlay. At the end of
@@ -54,7 +54,7 @@ function Stepper({
       aria-label={label}
       aria-describedby={describedBy}
       className={cn(
-        "relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[13px] leading-none text-muted-foreground",
+        "relative flex h-4 w-4 shrink-0 items-center justify-center rounded-full text-[13px] leading-none text-foreground/60",
         motion,
         "focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring",
         atBound ? "cursor-default opacity-30" : "hover:text-foreground",
@@ -66,22 +66,10 @@ function Stepper({
   );
 }
 
-function Bar({ value }: { value: number }) {
-  const fill = aiLevelFill(value);
-  return (
-    <span aria-hidden className="relative h-1 w-7 shrink-0 overflow-hidden rounded-full bg-muted">
-      <span
-        className="absolute inset-y-0 left-0 rounded-full"
-        style={{ width: `${fill}%`, background: AI_GENERATION_SPECTRUM, backgroundSize: `${10000 / fill}% 100%` }}
-      />
-    </span>
-  );
-}
-
 /**
- * The densest form: one pill with a short filled track and the level name.
- * Read-only it is a single `role="img"`. Given `onAction` it becomes a
- * labelled group with two steppers and a polite live region.
+ * The densest form: a pill tinted with the level's colour, a solid dot, and
+ * the level name. Read-only it is a single `role="img"`. Given `onAction` it
+ * becomes a labelled group with two steppers and a polite live region.
  */
 export function AiGenerationBadge({
   value,
@@ -94,11 +82,18 @@ export function AiGenerationBadge({
   const v = clampAiLevel(value);
   const valueId = useId();
 
+  const dot = <span aria-hidden className={cn("h-2 w-2 shrink-0 rounded-full", aiLevelAccent(v))} />;
+  const text = <span className="truncate text-[11px] font-medium leading-none text-foreground">{aiLevelName(v, labels)}</span>;
+
   if (!interactive) {
     return (
-      <span role="img" aria-label={`${ariaLabel}: ${aiLevelDescription(v, labels)}`} className={cn(PILL, className)}>
-        <Bar value={v} />
-        <span className="truncate text-[11px] font-medium leading-none text-foreground">{aiLevelName(v, labels)}</span>
+      <span
+        role="img"
+        aria-label={`${ariaLabel}: ${aiLevelDescription(v, labels)}`}
+        className={cn(PILL, aiLevelTint(v), className)}
+      >
+        {dot}
+        {text}
       </span>
     );
   }
@@ -106,9 +101,9 @@ export function AiGenerationBadge({
   const set = (next: number) => onAction?.({ kind: "change", value: clampAiLevel(next) });
 
   return (
-    <span role="group" aria-label={ariaLabel} className={cn(PILL, className)}>
+    <span role="group" aria-label={ariaLabel} className={cn(PILL, aiLevelTint(v), className)}>
       <Stepper glyph="‹" label="Less AI involvement" atBound={v === 0} describedBy={valueId} onClick={() => set(v - 1)} />
-      <Bar value={v} />
+      {dot}
       <span aria-hidden className="truncate text-[11px] font-medium leading-none text-foreground">
         {aiLevelName(v, labels)}
       </span>

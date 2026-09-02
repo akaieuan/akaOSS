@@ -31,6 +31,28 @@ export default function ComponentsOverview() {
         meta={`${UI_COUNT} primitives · ${LIBRARY_SPECIMEN_COUNT} specimen sections · MIT`}
       />
 
+      {/* Every primitive, one click. The groups below give the tour; this
+          gives the destination to anyone who already knows what they want. */}
+      <section aria-labelledby="jump" className="mb-10">
+        <h2 id="jump" className="label mb-3">
+          Jump to a primitive
+        </h2>
+        <ul className="m-0 flex list-none flex-wrap gap-2 p-0">
+          {LIBRARY_GROUPS.flatMap((group) =>
+            group.specimens.map((s) => (
+              <li key={s.id}>
+                <Link
+                  href={`/components/${group.slug}#${s.id}`}
+                  className="inline-flex items-center rounded-full border border-border/60 bg-card/40 px-3 py-1.5 text-xs text-foreground transition-colors hover:border-foreground/40 hover:bg-muted"
+                >
+                  {s.title}
+                </Link>
+              </li>
+            )),
+          )}
+        </ul>
+      </section>
+
       <div className="grid gap-3 sm:grid-cols-2">
         {LIBRARY_GROUPS.map((group) => (
           <Link
@@ -52,7 +74,7 @@ export default function ComponentsOverview() {
             </p>
             {/* Naming every specimen here is deliberate: it is what a visitor
                 following a stale anchor without JavaScript reads instead. */}
-            <p className="mt-auto pt-3 font-mono text-meta text-muted-foreground">
+            <p className="mt-auto pt-3 text-meta text-muted-foreground">
               {group.specimens.map((s) => s.title).join(" · ")}
             </p>
           </Link>

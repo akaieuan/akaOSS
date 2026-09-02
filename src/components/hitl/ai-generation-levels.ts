@@ -47,6 +47,15 @@ export const AI_GENERATION_ACCENTS = [
   "bg-[color:var(--accent-rose)]",
 ] as const;
 
+/** Tinted pill per level: a soft fill and a matching edge, text stays on foreground. */
+export const AI_GENERATION_TINTS = [
+  "bg-[color:var(--accent-emerald)]/15 border-[color:var(--accent-emerald)]/40",
+  "bg-[color:var(--accent-blue)]/15 border-[color:var(--accent-blue)]/40",
+  "bg-[color:var(--accent-amber)]/15 border-[color:var(--accent-amber)]/40",
+  "bg-[color:var(--accent-violet)]/15 border-[color:var(--accent-violet)]/40",
+  "bg-[color:var(--accent-rose)]/15 border-[color:var(--accent-rose)]/40",
+] as const;
+
 /** The whole continuum as one gradient; the fill of every track reveals it. */
 export const AI_GENERATION_SPECTRUM =
   "linear-gradient(90deg, var(--accent-emerald), var(--accent-blue), var(--accent-amber), var(--accent-violet), var(--accent-rose))";
@@ -73,6 +82,11 @@ export function aiLevelMeaning(value: number): string {
 /** The accent utility class for a level. */
 export function aiLevelAccent(value: number): string {
   return AI_GENERATION_ACCENTS[clampAiLevel(value)];
+}
+
+/** The tinted-pill utility classes for a level. */
+export function aiLevelTint(value: number): string {
+  return AI_GENERATION_TINTS[clampAiLevel(value)];
 }
 
 /**

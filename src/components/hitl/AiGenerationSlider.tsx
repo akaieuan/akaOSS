@@ -14,9 +14,14 @@ import {
   clampAiLevel,
 } from "@/components/hitl/ai-generation-levels";
 
-/** Thumb is 22px, so the run of stop positions is inset by 11px at each end. */
-const THUMB = 22;
-const INSET = THUMB / 2;
+/**
+ * The track is a thick pill and the thumb rides inside it, so the run of
+ * stop positions is inset by half the thumb width at each end.
+ */
+const TRACK = 28;
+const THUMB_W = 22;
+const THUMB_H = 24;
+const INSET = THUMB_W / 2 + 2;
 
 export interface AiGenerationSliderProps
   extends Partial<Omit<AiGenerationScaleEvent, "value" | "labels">>,
@@ -33,10 +38,10 @@ export interface AiGenerationSliderProps
 }
 
 /**
- * The slider. A readout that says the level and what it means, a track that
- * fills with the human-to-AI spectrum as far as the thumb, and the five stop
- * names underneath. Drag snaps to the five stops; arrows step, Home/End jump;
- * the stop names are buttons too.
+ * The slider. A readout that says the level and what it means, a thick track
+ * that fills with the human-to-AI spectrum as far as the thumb, and the two
+ * ends named underneath. Drag snaps to the five stops; arrows step, Home/End
+ * jump; the end names are buttons too.
  */
 export function AiGenerationSlider({
   value,
@@ -139,19 +144,18 @@ export function AiGenerationSlider({
           dragging.current = false;
         }}
         className={cn(
-          "group relative mt-3 w-full rounded-full outline-none",
+          "group relative mt-3 w-full overflow-hidden rounded-full bg-muted outline-none",
           interactive ? "cursor-pointer touch-none" : "cursor-default",
           focusRing,
         )}
-        style={{ height: THUMB + 4 }}
+        style={{ height: TRACK }}
       >
-        <span aria-hidden className="absolute inset-x-0 top-1/2 h-2 -translate-y-1/2 rounded-full bg-muted" />
         {/* The fill reveals the spectrum as far as the thumb. */}
         <span
           aria-hidden
-          className="absolute left-0 top-1/2 h-2 -translate-y-1/2 rounded-full transition-[width] duration-150 ease-out motion-reduce:transition-none"
+          className="absolute inset-y-0 left-0 rounded-full transition-[width] duration-150 ease-out motion-reduce:transition-none"
           style={{
-            width: `calc(${INSET}px + (100% - ${THUMB}px) * ${pos})`,
+            width: `calc(${INSET}px + (100% - ${2 * INSET}px) * ${pos})`,
             background: AI_GENERATION_SPECTRUM,
             backgroundSize: `calc(100% / ${Math.max(pos, 0.02)}) 100%`,
           }}
@@ -163,24 +167,23 @@ export function AiGenerationSlider({
               style={{ left: `${(i / AI_GENERATION_MAX) * 100}%` }}
               className={cn(
                 "absolute top-1/2 h-1 w-1 -translate-x-1/2 -translate-y-1/2 rounded-full",
-                i <= v ? "bg-background/60" : "bg-muted-foreground/40",
+                i <= v ? "bg-black/35" : "bg-muted-foreground/50",
               )}
             />
           ))}
           {/* No transition on `left`: the thumb must track the pointer exactly. */}
           <span
-            style={{ left: `${pos * 100}%`, width: THUMB, height: THUMB }}
+            style={{ left: `${pos * 100}%`, width: THUMB_W, height: THUMB_H }}
             className={cn(
-              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full bg-white shadow-[0_1px_3px_rgba(0,0,0,0.35),0_0_0_1px_rgba(0,0,0,0.08)]",
-              interactive && "group-active:scale-105",
+              "absolute top-1/2 -translate-x-1/2 -translate-y-1/2 rounded-[7px] bg-white shadow-[0_1px_2px_rgba(0,0,0,0.4)]",
+              interactive && "group-active:scale-[1.04]",
               motion,
             )}
           />
         </div>
       </div>
 
-      {/* The axis: the two ends only. The readout above names the stop, so
-          five labels here would only crowd each other at narrow widths. */}
+      {/* The axis: the two ends only. The readout above names the stop. */}
       <div aria-hidden className="mt-2 flex items-baseline justify-between gap-2 text-[11px] leading-none">
         {[0, AI_GENERATION_MAX].map((i) =>
           interactive ? (

@@ -22,7 +22,7 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
   {
     label: "Human-in-the-loop measurement",
     links: [
-      { href: "/projects/hitl-kit", name: "HITL Kit", meta: "React primitives via the shadcn CLI · copy, paste, own", icon: "head" },
+      { href: "/components", name: "HITL Kit", meta: "20 primitives, live · npm or the shadcn CLI", icon: "head" },
       { href: "/projects/eval-kit", name: "eval-kit", meta: "scores whether the agent respects human authority", icon: "podium" },
       { href: "/projects/tag-kit", name: "tag-kit", meta: "structured tagging primitives · zero runtime deps", icon: "codetag" },
     ],
@@ -37,8 +37,9 @@ const PROJECT_GROUPS: { label: string; links: ProjectLink[] }[] = [
 ];
 
 const LINKS: { href: string; key: NavActive; label: string }[] = [
-  { href: "/research", key: "research", label: "Research" },
+  { href: "/components", key: "components", label: "Components" },
   { href: "/registry", key: "registry", label: "Registry" },
+  { href: "/research", key: "research", label: "Research" },
 ];
 
 const linkClass = (isActive: boolean) =>
