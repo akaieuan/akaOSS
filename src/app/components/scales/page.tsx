@@ -29,7 +29,7 @@ export const metadata: Metadata = {
 /** The one-line "reach for this when…" that sits under each density. */
 function Note({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-5 border-t border-border/40 pt-3 text-[12px] leading-relaxed text-muted-foreground">
+    <p className="mt-5 border-t border-border/40 pt-3 text-small text-muted-foreground">
       {children}
     </p>
   );
@@ -71,7 +71,7 @@ export default function ScalesPage() {
             ))}
             <div className="flex items-center gap-3 pt-1">
               <AiGenerationMeter value={2} compact />
-              <span className="font-mono text-[10px] text-muted-foreground">
+              <span className="font-mono text-meta text-muted-foreground">
                 compact
               </span>
             </div>
@@ -79,7 +79,7 @@ export default function ScalesPage() {
           <Note>
             Reach for this to show provenance in a list row or a header without
             inviting interaction. Read-only by design: a single{" "}
-            <code className="font-mono text-[11px] text-foreground">
+            <code className="font-mono text-[0.875em] text-foreground">
               role=&quot;img&quot;
             </code>{" "}
             element with no focusable children, so fifty rows do not become
@@ -99,7 +99,7 @@ export default function ScalesPage() {
           <Note>
             Reach for this in a table cell or a queue row where even the meter is
             too much furniture. Static by default; given an{" "}
-            <code className="font-mono text-[11px] text-foreground">
+            <code className="font-mono text-[0.875em] text-foreground">
               onChange
             </code>{" "}
             it grows ‹ › steppers with real 24px targets that go inert at the

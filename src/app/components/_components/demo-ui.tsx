@@ -19,7 +19,7 @@ export function LibraryBreadcrumb({ group }: { group?: string }) {
   return (
     <nav
       aria-label="Breadcrumb"
-      className="flex flex-wrap items-center gap-2 font-mono text-[13px] text-muted-foreground"
+      className="flex flex-wrap items-center gap-2 font-mono text-small text-muted-foreground"
     >
       <Link href="/projects" className="transition-colors hover:text-foreground">
         Toolkits
@@ -65,10 +65,10 @@ export function LibraryHeader({
   return (
     <header className="pt-4 pb-14">
       <LibraryBreadcrumb group={group} />
-      <h1 className="mt-6 text-3xl font-light tracking-tight text-foreground md:text-4xl">
+      <h1 className="mt-6 text-title-1 font-light text-foreground">
         {title}
       </h1>
-      <p className="mt-6 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+      <p className="mt-6 max-w-2xl text-lede text-muted-foreground">
         {lede}
       </p>
       {meta ? <p className="label mt-6">{meta}</p> : null}
@@ -107,7 +107,7 @@ export function DemoSection({
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
         <h2
           id={`${id}-title`}
-          className="text-xl font-light tracking-tight text-foreground"
+          className="text-title-2 font-light text-foreground"
         >
           {title}
         </h2>
@@ -115,7 +115,7 @@ export function DemoSection({
       </div>
 
       {description ? (
-        <p className="mt-3 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+        <p className="mt-3 max-w-2xl text-body text-muted-foreground">
           {description}
         </p>
       ) : null}
@@ -148,7 +148,7 @@ export function Specimen({
   return (
     <figure
       className={cn(
-        "flex min-w-0 flex-col gap-4 rounded-2xl border border-border/40 bg-card/40 p-5",
+        "card flex min-w-0 flex-col gap-4 p-5",
         className,
       )}
     >
@@ -159,7 +159,7 @@ export function Specimen({
       <figcaption className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-border/40 pb-3">
         <span className="label min-w-0 truncate">{label}</span>
         {hint ? (
-          <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-[10px] text-muted-foreground/70">
+          <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-meta text-muted-foreground">
             {hint}
           </span>
         ) : null}

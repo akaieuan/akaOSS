@@ -15,7 +15,7 @@ export async function LatestFinding() {
   if (!latest) return null;
 
   return (
-    <section className="pt-8 pb-24">
+    <section className="settle pt-8 pb-24">
       <span className="label block">
         {latest.kind === "essay" ? "Latest from the lab" : "Latest finding"}
       </span>
@@ -23,15 +23,15 @@ export async function LatestFinding() {
         href={`/research/${latest.slug}`}
         className="group mt-5 block max-w-3xl"
       >
-        <h2 className="text-lg font-medium tracking-tight text-foreground underline-offset-4 group-hover:underline md:text-xl">
+        <h2 className="text-title-2 font-medium text-foreground underline-offset-4 group-hover:underline">
           {latest.title}
         </h2>
-        <p className="mt-2 font-mono text-[13px] text-muted-foreground">
+        <p className="mt-2 font-mono text-small text-muted-foreground">
           {`№ ${latest.numberLabel}`}
-          <span className="mx-2 text-muted-foreground/50">·</span>
+          <span className="mx-2 text-muted-foreground/40">·</span>
           <span className="text-[color:var(--accent-amber)]">{latest.date}</span>
         </p>
-        <p className="mt-3 text-sm leading-relaxed text-muted-foreground md:text-[15px]">
+        <p className="mt-3 text-body text-muted-foreground">
           {latest.summary}
         </p>
       </Link>

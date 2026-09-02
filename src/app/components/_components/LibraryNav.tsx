@@ -60,7 +60,7 @@ export function LibraryNav({ variant }: { variant: "rail" | "bar" }) {
               : "text-muted-foreground hover:text-foreground",
           )}
         >
-          <span className="font-mono text-[9px] text-muted-foreground/70">
+          <span className="font-mono text-meta text-muted-foreground">
             {i === 0 ? "··" : String(i).padStart(2, "0")}
           </span>
           {item.title}

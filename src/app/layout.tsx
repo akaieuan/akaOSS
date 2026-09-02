@@ -8,6 +8,9 @@ const sans = Inter({
   variable: "--font-sans",
   subsets: ["latin"],
   display: "swap",
+  // Optical sizing (opsz 14–32): the two largest type steps render in the
+  // Display cut with no second font. See the type scale in globals.css.
+  axes: ["opsz"],
 });
 
 const mono = JetBrains_Mono({

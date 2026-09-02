@@ -57,7 +57,7 @@ export default async function ProjectPage({
               Projects
             </Link>
             <span className="h-1 w-1 rounded-full bg-muted-foreground/40" />
-            <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 font-mono text-[11px] text-muted-foreground">
+            <span className="inline-flex items-center gap-2 rounded-full border border-border px-3 py-1 font-mono text-meta text-muted-foreground">
               <span
                 className="h-1.5 w-1.5 rounded-full"
                 style={{ background: accent }}
@@ -78,25 +78,25 @@ export default async function ProjectPage({
                 once
               />
             </span>
-            <h1 className="max-w-2xl text-2xl leading-snug font-light tracking-tight text-foreground md:text-3xl">
+            <h1 className="max-w-2xl text-title-1 font-light text-foreground">
               {project.oneLiner}
             </h1>
           </div>
 
-          <p className="mt-6 max-w-2xl font-mono text-[11px] leading-relaxed text-muted-foreground">
+          <p className="mt-6 max-w-2xl font-mono text-meta text-muted-foreground">
             {project.status}
           </p>
         </section>
 
         {/* Install */}
-        <section className="pb-16">
+        <section className="settle pb-16">
           <p className="label mb-5">Install</p>
           <div className="flex max-w-2xl flex-col gap-4">
             {project.install.map((step) => (
               <div key={step.command} className="flex flex-col gap-2">
                 <span className="label">{step.label}</span>
                 <div className="flex items-center gap-2 rounded-xl border border-border/40 bg-card/40 px-3 py-2.5">
-                  <pre className="flex-1 overflow-x-auto font-mono text-[11.5px] text-foreground">
+                  <pre className="flex-1 overflow-x-auto font-mono text-xs text-foreground">
                     <span className="text-muted-foreground">$</span>{" "}
                     {step.command}
                   </pre>
@@ -108,13 +108,13 @@ export default async function ProjectPage({
         </section>
 
         {/* Why it exists */}
-        <section className="pb-16">
-          <h2 className="mb-6 text-2xl font-light tracking-tight text-foreground">
+        <section className="settle pb-16">
+          <h2 className="mb-6 text-title-2 font-light text-foreground">
             Why it exists.
           </h2>
           <div className="flex max-w-2xl flex-col gap-5">
             {project.why.map((para, i) => (
-              <p key={i} className="leading-relaxed text-muted-foreground">
+              <p key={i} className="text-lede text-muted-foreground">
                 {para}
               </p>
             ))}
@@ -126,7 +126,7 @@ export default async function ProjectPage({
         {project.screenshots && project.screenshots.length > 0 && (
           <section className="pb-16">
             <div className="mb-6 flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-              <h2 className="text-xl font-light tracking-tight text-foreground">
+              <h2 className="text-title-2 font-light text-foreground">
                 The instrument.
               </h2>
               <span className="label">{project.screenshots.length} views</span>
@@ -144,7 +144,7 @@ export default async function ProjectPage({
                       className="block h-auto w-full"
                     />
                   </div>
-                  <figcaption className="mt-3 max-w-2xl text-[13px] leading-relaxed text-muted-foreground">
+                  <figcaption className="mt-3 max-w-2xl text-small text-muted-foreground">
                     {shot.caption}
                   </figcaption>
                 </figure>
@@ -158,18 +158,18 @@ export default async function ProjectPage({
           <section className="pb-16">
             <div className="flex flex-col gap-12">
               {project.deepDive.map((section, i) => (
-                <div key={section.heading}>
+                <div key={section.heading} className="settle">
                   <p className="label mb-3">
                     {String(i + 1).padStart(2, "0")}
                   </p>
-                  <h3 className="mb-5 text-xl font-light tracking-tight text-foreground">
+                  <h3 className="mb-5 text-title-2 font-light text-foreground">
                     {section.heading}
                   </h3>
                   <div className="flex max-w-2xl flex-col gap-4">
                     {section.paragraphs.map((para, j) => (
                       <p
                         key={j}
-                        className="text-[15px] leading-relaxed text-muted-foreground"
+                        className="text-body text-muted-foreground"
                       >
                         {para}
                       </p>
@@ -184,7 +184,7 @@ export default async function ProjectPage({
         {/* Features */}
         <section className="pb-16">
           <div className="mb-6 flex items-baseline justify-between">
-            <h2 className="text-2xl font-light tracking-tight text-foreground">
+            <h2 className="text-title-2 font-light text-foreground">
               Signature features.
             </h2>
             <span className="label">{project.features.length} features</span>
@@ -193,12 +193,12 @@ export default async function ProjectPage({
             {project.features.map((feature) => (
               <div
                 key={feature.title}
-                className="group relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-border/40 bg-card/40 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card"
+                className="group relative flex flex-col gap-2 overflow-hidden card card-link settle p-5"
               >
-                <h3 className="text-lg font-light tracking-tight text-foreground">
+                <h3 className="text-title-3 font-light text-foreground">
                   {feature.title}
                 </h3>
-                <p className="text-[13px] leading-relaxed text-muted-foreground">
+                <p className="text-small text-muted-foreground">
                   {feature.body}
                 </p>
               </div>
@@ -210,7 +210,7 @@ export default async function ProjectPage({
         {project.slug === "hitl-kit" && (
           <section className="pb-16">
             <div className="mb-6 flex items-baseline justify-between">
-              <h2 className="text-2xl font-light tracking-tight text-foreground">
+              <h2 className="text-title-2 font-light text-foreground">
                 The component library.
               </h2>
               <span className="label">
@@ -218,7 +218,7 @@ export default async function ProjectPage({
                 primitives · shadcn registry
               </span>
             </div>
-            <p className="mb-8 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            <p className="mb-8 max-w-2xl text-body text-muted-foreground">
               Every primitive is the physical embodiment of a claim from the
               paper, and each installs individually via the shadcn CLI: copy,
               paste, own. Names below are their registry identifiers.
@@ -230,15 +230,15 @@ export default async function ProjectPage({
                   <Link
                     key={item.name}
                     href="/components"
-                    className="group flex flex-col gap-2 rounded-2xl border border-border/40 bg-card/40 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card"
+                    className="group flex flex-col gap-2 card card-link settle p-5"
                   >
-                    <h3 className="text-base font-light tracking-tight text-foreground">
+                    <h3 className="text-title-3 font-light text-foreground">
                       {item.title}
                     </h3>
-                    <p className="text-[13px] leading-relaxed text-muted-foreground">
+                    <p className="text-small text-muted-foreground">
                       {item.description}
                     </p>
-                    <span className="mt-auto pt-2 font-mono text-[10px] text-muted-foreground/70">
+                    <span className="mt-auto pt-2 font-mono text-meta text-muted-foreground">
                       {item.name}
                     </span>
                   </Link>
@@ -249,30 +249,30 @@ export default async function ProjectPage({
             <div className="mt-8 grid grid-cols-1 gap-3 sm:grid-cols-2">
               <Link
                 href="/components"
-                className="group rounded-2xl border border-border/40 bg-card/40 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card"
+                className="group card card-link settle p-6"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-light tracking-tight text-foreground">
+                  <h3 className="text-title-3 font-light text-foreground">
                     Live component gallery
                   </h3>
                   <ArrowUpRight className="size-4 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-body text-muted-foreground">
                   Every primitive rendered live and interactive: states,
                   variants, and seed data you can click through.
                 </p>
               </Link>
               <Link
                 href="/registry"
-                className="group rounded-2xl border border-border/40 bg-card/40 p-6 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card"
+                className="group card card-link settle p-6"
               >
                 <div className="flex items-center justify-between">
-                  <h3 className="text-lg font-light tracking-tight text-foreground">
+                  <h3 className="text-title-3 font-light text-foreground">
                     Registry &amp; install
                   </h3>
                   <ArrowUpRight className="size-4 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
                 </div>
-                <p className="mt-2 text-sm leading-relaxed text-muted-foreground">
+                <p className="mt-2 text-body text-muted-foreground">
                   Copy-paste install commands for each primitive, plus the
                   accent-token setup your globals.css needs first.
                 </p>
@@ -283,9 +283,9 @@ export default async function ProjectPage({
 
         {/* Packages, hidden when the project ships nothing on npm */}
         {hasPackages && (
-          <section className="pb-16">
+          <section className="settle pb-16">
             <div className="mb-6 flex items-baseline justify-between">
-              <h2 className="text-2xl font-light tracking-tight text-foreground">
+              <h2 className="text-title-2 font-light text-foreground">
                 Packages.
               </h2>
               <span className="label">
@@ -307,7 +307,7 @@ export default async function ProjectPage({
                       {project.pypi}
                     </span>
                     {pypiVersion(project.pypi) && (
-                      <span className="font-mono text-[11px] text-muted-foreground/70">
+                      <span className="font-mono text-meta text-muted-foreground">
                         {pypiVersion(project.pypi)}
                       </span>
                     )}
@@ -331,7 +331,7 @@ export default async function ProjectPage({
                       {pkg}
                     </span>
                     {npmVersion(pkg) && (
-                      <span className="font-mono text-[11px] text-muted-foreground/70">
+                      <span className="font-mono text-meta text-muted-foreground">
                         {npmVersion(pkg)}
                       </span>
                     )}
@@ -347,13 +347,13 @@ export default async function ProjectPage({
         )}
 
         {/* Deep dives (hitl-kit) + repo */}
-        <section className="pb-16">
+        <section className="settle pb-16">
           <div className="grid gap-12 md:grid-cols-[1fr_1.2fr] md:gap-20">
             <div>
-              <h2 className="text-2xl font-light tracking-tight text-foreground">
+              <h2 className="text-title-2 font-light text-foreground">
                 Explore further.
               </h2>
-              <p className="mt-4 max-w-md text-sm leading-relaxed text-muted-foreground">
+              <p className="mt-4 max-w-md text-body text-muted-foreground">
                 The source lives on GitHub. Copy, paste, own. No fork, no
                 vendor lock-in.
               </p>
@@ -367,7 +367,7 @@ export default async function ProjectPage({
                     href={link.href}
                     className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
                   >
-                    <span className="text-lg font-light tracking-tight text-foreground">
+                    <span className="text-title-3 font-light text-foreground">
                       {link.label}
                     </span>
                     <ArrowUpRight className="size-4 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
@@ -379,7 +379,7 @@ export default async function ProjectPage({
                 rel="noreferrer"
                 className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
               >
-                <span className="text-lg font-light tracking-tight text-foreground">
+                <span className="text-title-3 font-light text-foreground">
                   Repository
                 </span>
                 <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1.5 text-xs transition-colors">
@@ -409,7 +409,7 @@ export default async function ProjectPage({
               <Link
                 key={sibling.slug}
                 href={`/projects/${sibling.slug}`}
-                className="group relative flex flex-col gap-2 overflow-hidden rounded-2xl border border-border/40 bg-card/40 p-5 transition-all duration-200 hover:-translate-y-0.5 hover:bg-card"
+                className="group relative flex flex-col gap-2 overflow-hidden card card-link settle p-5"
               >
                 <div className="flex items-center justify-between">
                   <div className="flex items-center gap-2">
@@ -423,7 +423,7 @@ export default async function ProjectPage({
                   </div>
                   <ArrowUpRight className="size-4 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
                 </div>
-                <p className="text-[13px] leading-relaxed text-muted-foreground">
+                <p className="text-small text-muted-foreground">
                   {sibling.oneLiner}
                 </p>
               </Link>

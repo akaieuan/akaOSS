@@ -54,7 +54,7 @@ export function PaperTOC() {
   return (
     <aside className="sticky top-20 hidden h-[calc(100vh-6rem)] w-60 shrink-0 overflow-y-auto lg:block">
       <p className="label mb-4">On this page</p>
-      <nav className="flex flex-col gap-0.5 text-[11px]">
+      <nav className="flex flex-col gap-0.5 text-xs">
         {PAPER_TOC.map((item) => (
           <a
             key={item.id}
@@ -63,7 +63,7 @@ export function PaperTOC() {
               "rounded-md py-1 leading-snug transition-colors",
               item.depth === 1 && "font-semibold",
               item.depth === 2 && "pl-2",
-              item.depth === 3 && "pl-5 text-[10.5px]",
+              item.depth === 3 && "pl-5 text-meta",
               active === item.id
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground",

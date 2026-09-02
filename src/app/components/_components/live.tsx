@@ -64,7 +64,7 @@ export function BadgeSpecimen() {
   return (
     <div className="flex flex-wrap items-center gap-3">
       <AiGenerationBadge value={value} onChange={setValue} />
-      <span className="font-mono text-[10px] text-muted-foreground">
+      <span className="font-mono text-meta text-muted-foreground">
         interactive
       </span>
     </div>
@@ -140,7 +140,7 @@ export function ApprovalSpecimens() {
             <span className="min-w-0 truncate text-xs text-foreground">
               {item.label}
             </span>
-            <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-[10px] text-muted-foreground">
+            <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-meta text-muted-foreground">
               {item.meta}
             </span>
           </div>
@@ -220,7 +220,7 @@ export function ContextStripSpecimen() {
       <button
         type="button"
         onClick={() => setItems(CONTEXT_SEEDS)}
-        className="rounded text-[10px] text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-ring"
+        className="rounded text-meta text-muted-foreground underline underline-offset-2 transition-colors hover:text-foreground"
       >
         reset
       </button>
