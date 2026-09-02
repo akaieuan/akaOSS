@@ -2,8 +2,8 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/site";
-import { PixelHead, type PixelIcon } from "@/components/site/PixelHead";
-import { ThemeToggle } from "@/components/site/ThemeToggle";
+import { PixelHead, type PixelIcon } from "@/components/brand/pixel-head";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 
 export type NavActive =
   | "projects"

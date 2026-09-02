@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 
-import { PixelHead, type PixelIcon } from "@/components/site/PixelHead";
+import { PixelHead, type PixelIcon } from "@/components/brand/pixel-head";
 import {
   DemoHeader,
   DemoPager,
@@ -23,7 +23,7 @@ export const metadata: Metadata = {
  * The analytic knockouts, in source order. These are functions in normalized
  * -1..1 space; the disc is drawn and the shape is punched out of it.
  * Names are the literal `icon` values, read from `KNOCKOUTS` in
- * `components/site/PixelHead.tsx`, not invented.
+ * `components/brand/pixel-head.tsx`, not invented.
  */
 const KNOCKOUTS: { id: PixelIcon; shape: string; use: string }[] = [
   {

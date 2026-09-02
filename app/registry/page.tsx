@@ -1,11 +1,11 @@
 "use client";
 
-import { useState } from "react";
 import Link from "next/link";
-import { Check, Copy, ArrowUpRight } from "lucide-react";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
+import { ArrowUpRight } from "lucide-react";
+import { Nav } from "@/components/ui/nav";
+import { Footer } from "@/components/ui/footer";
 import { REGISTRY_ITEMS, REGISTRY_BASE_URL } from "@/lib/registry-items";
+import { CopyButton } from "@/components/ui/copy-button";
 
 const TOKENS = `:root {
   --accent-violet:  #a78bfa;
@@ -14,25 +14,6 @@ const TOKENS = `:root {
   --accent-rose:    #fb7185;
   --accent-blue:    #007AFF;
 }`;
-
-function CopyButton({ text }: { text: string }) {
-  const [copied, setCopied] = useState(false);
-  return (
-    <button
-      onClick={async () => {
-        try {
-          await navigator.clipboard.writeText(text);
-          setCopied(true);
-          setTimeout(() => setCopied(false), 1500);
-        } catch {}
-      }}
-      className="flex h-7 w-7 shrink-0 items-center justify-center rounded-md text-muted-foreground transition-colors hover:bg-muted hover:text-foreground"
-      aria-label="Copy install command"
-    >
-      {copied ? <Check className="h-3.5 w-3.5 text-[color:var(--accent-emerald)]" /> : <Copy className="h-3.5 w-3.5" />}
-    </button>
-  );
-}
 
 function InstallRow({ name, title, description, type, registryDependencies }: (typeof REGISTRY_ITEMS)[number]) {
   const url = `${REGISTRY_BASE_URL}/${name}.json`;

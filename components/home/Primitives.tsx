@@ -6,7 +6,7 @@ import { SubagentStatusCard } from "@/components/hitl/SubagentStatusCard";
 import { AI_GENERATION_LEVELS } from "@/components/hitl/ai-generation-levels";
 import { REGISTRY_ITEMS } from "@/lib/registry-items";
 import { SliderSpecimen } from "@/app/components/_components/live";
-import { SectionHead } from "./SectionHead";
+import { SectionHead } from "@/components/ui/section-head";
 
 const COUNT = REGISTRY_ITEMS.filter((i) => i.type === "registry:ui").length;
 

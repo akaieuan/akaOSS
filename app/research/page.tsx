@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import Link from "next/link";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
+import { Nav } from "@/components/ui/nav";
+import { Footer } from "@/components/ui/footer";
 import { getResearchPosts, formatDate } from "@/lib/research";
 import { ChipRow } from "@/components/features/research/post-chips";
 

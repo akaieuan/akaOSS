@@ -1,5 +1,5 @@
 import { PARADIGM, THESIS } from "@/lib/site";
-import { SectionHead } from "./SectionHead";
+import { SectionHead } from "@/components/ui/section-head";
 
 export function Thesis() {
   return (

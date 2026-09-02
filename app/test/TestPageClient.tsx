@@ -2,8 +2,8 @@
 
 import { useState, useEffect, useCallback, useSyncExternalStore } from "react";
 import { Check, X, Loader2, Copy, RotateCw, AlertTriangle } from "lucide-react";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
+import { Nav } from "@/components/ui/nav";
+import { Footer } from "@/components/ui/footer";
 import { cn } from "@/lib/utils";
 import { REGISTRY_ITEMS, type RegistryItem } from "@/lib/registry-items";
 

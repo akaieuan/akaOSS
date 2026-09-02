@@ -2,9 +2,9 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 
-import { Hairline } from "@/components/site/Hairline";
-import { AssistNotComplete } from "@/components/site/AssistNotComplete";
-import { ThemeToggle } from "@/components/site/ThemeToggle";
+import { Hairline } from "@/components/ui/hairline";
+import { AssistNotComplete } from "@/components/ui/assist-not-complete";
+import { ThemeToggle } from "@/components/ui/theme-toggle";
 import { arrowLink, arrowNudge, primaryCta, reveal, stagger } from "@/components/home/shared";
 
 import {
@@ -97,7 +97,7 @@ export default function PrimitivesDemo() {
               /components
             </Link>
             . These are the handful of site-level helpers under{" "}
-            <Mono>components/site/</Mono>, plus the class idioms in{" "}
+            <Mono>components/ui/</Mono>, plus the class idioms in{" "}
             <Mono>globals.css</Mono> and{" "}
             <Mono>components/home/shared.ts</Mono> that do the rest of the
             work. Small surface on purpose: most of the page furniture is one
@@ -111,7 +111,7 @@ export default function PrimitivesDemo() {
       <DemoSection
         id="hairline"
         title="Hairline"
-        meta="components/site/Hairline.tsx"
+        meta="components/ui/hairline.tsx"
         description={
           <>
             A horizontal rule that fades out at both ends instead of butting
@@ -144,7 +144,7 @@ export default function PrimitivesDemo() {
       <DemoSection
         id="assist-not-complete"
         title="AssistNotComplete"
-        meta="components/site/AssistNotComplete.tsx"
+        meta="components/ui/assist-not-complete.tsx"
         description={
           <>
             The canonical mention of the thesis. It exists so the phrase is
@@ -180,7 +180,7 @@ export default function PrimitivesDemo() {
       <DemoSection
         id="theme-toggle"
         title="ThemeToggle"
-        meta="components/site/ThemeToggle.tsx"
+        meta="components/ui/theme-toggle.tsx"
         description={
           <>
             The one interactive control in the chrome. It renders the icon for

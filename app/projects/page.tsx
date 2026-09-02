@@ -1,8 +1,8 @@
 import type { Metadata } from "next";
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
+import { Nav } from "@/components/ui/nav";
+import { Footer } from "@/components/ui/footer";
 import { PROJECTS, ACCENT_COLORS, type ProjectGroup } from "@/lib/projects";
 
 export const metadata: Metadata = {

@@ -2,13 +2,13 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { ArrowUpRight } from "lucide-react";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
+import { Nav } from "@/components/ui/nav";
+import { Footer } from "@/components/ui/footer";
 import { PROJECTS, getProject, ACCENT_COLORS, PROJECT_BADGES } from "@/lib/projects";
-import { PixelHead } from "@/components/site/PixelHead";
+import { PixelHead } from "@/components/brand/pixel-head";
 import { REGISTRY_ITEMS } from "@/lib/registry-items";
 import { npmVersion, pypiVersion } from "@/lib/facts";
-import { CopyButton } from "../copy-button";
+import { CopyButton } from "@/components/ui/copy-button";
 
 export function generateStaticParams() {
   return PROJECTS.map((project) => ({ slug: project.slug }));

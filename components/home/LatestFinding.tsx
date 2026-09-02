@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { getResearchPosts } from "@/lib/research";
-import { SectionHead } from "./SectionHead";
+import { SectionHead } from "@/components/ui/section-head";
 
 /* The landing's research list derives from the feed at build time: the
    newest posts, always. (House rule: every research post updates the

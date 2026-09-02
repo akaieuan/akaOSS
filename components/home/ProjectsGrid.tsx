@@ -1,8 +1,8 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { PROJECTS, type Project } from "@/lib/projects";
-import { ProjectGlyph } from "./ProjectGlyph";
-import { SectionHead } from "./SectionHead";
+import { ProjectGlyph } from "@/components/brand/project-glyph";
+import { SectionHead } from "@/components/ui/section-head";
 
 const GROUP_LABEL: Record<Project["group"], string> = {
   measurement: "Measurement",

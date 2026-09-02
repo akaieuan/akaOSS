@@ -5,9 +5,9 @@ import ReactMarkdown from "react-markdown";
 import remarkGfm from "remark-gfm";
 import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
-import { AssistNotComplete } from "@/components/site/AssistNotComplete";
+import { Nav } from "@/components/ui/nav";
+import { Footer } from "@/components/ui/footer";
+import { AssistNotComplete } from "@/components/ui/assist-not-complete";
 import { PaperTOC } from "./PaperTOC";
 
 export const metadata: Metadata = {

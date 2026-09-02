@@ -1,6 +1,6 @@
 import Link from "next/link";
 import { BRAND } from "@/lib/site";
-import { PixelHead } from "@/components/site/PixelHead";
+import { PixelHead } from "@/components/brand/pixel-head";
 
 const footerLink =
   "text-[12.5px] text-muted-foreground/70 transition-colors hover:text-foreground";

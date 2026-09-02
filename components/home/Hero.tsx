@@ -2,7 +2,7 @@ import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/site";
-import { PixelHead } from "@/components/site/PixelHead";
+import { PixelHead } from "@/components/brand/pixel-head";
 import { reveal, stagger } from "./shared";
 
 const LINKS: { label: string; href: string; external?: boolean }[] = [

@@ -1,5 +1,5 @@
-import { Nav } from "@/components/site/Nav";
-import { Footer } from "@/components/site/Footer";
+import { Nav } from "@/components/ui/nav";
+import { Footer } from "@/components/ui/footer";
 import { Hero } from "@/components/home/Hero";
 import { ProjectsGrid } from "@/components/home/ProjectsGrid";
 import { Primitives } from "@/components/home/Primitives";
