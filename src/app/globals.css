@@ -34,14 +34,16 @@
   --input: oklch(0.15 0 0 / 16%);
   --ring: oklch(0.47 0 0);
 
-  /* Tile tints: the soft coloured surfaces a project or a primitive sits on.
-     Each is the accent at a whisper of chroma, so a row of tiles reads as
-     one family with five identities, never as five coloured boxes. */
-  --tile-violet: oklch(0.93 0.02 295);
-  --tile-amber: oklch(0.94 0.025 80);
-  --tile-blue: oklch(0.93 0.02 259);
-  --tile-green: oklch(0.94 0.02 152);
-  --tile-rose: oklch(0.94 0.02 15);
+  /* The glossy card: a faint top-lit gradient, a hairline edge, a one-pixel
+     highlight along the top, and a soft drop. Colour never lives on the
+     surface; it lives in the icon. */
+  --gloss-top: oklch(1 0 0 / 70%);
+  --gloss-bottom: oklch(0.985 0 0);
+  --gloss-edge: oklch(0.15 0 0 / 10%);
+  --gloss-edge-hover: oklch(0.15 0 0 / 18%);
+  --gloss-highlight: oklch(1 0 0 / 90%);
+  --gloss-shadow: 0 1px 2px oklch(0 0 0 / 6%), 0 24px 48px -32px oklch(0 0 0 / 25%);
+  --gloss-sheen: oklch(1 0 0 / 60%);
 
   /* Accents, punctuation, never fills (see reference ADR 0002). */
   --accent-blue: oklch(0.55 0.19 259);
@@ -86,11 +88,13 @@
   --input: oklch(1 0 0 / 13%);
   --ring: oklch(0.6 0 0);
 
-  --tile-violet: oklch(0.2 0.025 295);
-  --tile-amber: oklch(0.2 0.025 75);
-  --tile-blue: oklch(0.2 0.025 259);
-  --tile-green: oklch(0.2 0.02 152);
-  --tile-rose: oklch(0.2 0.02 15);
+  --gloss-top: oklch(1 0 0 / 7%);
+  --gloss-bottom: oklch(0.13 0 0);
+  --gloss-edge: oklch(1 0 0 / 9%);
+  --gloss-edge-hover: oklch(1 0 0 / 16%);
+  --gloss-highlight: oklch(1 0 0 / 9%);
+  --gloss-shadow: 0 1px 2px oklch(0 0 0 / 50%), 0 28px 56px -32px oklch(0 0 0 / 80%);
+  --gloss-sheen: oklch(1 0 0 / 5%);
 
   --accent-blue: oklch(0.68 0.15 259);
   --accent-green: oklch(0.71 0.11 152);
@@ -135,13 +139,6 @@
   --color-accent-rose: var(--accent-rose);
   --color-accent-violet: var(--accent-violet);
   --color-accent-emerald: var(--accent-emerald);
-
-  /* Tile tints */
-  --color-tile-violet: var(--tile-violet);
-  --color-tile-amber: var(--tile-amber);
-  --color-tile-blue: var(--tile-blue);
-  --color-tile-green: var(--tile-green);
-  --color-tile-rose: var(--tile-rose);
 
   /* Compat surface tokens */
   --color-border-strong: var(--border-strong);
@@ -334,28 +331,35 @@ body {
     transition-duration: 80ms;
   }
 
-  /* ── The tile ──────────────────────────────────────────────────────
-     A soft tinted surface with one thing centred on it: a mark, a live
-     primitive. The name sits under the tile, not inside it, so the tile
-     stays an image. Hover lifts the surface a hair and warms the tint. */
-  .tile {
+  /* ── The glossy card ──────────────────────────────────────────────
+     Black glass: a faint top-lit gradient over the card colour, a sheen in
+     the top-left corner, a hairline edge, a one-pixel highlight along the
+     top, and a soft drop. No colour on the surface, ever; the pixel icon
+     carries it. Hover lifts it two pixels and brightens the edge. */
+  .card-gloss {
     position: relative;
-    display: flex;
-    align-items: center;
-    justify-content: center;
     overflow: hidden;
     border-radius: 18px;
-    background: var(--tile, var(--card));
+    border: 1px solid var(--gloss-edge);
+    background:
+      radial-gradient(120% 70% at 0% 0%, var(--gloss-sheen), transparent 60%),
+      linear-gradient(180deg, var(--gloss-top), transparent 55%),
+      var(--gloss-bottom);
+    box-shadow:
+      inset 0 1px 0 var(--gloss-highlight),
+      var(--gloss-shadow);
     transition:
       transform 220ms var(--ease-out-quart),
-      filter 220ms var(--ease-out-quart);
+      border-color 220ms var(--ease-out-quart);
   }
-  a:hover .tile,
-  a:focus-visible .tile {
+  a.card-gloss:hover,
+  a:hover > .card-gloss,
+  a.card-gloss:focus-visible {
     transform: translateY(-2px);
-    filter: brightness(1.12);
+    border-color: var(--gloss-edge-hover);
   }
-  a:active .tile {
+  a.card-gloss:active,
+  a:active > .card-gloss {
     transform: translateY(0);
     transition-duration: 80ms;
   }
