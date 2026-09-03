@@ -147,7 +147,7 @@ export default async function ResearchPostPage({
     <>
       <Nav active="research" />
 
-      <div className="mx-auto max-w-5xl px-6 md:px-8 pt-10">
+      <div className="mx-auto max-w-site px-6 md:px-8 pt-10">
         {/* Post header */}
         <header>
           <Link

@@ -223,7 +223,7 @@ export function RegistryHealthCheck() {
     <>
       <Nav />
 
-      <main className="mx-auto max-w-5xl px-6 md:px-8 pt-10">
+      <main className="mx-auto max-w-site px-6 md:px-8 pt-10">
         {/* Dev-only banner */}
         <section className="pt-6">
           <div className="flex items-center gap-2 rounded-lg border border-[color:var(--accent-amber)]/30 bg-[color:var(--accent-amber)]/[0.06] px-3 py-2">

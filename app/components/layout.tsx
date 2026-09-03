@@ -20,7 +20,7 @@ export default function ComponentsLayout({
     <>
       <Nav active="components" />
 
-      <div className="mx-auto flex max-w-5xl gap-12 px-6 pt-10 md:px-8">
+      <div className="mx-auto flex max-w-site gap-12 px-6 pt-10 md:px-8">
         {/* Sticky rail on large screens. */}
         <aside className="sticky top-24 hidden h-fit w-56 shrink-0 lg:block">
           <p className="label mb-4">Library</p>

@@ -51,7 +51,7 @@ const linkClass = (isActive: boolean) =>
 export function Nav({ active }: { active?: NavActive }) {
   return (
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/60 backdrop-blur-md">
-      <div className="mx-auto flex h-12 max-w-5xl items-center justify-between gap-3 px-4 sm:gap-4 sm:px-6 md:px-8">
+      <div className="mx-auto flex h-12 max-w-site items-center justify-between gap-3 px-6 sm:gap-4 md:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
           {/* The chrome mark: the human in the loop, held still */}
           <PixelHead size={22} grid={16} gap={0.12} icon="head" still />
