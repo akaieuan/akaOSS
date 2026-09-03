@@ -18,7 +18,7 @@ export default async function ResearchPage() {
     <>
       <Nav active="research" />
 
-      <main className="mx-auto max-w-5xl px-6 md:px-8">
+      <main className="mx-auto max-w-site px-6 md:px-8">
         {/* Header */}
         <section className="pt-20 pb-4">
           <p className="label mb-5">Research</p>

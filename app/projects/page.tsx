@@ -21,7 +21,7 @@ export default function ProjectsIndexPage() {
     <>
       <Nav active="projects" />
 
-      <main className="mx-auto max-w-5xl px-6 md:px-8">
+      <main className="mx-auto max-w-site px-6 md:px-8">
         {/* Hero */}
         <section className="py-20">
           <p className="label mb-5">Open-source studio</p>

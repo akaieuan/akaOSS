@@ -74,7 +74,7 @@ export function InstallGuide() {
     <>
       <Nav active="registry" />
 
-      <main className="mx-auto max-w-5xl px-6 md:px-8">
+      <main className="mx-auto max-w-site px-6 md:px-8">
         {/* Hero */}
         <section className="pt-14 pb-16">
           <nav className="mb-6 flex flex-wrap items-center gap-2 font-mono text-small text-muted-foreground">
