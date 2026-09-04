@@ -1,120 +1,69 @@
 import type { Metadata } from "next";
-import Link from "next/link";
-import { ArrowUpRight } from "lucide-react";
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
-import { PROJECTS, ACCENT_COLORS, type ProjectGroup } from "@/lib/projects";
+import { ProjectCard } from "@/components/ui/project-card";
+import { PROJECTS, type ProjectGroup } from "@/lib/projects";
+import { ProjectSection } from "@/components/features/projects/project-section";
 
 export const metadata: Metadata = {
-  title: "Projects, akaOSS",
+  title: "Projects · akaOSS",
   description:
     "Five open-source projects. A human-in-the-loop measurement family and a pair of developer tools. Each ships independently.",
 };
 
-const GROUPS: { key: ProjectGroup; label: string }[] = [
-  { key: "measurement", label: "Human-in-the-loop measurement" },
-  { key: "tooling", label: "Developer tooling" },
+const GROUPS: { key: ProjectGroup; title: string; lede: string }[] = [
+  {
+    key: "measurement",
+    title: "Human-in-the-loop measurement",
+    lede: "Three projects, one loop: HITL Kit renders the gate, eval-kit measures it, tag-kit calibrates the humans doing the measuring.",
+  },
+  {
+    key: "tooling",
+    title: "Developer tooling",
+    lede: "Separate work, same standards. These serve the building of software, not the measurement thesis.",
+  },
 ];
 
 export default function ProjectsIndexPage() {
+  const measurement = PROJECTS.filter((p) => p.group === "measurement").length;
+  const tooling = PROJECTS.length - measurement;
   return (
     <>
       <Nav active="projects" />
-
       <main className="mx-auto max-w-site px-6 md:px-8">
-        {/* Hero */}
-        <section className="py-20">
-          <p className="label mb-5">Open-source studio</p>
-          <h1 className="max-w-2xl text-display font-light text-foreground">
+        <header className="pt-16 pb-12">
+          <h1 className="text-[22px] font-light leading-snug tracking-tight text-foreground sm:text-[24px]">
             Five projects. One studio.
           </h1>
-          <p className="mt-6 max-w-md text-lede text-muted-foreground">
-            A human-in-the-loop measurement family and a pair of developer
-            tools. Each ships independently.
+          <p className="mt-3 max-w-2xl text-[13.5px] font-light leading-relaxed text-muted-foreground/80">
+            A human-in-the-loop measurement family and a pair of developer tools. Each ships independently, and
+            each repo carries its own verification story.
           </p>
-        </section>
+          <p className="mt-3 text-[12.5px] text-muted-foreground/60">
+            {PROJECTS.length} projects · {measurement} measurement · {tooling} tooling
+          </p>
+        </header>
 
-        {/* Grouped project lists */}
-        {GROUPS.map((group) => {
+        {GROUPS.map((group, i) => {
           const items = PROJECTS.filter((p) => p.group === group.key);
           if (items.length === 0) return null;
           return (
-            <section key={group.key} className="pb-16">
-              <div className="mb-6 flex items-center gap-4">
-                <span className="label">{group.label}</span>
-                <span
-                  aria-hidden
-                  className="h-px flex-1"
-                  style={{
-                    background:
-                      "linear-gradient(90deg, var(--border) 0%, var(--border) 86%, transparent 100%)",
-                  }}
-                />
-                <span className="label">{items.length}</span>
-              </div>
-
-              <div className="grid grid-cols-1 gap-3 lg:grid-cols-3">
-                {items.map((project) => {
-                  const accent = ACCENT_COLORS[project.accent];
-                  return (
-                    <Link
-                      key={project.slug}
-                      href={`/projects/${project.slug}`}
-                      className="group relative flex flex-col overflow-hidden card card-link settle p-5"
-                    >
-                      <div className="mb-4 flex items-center gap-2">
-                        <span
-                          className="h-1.5 w-1.5 rounded-full"
-                          style={{ background: accent }}
-                        />
-                        <span className="font-mono text-sm tracking-tight text-foreground">
-                          {project.name}
-                        </span>
-                      </div>
-
-                      <p className="mb-2.5 text-title-3 font-light text-foreground">
-                        {project.oneLiner}
-                      </p>
-
-                      <p className="mb-5 flex-1 text-small text-muted-foreground">
-                        {project.why[1] ?? project.why[0]}
-                      </p>
-
-                      {project.packages.length > 0 && (
-                        <div className="mb-5 flex flex-wrap gap-1.5">
-                          {project.packages.slice(0, 3).map((pkg) => (
-                            <span
-                              key={pkg}
-                              className="rounded-full border border-border px-3 py-1 font-mono text-meta text-muted-foreground"
-                            >
-                              {pkg}
-                            </span>
-                          ))}
-                          {project.packages.length > 3 && (
-                            <span className="rounded-full border border-border px-3 py-1 font-mono text-meta text-muted-foreground">
-                              +{project.packages.length - 3}
-                            </span>
-                          )}
-                        </div>
-                      )}
-
-                      <div className="mt-auto flex items-center justify-between gap-4 border-t border-border/60 pt-4">
-                        <code className="min-w-0 truncate font-mono text-meta text-muted-foreground">
-                          {project.install[0].command}
-                        </code>
-                        <ArrowUpRight className="size-3.5 shrink-0 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
-                      </div>
-                    </Link>
-                  );
-                })}
-              </div>
-            </section>
+            <ProjectSection
+              key={group.key}
+              title={group.title}
+              meta={`${items.length} projects`}
+              className={i === GROUPS.length - 1 ? "pb-24" : undefined}
+            >
+              <p className="max-w-2xl text-[13.5px] font-light leading-relaxed text-muted-foreground/80">{group.lede}</p>
+              <ul className="m-0 mt-6 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
+                {items.map((p) => (
+                  <ProjectCard key={p.slug} p={p} />
+                ))}
+              </ul>
+            </ProjectSection>
           );
         })}
-
-        <div className="pb-8" />
       </main>
-
       <Footer />
     </>
   );
