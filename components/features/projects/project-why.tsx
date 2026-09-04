@@ -1,18 +1,17 @@
 import type { Project } from "@/lib/projects";
+import { ProjectSection } from "./project-section";
+import { prose } from "./shared";
 
 export function ProjectWhy({ project }: { project: Project }) {
   return (
-    <section className="settle pb-16">
-      <h2 className="mb-6 text-title-2 font-light text-foreground">
-        Why it exists.
-      </h2>
-      <div className="flex max-w-2xl flex-col gap-5">
+    <ProjectSection title="Why it exists">
+      <div className="flex max-w-2xl flex-col gap-4">
         {project.why.map((para, i) => (
-          <p key={i} className="text-lede text-muted-foreground">
+          <p key={i} className={prose}>
             {para}
           </p>
         ))}
       </div>
-    </section>
+    </ProjectSection>
   );
 }

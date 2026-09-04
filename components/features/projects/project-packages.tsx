@@ -1,71 +1,49 @@
 import { ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import { npmVersion, pypiVersion } from "@/lib/facts";
 import type { Project } from "@/lib/projects";
+import { ProjectSection } from "./project-section";
+import { quiet, quietLink, row, rowArrow, rowName } from "./shared";
 
-/** Hidden when the project ships nothing on npm or PyPI. */
+function PackageRow({ name, version, href, host }: { name: string; version: string | null; href: string; host: string }) {
+  return (
+    <a href={href} target="_blank" rel="noreferrer" className={row}>
+      <span className="flex min-w-0 items-baseline gap-2.5">
+        <span className={rowName}>{name}</span>
+        {version ? <span className={cn("shrink-0", quiet)}>{version}</span> : null}
+      </span>
+      <span className={cn("inline-flex shrink-0 items-center gap-1", quiet, quietLink)}>
+        {host}
+        <ArrowUpRight aria-hidden className={rowArrow} />
+      </span>
+    </a>
+  );
+}
+
+/** Hidden when the project ships nothing on npm or PyPI. Versions come from facts.json, never typed here. */
 export function ProjectPackages({ project }: { project: Project }) {
   if (project.packages.length === 0 && !project.pypi) return null;
   return (
-    <section className="settle pb-16">
-      <div className="mb-6 flex items-baseline justify-between">
-        <h2 className="text-title-2 font-light text-foreground">
-          Packages.
-        </h2>
-        <span className="label">
-          {project.pypi
-            ? "on PyPI"
-            : `${project.packages.length} on npm`}
-        </span>
-      </div>
-      <div className="flex flex-col">
-        {project.pypi && (
-          <a
+    <ProjectSection title="Packages" meta={project.pypi ? "on PyPI" : `${project.packages.length} on npm`}>
+      <div className="flex flex-col border-b border-border/50">
+        {project.pypi ? (
+          <PackageRow
+            name={project.pypi}
+            version={pypiVersion(project.pypi)}
             href={`https://pypi.org/project/${project.pypi}/`}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
-          >
-            <span className="flex items-baseline gap-2.5">
-              <span className="font-mono text-sm text-foreground">
-                {project.pypi}
-              </span>
-              {pypiVersion(project.pypi) && (
-                <span className="font-mono text-meta text-muted-foreground">
-                  {pypiVersion(project.pypi)}
-                </span>
-              )}
-            </span>
-            <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1.5 text-xs transition-colors">
-              pypi.org
-              <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </span>
-          </a>
-        )}
+            host="pypi.org"
+          />
+        ) : null}
         {project.packages.map((pkg) => (
-          <a
+          <PackageRow
             key={pkg}
+            name={pkg}
+            version={npmVersion(pkg)}
             href={`https://www.npmjs.com/package/${pkg}`}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
-          >
-            <span className="flex items-baseline gap-2.5">
-              <span className="font-mono text-sm text-foreground">
-                {pkg}
-              </span>
-              {npmVersion(pkg) && (
-                <span className="font-mono text-meta text-muted-foreground">
-                  {npmVersion(pkg)}
-                </span>
-              )}
-            </span>
-            <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1.5 text-xs transition-colors">
-              npmjs.com
-              <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </span>
-          </a>
+            host="npmjs.com"
+          />
         ))}
       </div>
-    </section>
+    </ProjectSection>
   );
 }

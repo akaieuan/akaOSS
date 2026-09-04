@@ -1,29 +1,17 @@
 import type { Project } from "@/lib/projects";
+import { ProjectSection } from "./project-section";
 
 export function ProjectFeatures({ project }: { project: Project }) {
   return (
-    <section className="pb-16">
-      <div className="mb-6 flex items-baseline justify-between">
-        <h2 className="text-title-2 font-light text-foreground">
-          Signature features.
-        </h2>
-        <span className="label">{project.features.length} features</span>
-      </div>
-      <div className="grid grid-cols-1 gap-3 sm:grid-cols-2 lg:grid-cols-3">
+    <ProjectSection title="Signature features" meta={`${project.features.length} features`}>
+      <ul className="m-0 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
         {project.features.map((feature) => (
-          <div
-            key={feature.title}
-            className="group relative flex flex-col gap-2 overflow-hidden card card-link settle p-5"
-          >
-            <h3 className="text-title-3 font-light text-foreground">
-              {feature.title}
-            </h3>
-            <p className="text-small text-muted-foreground">
-              {feature.body}
-            </p>
-          </div>
+          <li key={feature.title} className="card-gloss settle flex flex-col p-6">
+            <h3 className="text-[15px] font-medium leading-snug tracking-tight text-foreground">{feature.title}</h3>
+            <p className="mt-1.5 text-[12.5px] font-light leading-relaxed text-muted-foreground/70">{feature.body}</p>
+          </li>
         ))}
-      </div>
-    </section>
+      </ul>
+    </ProjectSection>
   );
 }

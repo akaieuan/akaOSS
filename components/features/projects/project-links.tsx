@@ -1,53 +1,30 @@
 import Link from "next/link";
 import { ArrowUpRight } from "lucide-react";
+import { cn } from "@/lib/utils";
 import type { Project } from "@/lib/projects";
+import { ProjectSection } from "./project-section";
+import { prose, quiet, quietLink, row, rowArrow, rowName } from "./shared";
 
 /** Deep dives where the project has them, then the repository. */
 export function ProjectLinks({ project }: { project: Project }) {
-  const hasLinks = project.links.length > 0;
   return (
-    <section className="settle pb-16">
-      <div className="grid gap-12 md:grid-cols-[1fr_1.2fr] md:gap-20">
-        <div>
-          <h2 className="text-title-2 font-light text-foreground">
-            Explore further.
-          </h2>
-          <p className="mt-4 max-w-md text-body text-muted-foreground">
-            The source lives on GitHub. Copy, paste, own. No fork, no
-            vendor lock-in.
-          </p>
-        </div>
-
-        <div className="flex flex-col">
-          {hasLinks &&
-            project.links.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
-              >
-                <span className="text-title-3 font-light text-foreground">
-                  {link.label}
-                </span>
-                <ArrowUpRight className="size-4 text-muted-foreground transition-all group-hover:translate-x-0.5 group-hover:-translate-y-0.5 group-hover:text-foreground" />
-              </Link>
-            ))}
-          <a
-            href={project.repo}
-            target="_blank"
-            rel="noreferrer"
-            className="group flex items-center justify-between gap-4 border-t border-border/60 py-4"
-          >
-            <span className="text-title-3 font-light text-foreground">
-              Repository
-            </span>
-            <span className="text-muted-foreground group-hover:text-foreground inline-flex items-center gap-1.5 text-xs transition-colors">
-              github.com
-              <ArrowUpRight className="size-3.5 transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-            </span>
-          </a>
-        </div>
+    <ProjectSection title="Explore further">
+      <p className={`max-w-2xl ${prose}`}>The source lives on GitHub. Copy, paste, own. No fork, no vendor lock-in.</p>
+      <div className="mt-5 flex flex-col border-b border-border/50">
+        {project.links.map((link) => (
+          <Link key={link.href} href={link.href} className={row}>
+            <span className={rowName}>{link.label}</span>
+            <ArrowUpRight aria-hidden className={cn(rowArrow, "text-muted-foreground/60 group-hover:text-foreground")} />
+          </Link>
+        ))}
+        <a href={project.repo} target="_blank" rel="noreferrer" className={row}>
+          <span className={rowName}>Repository</span>
+          <span className={cn("inline-flex shrink-0 items-center gap-1", quiet, quietLink)}>
+            github.com
+            <ArrowUpRight aria-hidden className={rowArrow} />
+          </span>
+        </a>
       </div>
-    </section>
+    </ProjectSection>
   );
 }
