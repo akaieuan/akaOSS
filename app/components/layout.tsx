@@ -23,11 +23,11 @@ export default function ComponentsLayout({
       <div className="mx-auto flex max-w-site gap-12 px-6 pt-10 md:px-8">
         {/* Sticky rail on large screens. */}
         <aside className="sticky top-24 hidden h-fit w-56 shrink-0 lg:block">
-          <p className="label mb-4">Library</p>
+          <p className="mb-3 text-[15px] font-medium tracking-tight text-foreground">Library</p>
           <LibraryNav variant="rail" />
           <Link
             href="/projects/hitl-kit"
-            className="mt-6 flex items-center gap-1.5 border-t border-border/60 pt-4 text-xs text-muted-foreground transition-colors hover:text-foreground"
+            className="mt-6 flex items-center gap-1.5 border-t border-border/50 pt-4 text-[12.5px] text-muted-foreground/70 transition-colors hover:text-foreground"
           >
             <span aria-hidden>←</span> Back to HITL Kit
           </Link>

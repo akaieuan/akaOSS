@@ -4,53 +4,51 @@
  * component. Every specimen on every sub-page imports the shipped component
  * from `@/components/hitl/*`, so the catalogue cannot drift from the registry.
  *
+ * The voice is the landing's: a light 22px title, small light sans for the
+ * prose, quiet 12.5px lines for everything that is not content, and the
+ * glossy card for every well. No eyebrows, no mono, no caps.
+ *
  * No `"use client"` here: the frame renders on the server on every page, and
  * the two pieces a client leaf reuses (`Specimen`, and the `Link`s) work in
  * either environment. Only the specimens that need state or a `DEMO_*` fixture
- * cross into the client bundle, see `live.tsx`.
+ * cross into the client bundle, see `specimens.tsx`.
  */
 
 import Link from "next/link";
 import type { ReactNode } from "react";
 import { cn } from "@/lib/utils";
 
-/** Toolkits · HITL Kit · components · <group> */
+const quiet = "text-[12.5px] text-muted-foreground/60";
+const quietLink = "transition-colors hover:text-foreground";
+
+/** Toolkits · HITL Kit · Components · <group>, in plain sans. */
 export function LibraryBreadcrumb({ group }: { group?: string }) {
   return (
-    <nav
-      aria-label="Breadcrumb"
-      className="flex flex-wrap items-center gap-2 font-mono text-small text-muted-foreground"
-    >
-      <Link href="/projects" className="transition-colors hover:text-foreground">
+    <nav aria-label="Breadcrumb" className={cn("flex flex-wrap items-center gap-2", quiet)}>
+      <Link href="/projects" className={quietLink}>
         Toolkits
       </Link>
-      <span className="text-muted-foreground/40">·</span>
-      <Link
-        href="/projects/hitl-kit"
-        className="transition-colors hover:text-foreground"
-      >
+      <span aria-hidden>·</span>
+      <Link href="/projects/hitl-kit" className={quietLink}>
         HITL Kit
       </Link>
-      <span className="text-muted-foreground/40">·</span>
+      <span aria-hidden>·</span>
       {group ? (
         <>
-          <Link
-            href="/components"
-            className="transition-colors hover:text-foreground"
-          >
-            components
+          <Link href="/components" className={quietLink}>
+            Components
           </Link>
-          <span className="text-muted-foreground/40">·</span>
-          <span className="text-foreground">{group}</span>
+          <span aria-hidden>·</span>
+          <span className="text-foreground/80">{group}</span>
         </>
       ) : (
-        <span className="text-foreground">components</span>
+        <span className="text-foreground/80">Components</span>
       )}
     </nav>
   );
 }
 
-/** The masthead every library page opens with. */
+/** The masthead every library page opens with, in the hero's voice. */
 export function LibraryHeader({
   group,
   title,
@@ -63,24 +61,24 @@ export function LibraryHeader({
   meta?: string;
 }) {
   return (
-    <header className="pt-4 pb-14">
+    <header className="pt-2 pb-12">
       <LibraryBreadcrumb group={group} />
-      <h1 className="mt-6 text-title-1 font-light text-foreground">
+      <h1 className="mt-6 text-[22px] font-light leading-snug tracking-tight text-foreground sm:text-[24px]">
         {title}
       </h1>
-      <p className="mt-6 max-w-2xl text-lede text-muted-foreground">
+      <p className="mt-3 max-w-2xl text-[13.5px] font-light leading-relaxed text-muted-foreground/80">
         {lede}
       </p>
-      {meta ? <p className="label mt-6">{meta}</p> : null}
+      {meta ? <p className={cn("mt-3", quiet)}>{meta}</p> : null}
     </header>
   );
 }
 
 /**
- * One specimen section: a title, an optional description, and the live
- * component in a bordered well.
+ * One specimen section: a quiet head, an optional description, and the live
+ * component in glossy wells.
  *
- * `id` is the legacy anchor, see `sections.ts`. `scroll-mt-20` clears the
+ * `id` is the legacy anchor, see `lib/library.ts`. `scroll-mt-20` clears the
  * sticky nav when someone lands on the anchor directly.
  */
 export function DemoSection({
@@ -102,27 +100,24 @@ export function DemoSection({
     <section
       id={id}
       aria-labelledby={`${id}-title`}
-      className="scroll-mt-20 border-t border-border/60 py-12 first:border-t-0 first:pt-0"
+      className="scroll-mt-20 border-t border-border/50 py-10 first:border-t-0 first:pt-0"
     >
       <div className="flex flex-wrap items-baseline justify-between gap-x-6 gap-y-1">
-        <h2
-          id={`${id}-title`}
-          className="text-title-2 font-light text-foreground"
-        >
+        <h2 id={`${id}-title`} className="text-[15px] font-medium tracking-tight text-foreground">
           {title}
         </h2>
-        {meta ? <span className="label shrink-0">{meta}</span> : null}
+        {meta ? <span className={cn("shrink-0", quiet)}>{meta}</span> : null}
       </div>
 
       {description ? (
-        <p className="mt-3 max-w-2xl text-body text-muted-foreground">
+        <p className="mt-2 max-w-2xl text-[13.5px] font-light leading-relaxed text-muted-foreground/80">
           {description}
         </p>
       ) : null}
 
       <div
         className={cn(
-          "mt-7 grid gap-4",
+          "mt-6 grid gap-4",
           cols === 2 && "md:grid-cols-2",
           cols === 3 && "sm:grid-cols-2 lg:grid-cols-3",
         )}
@@ -133,7 +128,7 @@ export function DemoSection({
   );
 }
 
-/** A single labelled well holding one live component. */
+/** A single labelled glossy well holding one live component. */
 export function Specimen({
   label,
   hint,
@@ -146,22 +141,15 @@ export function Specimen({
   className?: string;
 }) {
   return (
-    <figure
-      className={cn(
-        "card flex min-w-0 flex-col gap-4 p-5",
-        className,
-      )}
-    >
+    <figure className={cn("card-gloss flex min-w-0 flex-col gap-4 p-5", className)}>
       {/* `flex-wrap` is load-bearing at 320px. The hint is `shrink-0`, so on one
           line the label would absorb the entire width deficit, "Result #1"
           rendered as "R…" in a 230px well. Wrapping drops the hint onto its own
           line instead, and neither string loses a character. */}
       <figcaption className="flex flex-wrap items-baseline justify-between gap-x-3 gap-y-1 border-b border-border/40 pb-3">
-        <span className="label min-w-0 truncate">{label}</span>
+        <span className="min-w-0 truncate text-[12.5px] font-medium text-foreground/90">{label}</span>
         {hint ? (
-          <span className="min-w-0 max-w-full shrink-0 truncate font-mono text-meta text-muted-foreground">
-            {hint}
-          </span>
+          <span className={cn("min-w-0 max-w-full shrink-0 truncate", quiet)}>{hint}</span>
         ) : null}
       </figcaption>
       <div className="min-w-0">{children}</div>
@@ -177,34 +165,26 @@ export function LibraryPager({
   prev?: { href: string; title: string };
   next?: { href: string; title: string };
 }) {
+  const link = cn("group flex min-w-0 items-center gap-1.5", quiet, quietLink);
   return (
     <nav
       aria-label="Library sections"
-      className="mt-4 flex items-center justify-between gap-4 border-t border-border/60 pt-8 text-sm"
+      className="mt-4 flex items-center justify-between gap-4 border-t border-border/50 pt-8"
     >
       {prev ? (
-        <Link
-          href={prev.href}
-          className="group flex min-w-0 items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-        >
+        <Link href={prev.href} className={link}>
           <span aria-hidden className="transition-transform group-hover:-translate-x-0.5">
             ←
           </span>
           <span className="truncate">{prev.title}</span>
         </Link>
       ) : (
-        <Link
-          href="/components"
-          className="text-muted-foreground transition-colors hover:text-foreground"
-        >
+        <Link href="/components" className={link}>
           <span aria-hidden>←</span> Library overview
         </Link>
       )}
       {next ? (
-        <Link
-          href={next.href}
-          className="group flex min-w-0 items-center gap-2 text-muted-foreground transition-colors hover:text-foreground"
-        >
+        <Link href={next.href} className={link}>
           <span className="truncate">{next.title}</span>
           <span aria-hidden className="transition-transform group-hover:translate-x-0.5">
             →

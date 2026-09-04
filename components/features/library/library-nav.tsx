@@ -32,7 +32,7 @@ export function LibraryNav({ variant }: { variant: "rail" | "bar" }) {
             href={item.href}
             aria-current={pathname === item.href ? "page" : undefined}
             className={cn(
-              "shrink-0 text-xs whitespace-nowrap transition-colors",
+              "shrink-0 whitespace-nowrap text-[12.5px] transition-colors",
               pathname === item.href
                 ? "text-foreground"
                 : "text-muted-foreground hover:text-foreground",
@@ -51,7 +51,7 @@ export function LibraryNav({ variant }: { variant: "rail" | "bar" }) {
         href={overview.href}
         aria-current={pathname === overview.href ? "page" : undefined}
         className={cn(
-          "rounded-md px-2 py-1.5 text-xs transition-colors",
+          "rounded-md px-2 py-1.5 text-[12.5px] transition-colors",
           pathname === overview.href
             ? "text-foreground"
             : "text-muted-foreground hover:text-foreground",
@@ -69,7 +69,7 @@ export function LibraryNav({ variant }: { variant: "rail" | "bar" }) {
               href={href}
               aria-current={here ? "page" : undefined}
               className={cn(
-                "block rounded-md px-2 py-1 text-xs font-medium transition-colors",
+                "block rounded-md px-2 py-1 text-[12.5px] font-medium transition-colors",
                 here ? "text-foreground" : "text-muted-foreground hover:text-foreground",
               )}
             >
@@ -81,7 +81,7 @@ export function LibraryNav({ variant }: { variant: "rail" | "bar" }) {
                   <Link
                     href={`${href}#${s.id}`}
                     className={cn(
-                      "block -ml-px border-l border-transparent py-1 pl-3 text-[11px] leading-snug transition-colors",
+                      "block -ml-px border-l border-transparent py-1 pl-3 text-[12px] leading-snug transition-colors",
                       here
                         ? "text-muted-foreground hover:border-foreground/40 hover:text-foreground"
                         : "text-muted-foreground/80 hover:border-foreground/40 hover:text-foreground",
