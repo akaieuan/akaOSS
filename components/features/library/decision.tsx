@@ -1,37 +1,16 @@
-import type { Metadata } from "next";
-
-import {
-  DemoSection,
-  LibraryHeader,
-  LibraryPager,
-  Specimen,
-} from "@/components/features/library/catalogue";
+import { DemoSection, LibraryGroup, Specimen } from "./catalogue";
 import {
   ApprovalSpecimens,
   BatchSpecimen,
   EditablePlanSpecimen,
   InterruptCardSpecimens,
   QASpecimen,
-} from "@/components/features/library/specimens";
-import { groupBySlug, pagerFor } from "@/lib/library";
+} from "./specimens";
 
-const GROUP = groupBySlug("decision");
-
-export const metadata: Metadata = {
-  title: "Decision · component library · akaOSS",
-  description: GROUP.blurb,
-};
-
-export default function DecisionPage() {
+/** The moments where the human answers. */
+export function DecisionGroup() {
   return (
-    <>
-      <LibraryHeader
-        group={GROUP.title}
-        title="Decision."
-        lede={GROUP.blurb}
-        meta={`${GROUP.specimens.length} specimens`}
-      />
-
+    <LibraryGroup slug="decision">
       <DemoSection
         id="hitl"
         title="Interrupt Cards"
@@ -83,8 +62,6 @@ export default function DecisionPage() {
           <EditablePlanSpecimen />
         </Specimen>
       </DemoSection>
-
-      <LibraryPager {...pagerFor(GROUP.slug)} />
-    </>
+    </LibraryGroup>
   );
 }

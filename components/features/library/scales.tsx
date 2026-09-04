@@ -1,50 +1,24 @@
-import type { Metadata } from "next";
 import type { ReactNode } from "react";
-
 import { AiGenerationMeter } from "@/components/hitl/AiGenerationMeter";
 import { AiGenerationBadge } from "@/components/hitl/AiGenerationBadge";
 import { AI_GENERATION_LEVELS } from "@/components/hitl/ai-generation-levels";
 import { SharedPrimitives } from "@/components/hitl/SharedPrimitives";
-
-import {
-  DemoSection,
-  LibraryHeader,
-  LibraryPager,
-  Specimen,
-} from "@/components/features/library/catalogue";
-import {
-  BadgeSpecimen,
-  SegmentedScaleSpecimen,
-  SliderSpecimen,
-} from "@/components/features/library/specimens";
-import { groupBySlug, pagerFor } from "@/lib/library";
-
-const GROUP = groupBySlug("scales");
-
-export const metadata: Metadata = {
-  title: "Scales & palette · component library · akaOSS",
-  description: GROUP.blurb,
-};
+import { DemoSection, LibraryGroup, Specimen } from "./catalogue";
+import { BadgeSpecimen, SegmentedScaleSpecimen, SliderSpecimen } from "./specimens";
 
 /** The one-line "reach for this when…" that sits under each density. */
 function Note({ children }: { children: ReactNode }) {
   return (
-    <p className="mt-5 border-t border-border/40 pt-3 text-small text-muted-foreground">
+    <p className="mt-5 border-t border-border/40 pt-3 text-[13px] font-light leading-relaxed text-muted-foreground/70">
       {children}
     </p>
   );
 }
 
-export default function ScalesPage() {
+/** How much of this did a person do, and the palette the kit draws from. */
+export function ScalesGroup() {
   return (
-    <>
-      <LibraryHeader
-        group={GROUP.title}
-        title="Scales & palette."
-        lede={GROUP.blurb}
-        meta={`${GROUP.specimens.length} specimens`}
-      />
-
+    <LibraryGroup slug="scales">
       <DemoSection
         id="ai-scale"
         title="AI Generation Scale"
@@ -71,7 +45,7 @@ export default function ScalesPage() {
             ))}
             <div className="flex items-center gap-3 pt-1">
               <AiGenerationMeter value={2} compact />
-              <span className="text-meta text-muted-foreground">compact</span>
+              <span className="text-[12.5px] text-muted-foreground/60">compact</span>
             </div>
           </div>
           <Note>
@@ -124,8 +98,6 @@ export default function ScalesPage() {
           <SharedPrimitives />
         </Specimen>
       </DemoSection>
-
-      <LibraryPager {...pagerFor(GROUP.slug)} />
-    </>
+    </LibraryGroup>
   );
 }

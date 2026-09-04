@@ -1,61 +1,24 @@
-import type { Metadata } from "next";
-
 import { SubagentStatusCard } from "@/components/hitl/SubagentStatusCard";
 import type { AgentStatus } from "@/components/hitl/core";
+import { DemoSection, LibraryGroup, Specimen } from "./catalogue";
+import { ContextStripSpecimen, MiniTraceSpecimen, ToolCallSpecimen } from "./specimens";
 
-import {
-  DemoSection,
-  LibraryHeader,
-  LibraryPager,
-  Specimen,
-} from "@/components/features/library/catalogue";
-import {
-  ContextStripSpecimen,
-  MiniTraceSpecimen,
-  ToolCallSpecimen,
-} from "@/components/features/library/specimens";
-import { groupBySlug, pagerFor } from "@/lib/library";
+const STATUSES: AgentStatus[] = ["idle", "running", "completed", "error", "skipped", "cancelled"];
 
-const GROUP = groupBySlug("agent-state");
-
-export const metadata: Metadata = {
-  title: "Agent state · component library · akaOSS",
-  description: GROUP.blurb,
-};
-
-const STATUSES: AgentStatus[] = [
-  "idle",
-  "running",
-  "completed",
-  "error",
-  "skipped",
-  "cancelled",
-];
-
-export default function AgentStatePage() {
+/** What the agent is doing and what it is about to do. */
+export function AgentStateGroup() {
   return (
-    <>
-      <LibraryHeader
-        group={GROUP.title}
-        title="Agent state."
-        lede={GROUP.blurb}
-        meta={`${GROUP.specimens.length} specimens`}
-      />
-
+    <LibraryGroup slug="agent-state">
       <DemoSection
         id="agent-status"
         title="Subagent Status"
         meta="subagent-status-card"
         description="Six discrete agent execution states. The running state animates. Use it in any card that wraps an in-progress agentic task."
-        cols={2}
+        cols={3}
       >
         {STATUSES.map((status) => (
           <Specimen key={status} label={status} hint={`status="${status}"`}>
-            <SubagentStatusCard
-              status={status}
-              label="Research Agent"
-              detail="Climate Policy workspace"
-            />
+            <SubagentStatusCard status={status} label="Research Agent" detail="Climate Policy workspace" />
           </Specimen>
         ))}
       </DemoSection>
@@ -92,8 +55,6 @@ export default function AgentStatePage() {
           <ContextStripSpecimen />
         </Specimen>
       </DemoSection>
-
-      <LibraryPager {...pagerFor(GROUP.slug)} />
-    </>
+    </LibraryGroup>
   );
 }

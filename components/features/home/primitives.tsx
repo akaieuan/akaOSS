@@ -50,7 +50,7 @@ export function Primitives() {
       <SectionHead title="Components" href="/components" link={`all ${COUNT} primitives`} />
       <ul className="m-0 mt-5 grid list-none grid-cols-1 gap-4 p-0 sm:grid-cols-2 lg:grid-cols-3">
         <PrimitiveCard
-          href="/components/scales#ai-scale"
+          href="/components#ai-scale"
           title="AI Generation Scale"
           blurb="How much of this did a person do"
         >
@@ -59,7 +59,7 @@ export function Primitives() {
           </div>
         </PrimitiveCard>
         <PrimitiveCard
-          href="/components/agent-state#agent-status"
+          href="/components#agent-status"
           title="Subagent Status"
           blurb="What the agent is doing right now"
         >
@@ -69,7 +69,7 @@ export function Primitives() {
           </div>
         </PrimitiveCard>
         <PrimitiveCard
-          href="/components/scales#ai-scale"
+          href="/components#ai-scale"
           title="Provenance badges"
           blurb="The same scale, dense enough for a table cell"
         >
