@@ -1,28 +1,27 @@
 /**
- * The shape of the primitive library: five sub-pages, each holding a coherent
- * group of specimens.
+ * The shape of the primitive library: five groups on one page, each holding a
+ * coherent set of specimens.
  *
- * This file is the single source of truth for three things that must never
- * disagree: the overview cards, the side rail, and the legacy-anchor redirect.
+ * This file is the single source of truth for the jump row, the group heads
+ * and the counts, so they can never disagree.
  *
  * The `id` on every entry is LOAD-BEARING. `/components#<id>` links exist in
  * the wild, and every one of those ids still has to resolve. Renaming an id
- * silently breaks an inbound link; adding a new specimen is free. See
- * `LEGACY_ANCHORS` below.
+ * silently breaks an inbound link; adding a new specimen is free.
  */
 
 export interface LibrarySpecimen {
   /** In-page anchor id. Never rename, inbound links depend on it. */
   id: string;
-  /** Section heading on the sub-page, and the name shown on the overview card. */
+  /** Section heading on the page. */
   title: string;
 }
 
 export interface LibraryGroup {
-  /** URL segment: /components/<slug> */
+  /** Anchor on the page: /components#<slug>. The old /components/<slug> routes redirect here. */
   slug: string;
   title: string;
-  /** One line on the overview card and in the page header. */
+  /** One line under the group's head. */
   blurb: string;
   specimens: LibrarySpecimen[];
 }
@@ -87,21 +86,7 @@ export const LIBRARY_GROUPS: LibraryGroup[] = [
   },
 ];
 
-/**
- * Every legacy `/components#<id>` anchor mapped to where that content lives
- * now. Derived from LIBRARY_GROUPS so the two cannot drift.
- *
- * Consumed by `LegacyAnchorRedirect`, which runs on the overview page: hashes
- * never reach the server, so the rewrite has to happen client-side. With JS
- * off, the visitor simply lands on the overview, which names every specimen.
- */
-export const LEGACY_ANCHORS: Record<string, string> = Object.fromEntries(
-  LIBRARY_GROUPS.flatMap((group) =>
-    group.specimens.map((s) => [s.id, `/components/${group.slug}#${s.id}`]),
-  ),
-);
-
-/** Total specimen sections across the library, used in the overview meta. */
+/** Total specimens across the library, for the hero's counts line. */
 export const LIBRARY_SPECIMEN_COUNT = LIBRARY_GROUPS.reduce(
   (n, g) => n + g.specimens.length,
   0,
@@ -111,17 +96,4 @@ export function groupBySlug(slug: string): LibraryGroup {
   const group = LIBRARY_GROUPS.find((g) => g.slug === slug);
   if (!group) throw new Error(`Unknown library group: ${slug}`);
   return group;
-}
-
-/** Neighbours of a sub-page, for the prev/next pager at the foot of each one. */
-export function pagerFor(slug: string): {
-  prev?: { href: string; title: string };
-  next?: { href: string; title: string };
-} {
-  const i = LIBRARY_GROUPS.findIndex((g) => g.slug === slug);
-  const at = (n: number) => {
-    const g = LIBRARY_GROUPS[n];
-    return g ? { href: `/components/${g.slug}`, title: g.title } : undefined;
-  };
-  return { prev: at(i - 1), next: at(i + 1) };
 }

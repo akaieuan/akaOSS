@@ -13,6 +13,7 @@ const ROUTES = [
   "/research",
   "/paper",
   "/registry",
+  "/components",
 ];
 
 export default function sitemap(): MetadataRoute.Sitemap {

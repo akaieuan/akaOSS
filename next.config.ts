@@ -20,6 +20,13 @@ const nextConfig: NextConfig = {
       { source: "/demo/:path*", destination: "/style/:path*", permanent: true },
       // The inertial exhibits used to have their own page; they now render
       // inline in the essay that earns them.
+      // The library is one page now. Its five sub-pages became anchors, and
+      // every specimen anchor (#hitl, #ai-scale, …) resolves on the page itself.
+      { source: "/components/decision", destination: "/components#decision", permanent: true },
+      { source: "/components/agent-state", destination: "/components#agent-state", permanent: true },
+      { source: "/components/evidence", destination: "/components#evidence", permanent: true },
+      { source: "/components/composed", destination: "/components#composed", permanent: true },
+      { source: "/components/scales", destination: "/components#scales", permanent: true },
       { source: "/inertial", destination: "/research/006-signals-not-verdicts", permanent: true },
     ];
   },

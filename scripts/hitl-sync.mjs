@@ -28,7 +28,7 @@
  */
 
 import { execFileSync } from "node:child_process";
-import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from "node:fs";
+import { existsSync, mkdirSync, readFileSync, readdirSync, rmSync, statSync, writeFileSync } from "node:fs";
 import { dirname, join, resolve } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -137,6 +137,19 @@ export const REGISTRY_BASE_URL = "https://www.hitlkit.dev/r";
 );
 
 console.log(`· hitl-sync: ${n} component files and ${items.length} catalogue items derived from public/r`);
+
+// ── iCloud leaves "name 2.json" copies behind when a synced folder is
+// rewritten underneath it. They are never ours: sweep them from the two
+// directories this script owns outright, so the drift check below sees only
+// what the script wrote and Next never serves a "/r/hitl-card 2.json".
+const ICLOUD_COPY = / \d+\.[^/]+$/;
+for (const dir of [OUT_REGISTRY, OUT_COMPONENTS]) {
+  if (!existsSync(dir)) continue;
+  for (const entry of readdirSync(dir, { recursive: true })) {
+    const p = join(dir, String(entry));
+    if (ICLOUD_COPY.test(p) && existsSync(p) && !statSync(p).isDirectory()) rmSync(p);
+  }
+}
 
 // ── 3. CHECK ────────────────────────────────────────────────────────────────
 if (CHECK) {

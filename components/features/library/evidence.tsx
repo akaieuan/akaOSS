@@ -1,36 +1,10 @@
-import type { Metadata } from "next";
+import { DemoSection, LibraryGroup, Specimen } from "./catalogue";
+import { CitationSpecimen, DiffSpecimen, EvidenceSpecimen, SearchResultSpecimens } from "./specimens";
 
-import {
-  DemoSection,
-  LibraryHeader,
-  LibraryPager,
-  Specimen,
-} from "@/components/features/library/catalogue";
-import {
-  CitationSpecimen,
-  DiffSpecimen,
-  EvidenceSpecimen,
-  SearchResultSpecimens,
-} from "@/components/features/library/specimens";
-import { groupBySlug, pagerFor } from "@/lib/library";
-
-const GROUP = groupBySlug("evidence");
-
-export const metadata: Metadata = {
-  title: "Evidence · component library · akaOSS",
-  description: GROUP.blurb,
-};
-
-export default function EvidencePage() {
+/** What the agent found, and where it came from. */
+export function EvidenceGroup() {
   return (
-    <>
-      <LibraryHeader
-        group={GROUP.title}
-        title="Evidence."
-        lede={GROUP.blurb}
-        meta={`${GROUP.specimens.length} specimens`}
-      />
-
+    <LibraryGroup slug="evidence">
       <DemoSection
         id="search-cards"
         title="Search Result Cards"
@@ -73,8 +47,6 @@ export default function EvidencePage() {
           <DiffSpecimen />
         </Specimen>
       </DemoSection>
-
-      <LibraryPager {...pagerFor(GROUP.slug)} />
-    </>
+    </LibraryGroup>
   );
 }

@@ -1,31 +1,10 @@
-import type { Metadata } from "next";
+import { DemoSection, LibraryGroup, Specimen } from "./catalogue";
+import { ResearchAgentSpecimen, WritingAgentSpecimen } from "./specimens";
 
-import {
-  DemoSection,
-  LibraryHeader,
-  LibraryPager,
-  Specimen,
-} from "@/components/features/library/catalogue";
-import { ResearchAgentSpecimen, WritingAgentSpecimen } from "@/components/features/library/specimens";
-import { groupBySlug, pagerFor } from "@/lib/library";
-
-const GROUP = groupBySlug("composed");
-
-export const metadata: Metadata = {
-  title: "Composed · component library · akaOSS",
-  description: GROUP.blurb,
-};
-
-export default function ComposedPage() {
+/** Whole task surfaces built from the primitives above. */
+export function ComposedGroup() {
   return (
-    <>
-      <LibraryHeader
-        group={GROUP.title}
-        title="Composed."
-        lede={GROUP.blurb}
-        meta={`${GROUP.specimens.length} specimens`}
-      />
-
+    <LibraryGroup slug="composed">
       <DemoSection
         id="writing-agent"
         title="Writing Agent"
@@ -47,8 +26,6 @@ export default function ComposedPage() {
           <ResearchAgentSpecimen />
         </Specimen>
       </DemoSection>
-
-      <LibraryPager {...pagerFor(GROUP.slug)} />
-    </>
+    </LibraryGroup>
   );
 }
