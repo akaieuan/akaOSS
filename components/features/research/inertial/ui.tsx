@@ -189,8 +189,11 @@ export function Panel({
   return (
     <div
       className={cn(
-        "rounded-2xl border bg-card/40",
-        tone ? TONE_BORDER[tone] : "border-border/40",
+        // Exhibits are instruments, not figures: they read as a surface the
+        // prose sits on top of, not as a faint outline. Full card surface, a
+        // firmer edge, and a soft lift so a stack of panels still groups.
+        "rounded-2xl border bg-[color:var(--surface-2)] shadow-[0_1px_2px_rgb(0_0_0/0.04)]",
+        tone ? TONE_BORDER[tone] : "border-border/70",
         className,
       )}
       {...rest}
