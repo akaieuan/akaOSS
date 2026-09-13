@@ -4,6 +4,7 @@ import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
 import { getResearchPosts, formatDate } from "@/lib/research";
 import { ChipRow } from "@/components/features/research/post-chips";
+import { CoverArt } from "@/components/ui/cover-art";
 
 export const metadata: Metadata = {
   title: "Research · akaOSS",
@@ -85,8 +86,23 @@ export default async function ResearchPage() {
                 )}
               </p>
 
+              {/* Below the title, above the body: the cover sits where a
+                  reader's eye lands after the headline, not beside it. */}
+              <Link
+                href={`/research/${post.slug}`}
+                aria-hidden="true"
+                tabIndex={-1}
+                className="group mt-5 block max-w-3xl"
+              >
+                <CoverArt
+                  slug={post.slug}
+                  variant="banner"
+                  className="transition-transform duration-300 ease-out group-hover:-translate-y-0.5 motion-reduce:transition-none"
+                />
+              </Link>
+
               {post.summary && (
-                <p className="mt-3 max-w-3xl text-body text-muted-foreground">
+                <p className="mt-5 max-w-3xl text-body text-muted-foreground">
                   {post.summary}
                 </p>
               )}
