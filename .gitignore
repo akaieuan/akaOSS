@@ -48,3 +48,7 @@ yarn-error.log*
 
 # reference archives
 _reference/
+
+# macOS/iCloud sync duplicates ("file 2.ext", "folder 2/")
+* [0-9].*
+* [0-9]/
