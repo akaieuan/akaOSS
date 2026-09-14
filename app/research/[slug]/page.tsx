@@ -9,12 +9,16 @@ import rehypeSlug from "rehype-slug";
 import rehypeAutolinkHeadings from "rehype-autolink-headings";
 import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
-import { Hairline } from "@/components/ui/hairline";
 import { MandatedGate } from "@/components/features/research/inertial/mandated-gate";
 import { AuditChain } from "@/components/features/research/inertial/audit-chain";
 import { VerificationContrast } from "@/components/features/research/inertial/verification-contrast";
+import { OversightPremise } from "@/components/features/research/hf-incident/oversight-premise";
+import { ScorerWire } from "@/components/features/research/hf-incident/scorer-wire";
+import { IncidentTimeline } from "@/components/features/research/hf-incident/incident-timeline";
+import { ExploitGymScorer } from "@/components/features/research/hf-incident/scorer-probe";
 import { getResearchPost, getResearchPosts, extractToc, formatDate } from "@/lib/research";
 import { Bolded, ChipRow } from "@/components/features/research/post-chips";
+import { CoverArt } from "@/components/ui/cover-art";
 
 export async function generateStaticParams() {
   const posts = await getResearchPosts();
@@ -29,9 +33,22 @@ export async function generateMetadata({
   const { slug } = await params;
   const post = await getResearchPost(slug);
   if (!post) return { title: "Research · akaOSS" };
+  const cover = `/covers/${slug}.jpg`;
   return {
     title: `${post.title} · Research · akaOSS`,
     description: post.summary,
+    openGraph: {
+      title: post.title,
+      description: post.summary,
+      type: "article",
+      images: [{ url: cover, width: 1600, height: 900, alt: post.title }],
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: post.title,
+      description: post.summary,
+      images: [cover],
+    },
   };
 }
 
@@ -95,6 +112,10 @@ const EXHIBITS = {
   "mandated-gate": MandatedGate,
   "audit-chain": AuditChain,
   "verification-contrast": VerificationContrast,
+  "oversight-premise": OversightPremise,
+  "scorer-wire": ScorerWire,
+  "incident-timeline": IncidentTimeline,
+  "exploitgym-scorer": ExploitGymScorer,
 } as const;
 
 type ExhibitName = keyof typeof EXHIBITS;
@@ -117,7 +138,9 @@ const markdownComponents: Components = {
         const Exhibit = EXHIBITS[name];
         // Full-bleed of the prose measure: these are instruments, not figures.
         return (
-          <div className="not-prose my-8">
+          // An exhibit is a change of register, so it gets more air than a
+          // paragraph break and is allowed to breach the prose measure.
+          <div className="not-prose my-12 lg:-mx-6">
             <Exhibit />
           </div>
         );
@@ -183,9 +206,15 @@ export default async function ResearchPostPage({
           </p>
 
           <ChipRow post={post} className="mt-5" />
+
+          <CoverArt
+            slug={slug}
+            variant="banner"
+            priority
+            className="mt-8"
+          />
         </header>
 
-        <Hairline className="mt-10" />
 
         {/* Two-column: sticky contents + body */}
         <div className="grid grid-cols-1 gap-12 pt-10 pb-24 lg:grid-cols-[200px_minmax(0,1fr)]">

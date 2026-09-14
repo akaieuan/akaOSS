@@ -9,6 +9,7 @@ import { Nav } from "@/components/ui/nav";
 import { Footer } from "@/components/ui/footer";
 import { AssistNotComplete } from "@/components/ui/assist-not-complete";
 import { PaperTOC } from "@/components/features/paper/paper-toc";
+import { CoverArt } from "@/components/ui/cover-art";
 
 export const metadata: Metadata = {
   title: "The paper · akaOSS",
@@ -60,6 +61,8 @@ export default async function PaperPage() {
               </a>
             </div>
           </div>
+
+          <CoverArt slug="paper" variant="banner" priority className="mb-12" />
 
           <div className="paper-body">
             <ReactMarkdown

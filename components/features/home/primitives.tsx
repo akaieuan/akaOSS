@@ -23,11 +23,28 @@ function PrimitiveCard({
 }) {
   return (
     <li className="settle">
-      <Link href={href} className="card-gloss group flex h-full flex-col p-6">
-        <div className="flex min-h-[7.5rem] flex-1 items-center justify-center py-2">{children}</div>
+      {/* The card is a container, not a link. Wrapping the whole card in an
+          anchor made every live primitive inert: a click or drag on the slider
+          navigated instead of moving the control, so the "shipped component,
+          not a picture of it" promise below was not actually kept.
+
+          Instead the title carries a stretched link that covers the card, and
+          the demo sits above it on its own stacking context. Clicking the card
+          still navigates; operating the control still works. */}
+      <div className="card-gloss group relative flex h-full flex-col p-6">
+        <div className="relative z-10 flex min-h-[7.5rem] flex-1 items-center justify-center py-2">
+          {children}
+        </div>
         <div className="mt-5 flex items-end justify-between gap-3 border-t border-border/50 pt-4">
           <div className="min-w-0">
-            <h3 className="text-[15px] font-medium leading-snug tracking-tight text-foreground">{title}</h3>
+            <h3 className="text-[15px] font-medium leading-snug tracking-tight text-foreground">
+              <Link
+                href={href}
+                className="rounded-sm outline-none after:absolute after:inset-0 after:content-[''] focus-visible:ring-2 focus-visible:ring-ring"
+              >
+                {title}
+              </Link>
+            </h3>
             <p className="mt-1 text-[12.5px] font-light text-muted-foreground/70">{blurb}</p>
           </div>
           <ArrowUpRight
@@ -35,7 +52,7 @@ function PrimitiveCard({
             className="mb-0.5 size-3.5 shrink-0 text-muted-foreground/50 transition-[transform,color] group-hover:-translate-y-0.5 group-hover:translate-x-0.5 group-hover:text-foreground"
           />
         </div>
-      </Link>
+      </div>
     </li>
   );
 }

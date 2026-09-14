@@ -19,6 +19,9 @@
   --foreground: oklch(0.15 0 0);
   --card: oklch(0.995 0 0);
   --card-foreground: oklch(0.15 0 0);
+  /* Secondary surface for cards and exhibit panels. Distinct from the page
+     by fill, not only by border, so grouping survives at a glance. */
+  --surface-2: oklch(0.958 0 0);
   --popover: oklch(0.995 0 0);
   --popover-foreground: oklch(0.15 0 0);
   --primary: oklch(0.2 0 0);
@@ -73,6 +76,7 @@
   --foreground: oklch(0.94 0 0);
   --card: oklch(0.14 0 0);
   --card-foreground: oklch(0.94 0 0);
+  --surface-2: oklch(0.158 0 0);
   --popover: oklch(0.15 0 0);
   --popover-foreground: oklch(0.94 0 0);
   --primary: oklch(0.94 0 0);
@@ -313,8 +317,12 @@ body {
 @layer components {
   .card {
     border-radius: calc(var(--radius) * 1.8);
-    border: 1px solid color-mix(in oklab, var(--border) 40%, transparent);
-    background: color-mix(in oklab, var(--card) 40%, transparent);
+    /* A card is a secondary surface and should read as one. The previous 40%
+       mixes left it nearly invisible against the page, so grouping had to be
+       carried by borders alone. Full surface + a firmer edge gives real
+       separation in both themes. */
+    border: 1px solid color-mix(in oklab, var(--border) 80%, transparent);
+    background: var(--surface-2);
   }
   .card-link {
     transition:

@@ -24,10 +24,10 @@
   font-weight: 400;
   line-height: 1.15;
   letter-spacing: -0.02em;
-  margin-top: 3em;
-  margin-bottom: 0.6em;
-  padding-top: 2em;
-  border-top: 1px solid var(--border);
+  /* No rule above a section. Sections are separated by space, which reads as
+     structure without drawing a line across the measure every few paragraphs. */
+  margin-top: 4.25em;
+  margin-bottom: 0.75em;
   color: var(--foreground);
 }
 .paper-body h3 {
@@ -144,10 +144,10 @@
   letter-spacing: 0.04em;
 }
 
+/* A thematic break is space, not a line. */
 .paper-body hr {
   border: none;
-  border-top: 1px solid var(--border);
-  margin: 3em 0;
+  margin: 3.5em 0 0;
 }
 
 /* Autolinked headings, remove underline from wrapping link */
