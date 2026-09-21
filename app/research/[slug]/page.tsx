@@ -16,6 +16,8 @@ import { OversightPremise } from "@/components/features/research/hf-incident/ove
 import { ScorerWire } from "@/components/features/research/hf-incident/scorer-wire";
 import { IncidentTimeline } from "@/components/features/research/hf-incident/incident-timeline";
 import { ExploitGymScorer } from "@/components/features/research/hf-incident/scorer-probe";
+import { ConfidenceRouting } from "@/components/features/research/system-one/confidence-routing";
+import { TypedNotRight } from "@/components/features/research/system-one/typed-not-right";
 import { getResearchPost, getResearchPosts, extractToc, formatDate } from "@/lib/research";
 import { Bolded, ChipRow } from "@/components/features/research/post-chips";
 import { CoverArt } from "@/components/ui/cover-art";
@@ -116,6 +118,8 @@ const EXHIBITS = {
   "scorer-wire": ScorerWire,
   "incident-timeline": IncidentTimeline,
   "exploitgym-scorer": ExploitGymScorer,
+  "confidence-routing": ConfidenceRouting,
+  "typed-not-right": TypedNotRight,
 } as const;
 
 type ExhibitName = keyof typeof EXHIBITS;

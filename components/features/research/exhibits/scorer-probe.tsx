@@ -49,6 +49,9 @@ export function ScorerProbe({
   verdict,
   verdictNote,
   footnote,
+  subjectLabel = "What the agent did",
+  earnedLabel = "work actually performed",
+  verdictLabel = "What the scorer returns",
 }: {
   legend: string;
   routes: readonly ProbeRoute[];
@@ -57,6 +60,12 @@ export function ScorerProbe({
   verdict: string;
   verdictNote: string;
   footnote?: string;
+  /** Heading over the half that changes. */
+  subjectLabel?: string;
+  /** The yes/no property the check is blind to. */
+  earnedLabel?: string;
+  /** Heading over the half that does not change. */
+  verdictLabel?: string;
 }) {
   const [active, setActive] = useState<string>(routes[0]?.value ?? "");
 
@@ -88,12 +97,12 @@ export function ScorerProbe({
                 )}
               >
                 <div className="rounded-xl border border-border bg-background/50 p-4">
-                  <Label className="mb-2">What the agent did</Label>
+                  <Label className="mb-2">{subjectLabel}</Label>
                   <p className="text-[13px] leading-relaxed text-foreground">
                     {r.how}
                   </p>
                   <div className="mt-3 flex flex-wrap items-baseline gap-x-2">
-                    <Mono tone="muted">work actually performed</Mono>
+                    <Mono tone="muted">{earnedLabel}</Mono>
                     <Mono tone={r.earned ? "ok" : "bad"}>
                       {r.earned ? "yes" : "no"}
                     </Mono>
@@ -109,7 +118,7 @@ export function ScorerProbe({
       {/* The verdict. This half never changes, on purpose. */}
       <Panel className="p-5" tone="muted">
         <div className="flex flex-wrap items-baseline justify-between gap-x-4 gap-y-2">
-          <Label>What the scorer returns</Label>
+          <Label>{verdictLabel}</Label>
           <Mono tone="muted">unchanged by the control above</Mono>
         </div>
 
