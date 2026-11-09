@@ -5,6 +5,7 @@
   "description": "akaOSS — the studio site at akaoss.dev: five open-source projects for human-in-the-loop AI measurement and developer tooling, plus the research feed and the HITL Kit component registry.",
   "scripts": {
     "dev": "next dev",
+    "prebuild": "pnpm lint",
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
