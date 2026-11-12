@@ -30,7 +30,7 @@ export default async function PaperPage() {
 
   return (
     <>
-      <Nav active="research" />
+      <Nav active="paper" />
 
       <div className="mx-auto flex max-w-site gap-12 px-6 pt-10 md:px-8">
         <PaperTOC />

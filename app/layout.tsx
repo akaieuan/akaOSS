@@ -20,14 +20,14 @@ const mono = JetBrains_Mono({
 });
 
 export const metadata: Metadata = {
-  title: "akaOSS, an open-source studio",
+  title: "akaOSS, research by Ieuan King",
   description:
-    "akaOSS is an open-source studio by Ieuan King: five projects, spanning a human-in-the-loop measurement family and a pair of developer tools.",
+    "Research on measuring AI that works alongside people: a perspective paper and a feed of reproducible experiments, scored by humans.",
   metadataBase: new URL("https://www.akaoss.dev"),
   openGraph: {
-    title: "akaOSS, an open-source studio",
+    title: "akaOSS, research by Ieuan King",
     description:
-      "Five open-source projects: a human-in-the-loop measurement family and a pair of developer tools.",
+      "A perspective paper and a feed of reproducible experiments on human-in-the-loop AI.",
     type: "website",
   },
 };
