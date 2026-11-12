@@ -1,23 +1,14 @@
 import type { MetadataRoute } from "next";
+import { getResearchPosts } from "@/lib/research";
 
 const BASE = "https://www.akaoss.dev";
 
-const ROUTES = [
-  "/",
-  "/projects",
-  "/projects/hitl-kit",
-  "/projects/eval-kit",
-  "/projects/tag-kit",
-  "/projects/collapse",
-  "/projects/hologram",
-  "/research",
-  "/paper",
-  "/registry",
-  "/components",
-];
-
-export default function sitemap(): MetadataRoute.Sitemap {
-  return ROUTES.map((path) => ({
+/* The research surface: home, the paper, and every post, read from
+   content/research so a new post is listed without touching this file. */
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const posts = await getResearchPosts();
+  const routes = ["/", "/paper", ...posts.map((p) => `/research/${p.slug}`)];
+  return routes.map((path) => ({
     url: `${BASE}${path}`,
     lastModified: new Date(),
   }));

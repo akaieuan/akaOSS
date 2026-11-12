@@ -16,17 +16,20 @@ import { cn } from "@/lib/utils";
  * rather than being read a description of a texture.
  */
 
-export type CoverVariant = "banner" | "thumb";
+export type CoverVariant = "banner" | "thumb" | "card";
 
 const SHAPE: Record<CoverVariant, string> = {
   // Wide and shallow: sets a tone without pushing the argument below the fold.
-  banner: "aspect-[5/2] rounded-2xl",
-  thumb: "aspect-[16/9] rounded-xl",
+  banner: "aspect-[5/2] rounded-2xl border border-border/70",
+  thumb: "aspect-[16/9] rounded-xl border border-border/70",
+  // The feed card: no edge. The feed separates by space, not by rules.
+  card: "aspect-[16/10] rounded-xl",
 };
 
 const SIZES: Record<CoverVariant, string> = {
   banner: "(min-width: 1024px) 48rem, 100vw",
   thumb: "(min-width: 640px) 13rem, 100vw",
+  card: "(min-width: 1024px) 23rem, (min-width: 640px) 50vw, 100vw",
 };
 
 export function CoverArt({
@@ -35,6 +38,7 @@ export function CoverArt({
   alt = "",
   priority = false,
   className,
+  imageClassName,
 }: {
   slug: string;
   variant?: CoverVariant;
@@ -42,11 +46,13 @@ export function CoverArt({
   alt?: string;
   priority?: boolean;
   className?: string;
+  /** For motion on the image itself; the frame clips it. */
+  imageClassName?: string;
 }) {
   return (
     <div
       className={cn(
-        "relative overflow-hidden border border-border/70 bg-[color:var(--surface-2)]",
+        "relative overflow-hidden bg-[color:var(--surface-2)]",
         SHAPE[variant],
         className,
       )}
@@ -57,7 +63,7 @@ export function CoverArt({
         fill
         sizes={SIZES[variant]}
         priority={priority}
-        className="object-cover"
+        className={cn("object-cover", imageClassName)}
       />
     </div>
   );
