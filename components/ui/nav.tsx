@@ -2,7 +2,9 @@ import Link from "next/link";
 import { ChevronDown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { BRAND } from "@/lib/site";
+import { SITE_MARK_SEED } from "@/lib/pixel-tile";
 import { PixelHead, type PixelIcon } from "@/components/brand/pixel-head";
+import { PixelTile } from "@/components/brand/pixel-tile";
 import { ThemeToggle } from "./theme-toggle";
 
 export type NavActive =
@@ -53,8 +55,8 @@ export function Nav({ active }: { active?: NavActive }) {
     <header className="sticky top-0 z-40 border-b border-border/60 bg-background/60 backdrop-blur-md">
       <div className="mx-auto flex h-12 max-w-site items-center justify-between gap-3 px-6 sm:gap-4 md:px-8">
         <Link href="/" className="flex shrink-0 items-center gap-2.5">
-          {/* The chrome mark: the human in the loop, held still */}
-          <PixelHead size={22} grid={16} gap={0.12} icon="head" still />
+          {/* The chrome mark: the tile the site's own name draws */}
+          <PixelTile seed={SITE_MARK_SEED} size={22} />
           {/* Nothing in this bar can shrink. The wordmark is the one element
               the mark beside it already stands in for, so below 375px it is
               what gives way. */}

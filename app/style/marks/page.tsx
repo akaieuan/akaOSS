@@ -16,7 +16,7 @@ import { styleNeighbours } from "@/lib/style";
 export const metadata: Metadata = {
   title: "Marks · Brand system · akaOSS",
   description:
-    "Every PixelHead knockout, dissolve mode and animation behaviour: the one canvas component behind the favicon, the nav mark, the project badges and the hero.",
+    "Every PixelHead knockout, dissolve mode and animation behaviour: the one canvas component behind the project badges and the hero. The nav mark and the favicon are a separate static tile.",
 };
 
 /**
@@ -34,7 +34,7 @@ const KNOCKOUTS: { id: PixelIcon; shape: string; use: string }[] = [
   {
     id: "spark",
     shape: "✦ cluster",
-    use: "The akaOSS mark itself: nav, footer, favicon, hero.",
+    use: "The studio mark in the hero.",
   },
   {
     id: "bubble",
@@ -104,8 +104,8 @@ export default function MarksDemo() {
         title="Marks."
         lede={
           <>
-            One canvas component, <Mono>PixelHead</Mono>: draws the favicon,
-            the nav mark, every project badge and the hero, all from props. It
+            One canvas component, <Mono>PixelHead</Mono>: draws every project
+            badge and the hero, all from props. It
             samples a square grid of cells, keeps the ones inside the shape,
             and animates them apart and back together. The pixel colour is
             read from <Mono>--foreground</Mono> and re-read whenever the theme
@@ -293,7 +293,7 @@ passing <Mono>grid=40</Mono> to <Mono>nyz</Mono> changes nothing.
           <Specimen
             label="still"
             hint="one frame, no rAF"
-            footnote="Paints once and never schedules a frame. The nav mark, the footer mark, the dropdown badges, the favicon."
+            footnote="Paints once and never schedules a frame. The dropdown badges."
             center
             minH={112}
           >
@@ -302,13 +302,12 @@ passing <Mono>grid=40</Mono> to <Mono>nyz</Mono> changes nothing.
         </TileGrid>
 
         <Note>
-          <Mono>still</Mono> is the one that matters for the chrome. The nav
-          and footer render <Mono>grid={"{16}"}</Mono>{" "}
-          <Mono>gap={"{0.12}"}</Mono> <Mono>icon=&quot;spark&quot;</Mono>{" "}
-          <Mono>still</Mono>, and{" "}
-          <Mono>app/icon.svg</Mono> is that same sampling baked to
-          rectangles, verified pixel-for-pixel against the component, all 256
-          cells.
+          The nav mark and the favicon are not drawn by this component. They
+          are <Mono>PixelTile</Mono>, a static server-rendered tile that{" "}
+          <Mono>lib/pixel-tile.ts</Mono> draws from the seed{" "}
+          <Mono>akaOSS</Mono>. <Mono>pnpm icon:build</Mono> bakes the same
+          tile into <Mono>app/icon.svg</Mono>, and{" "}
+          <Mono>pnpm icon:check</Mono> fails if the two drift.
         </Note>
       </DemoSection>
 

@@ -1,6 +1,7 @@
 import Link from "next/link";
 import { BRAND } from "@/lib/site";
-import { PixelHead } from "@/components/brand/pixel-head";
+import { SITE_MARK_SEED } from "@/lib/pixel-tile";
+import { PixelTile } from "@/components/brand/pixel-tile";
 
 const footerLink =
   "text-[12.5px] text-muted-foreground/70 transition-colors hover:text-foreground";
@@ -45,7 +46,7 @@ export function Footer() {
         <div className="grid grid-cols-1 gap-10 py-14 sm:grid-cols-[1fr_auto] sm:gap-16">
           <div className="max-w-[18rem]">
             <div className="flex items-center gap-2.5">
-              <PixelHead size={20} grid={16} gap={0.12} icon="head" still />
+              <PixelTile seed={SITE_MARK_SEED} size={20} />
               <span className="text-[14px] text-foreground">
                 <span className="font-medium">aka</span>
                 <span className="font-light">OSS</span>
