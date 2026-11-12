@@ -2,6 +2,8 @@
    and the code is not. No headline; the feed below is the page. The figures
    are from OpenAI's October 2026 kernel report, which the paragraph links. */
 
+import Link from "next/link";
+
 const SOURCE = "https://openai.com/index/a-thousand-fewer-paths-to-root/";
 
 export function Intro() {
@@ -25,7 +27,13 @@ export function Intro() {
         <span className="font-normal text-foreground">
           until I have local protection
         </span>
-        , and the research stays open.
+        , and the research stays open.{" "}
+        <Link
+          href="/research/012-windowless"
+          className="whitespace-nowrap font-normal text-foreground underline-offset-4 hover:underline"
+        >
+          Why →
+        </Link>
       </p>
     </section>
   );
